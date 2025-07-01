@@ -17,6 +17,18 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Dmytrii Tamurov's Portfolio",
   description: "Created by the biggest brains in the world.",
+  authors: [{ name: "Dmytrii Tamurov", url: "https://dmytriitamurov.com" }],
+  keywords: [
+    "Dmytrii Tamurov",
+    "portfolio",
+    "TMK",
+    "personal website",
+    "tech blog",
+    "ideas",
+    "research",
+    "frontend",
+    "cybersecurity",
+  ],
 };
 
 export default function RootLayout({
