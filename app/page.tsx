@@ -1,8 +1,15 @@
-import Image from "next/image";
-import { FaTwitter, FaGithub, FaLinkedin } from "react-icons/fa";
-import { FiSearch } from "react-icons/fi";
+'use client'
+
+import { useState } from 'react'
+import Image from 'next/image'
+import { FaTwitter, FaGithub, FaLinkedin } from 'react-icons/fa'
+import { FiSearch } from 'react-icons/fi'
+import BlogMap from '@/components/BlogMap'
+import PostList from '@/components/PostList'
 
 export default function HomePage() {
+  const [viewMode, setViewMode] = useState<'map' | 'list'>('map')
+
   return (
     <main className="min-h-screen bg-white text-black p-6 sm:p-12 font-sans">
       {/* Header */}
@@ -21,17 +28,17 @@ export default function HomePage() {
       <div className="flex flex-col sm:flex-row gap-12">
         {/* Profile Block */}
         <section className="w-full sm:w-1/3 flex flex-col items-center sm:items-start text-center sm:text-left">
-        <div className="w-[150px] h-[150px] rounded-full overflow-hidden border border-gray-300 mb-4">
-          <Image
-            src="/pic-ava.jpg"
-            alt="Dmytrii Tamurov"
-            width={150}
-            height={150}
-            className="object-cover scale-200"
-            priority
-          />
-        </div>
-          
+          <div className="w-[150px] h-[150px] rounded-full overflow-hidden border border-gray-300 mb-4">
+            <Image
+              src="/pic-ava.jpg"
+              alt="Dmytrii Tamurov"
+              width={150}
+              height={150}
+              className="object-cover scale-200"
+              priority
+            />
+          </div>
+
           <h1 className="text-xl font-semibold">Dmytrii Tamurov</h1>
           <p className="mt-2 text-gray-600">
             Cybersecurity, development, Olympic weightlifting — thoughts, blogs, and ideas in one place.
@@ -50,14 +57,25 @@ export default function HomePage() {
           </div>
         </section>
 
-
-        {/* Blog Map Container */}
+        {/* Blog Map / Post List */}
         <section className="w-full sm:w-2/3">
-          <div className="border border-dashed border-gray-400 p-8 h-[300px] flex items-center justify-center rounded-md">
-            <span className="text-gray-500 text-lg italic">🛠 Under Construction</span>
+          {/* Toggle Button */}
+          <div className="mb-4 flex justify-end">
+            <button
+              onClick={() => setViewMode(viewMode === 'map' ? 'list' : 'map')}
+              className="text-sm px-4 py-2 border border-gray-300 rounded hover:bg-gray-100 transition"
+            >
+              Switch to {viewMode === 'map' ? 'List View' : 'Map View'}
+            </button>
           </div>
+
+          {/* Content View */}
+          <div className="border border-dashed border-gray-400 p-4 rounded-md overflow-hidden h-[400px]">
+            {viewMode === 'map' ? <BlogMap /> : <PostList />}
+          </div>
+
         </section>
       </div>
     </main>
-  );
+  )
 }
