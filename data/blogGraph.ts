@@ -1,7 +1,7 @@
 export interface BlogNode {
   id: string
   title: string
-  path: string
+  path?: string
   author?: string
   date?: string
   children?: BlogNode[]
