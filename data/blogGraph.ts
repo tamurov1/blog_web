@@ -4,7 +4,7 @@ export interface BlogNode {
   path?: string
   author?: string
   date?: string
-  children?: BlogNode[]
+  children?: BlogNode[],
 }
 
 // STRUCTURE: 
@@ -25,15 +25,35 @@ export interface BlogNode {
 
 export const blogGraph: BlogNode = {
 
-  id: 'cybersecurity',
-  title: 'Cybersecurity',
+  id: 'everything',
+  title: 'Everything',
   children: [
+    {
+      id: 'cybersecurity',
+      title: 'Cybersecurity',
+      children: [
         {
-          id: 'empty yet',
-          title: 'empty yet',
-          path: '/blog/empty-yet',
+          id: 'vulnerabilities',
+          title: 'Vulnerabilities',
           author: 'Dmytrii Tamurov',
           date: '2025-07-07',
+          children: [
+            {
+              id: 'research',
+              title: 'Research',
+              children: [
+                {
+                  id: 'critical-node.js-vulnerabilities-209210',
+                  title: 'Critical Node.js Vulnerabilities (CVE-2025-27209 & CVE-2025-27210)',
+                  path: '/blog/cybersecurity/vulnerabilities/research/critical-node-js-vulnerabilities-209210/',
+                  author: 'Dmytrii Tamurov',
+                  date: '2025-07-17',
+                },
+              ],
+            },
+          ],
         },
-  ],
-}
+      ],
+    },
+  ]
+};

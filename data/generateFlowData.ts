@@ -1,78 +1,104 @@
-import dagre from 'dagre'
-import { Edge, Node } from 'reactflow'
+// this is a test version of generating a flaw, it's still has issues with positioning
+
+import { Edge, Node, Position } from 'reactflow'
 import { BlogNode } from './blogGraph'
 
-// Initialize the dagre graph
-const dagreGraph = new dagre.graphlib.Graph()
-dagreGraph.setDefaultEdgeLabel(() => ({}))
-
-// Node dimensions (consistent layout)
 const nodeWidth = 220
 const nodeHeight = 80
+const horizontalSpacing = 40
+const verticalSpacing = 120
 
 export function generateFlowData(tree: BlogNode): { nodes: Node[]; edges: Edge[] } {
   const nodes: Node[] = []
   const edges: Edge[] = []
+  const occupiedPositions: Record<number, number[]> = {}
 
-  const traverse = (node: BlogNode, parentId?: string) => {
-    const isLeaf = !node.children || node.children.length === 0
-
-nodes.push({
-  id: node.id,
-  data: {
-    label: isLeaf
-      ? `${node.title}\n${node.author || 'Unknown'} — ${node.date || 'Unknown'}`
-      : node.title,
-    ...(isLeaf && {
-      path: node.path,
-      author: node.author,
-      date: node.date,
-    }),
-  },
-  position: { x: 0, y: 0 }, // Will be updated by dagre
-  style: {
-    padding: 10,
-    borderRadius: 6,
-    backgroundColor: isLeaf ? '#dbeafe' : '#e0f2fe',
-    whiteSpace: 'pre-line',
-    fontSize: 12,
-    textAlign: 'center',
-  },
-  draggable: false,
-})
-
-    if (parentId) {
-      edges.push({ id: `${parentId}-${node.id}`, source: parentId, target: node.id })
-    }
-
-    node.children?.forEach(child => traverse(child, node.id))
+  function isPositionOccupied(x: number, y: number) {
+    const xs = occupiedPositions[y] || []
+    return xs.some(occupiedX => Math.abs(occupiedX - x) < nodeWidth + horizontalSpacing)
   }
 
-  traverse(tree)
+  function markPosition(x: number, y: number) {
+    if (!occupiedPositions[y]) occupiedPositions[y] = []
+    occupiedPositions[y].push(x)
+  }
 
-  // DAG layout config (Top to Bottom)
-  dagreGraph.setGraph({ rankdir: 'TB', nodesep: 30, ranksep: 60 })
+  function traverse(
+    node: BlogNode,
+    parentId: string | null = null,
+    parentX = 0,
+    parentY = 0
+  ) {
+    let x = parentX
+    let y = parentY + verticalSpacing
 
-  // Set dagre nodes
-  nodes.forEach(node => {
-    dagreGraph.setNode(node.id, { width: nodeWidth, height: nodeHeight })
-  })
-
-  // Set dagre edges
-  edges.forEach(edge => {
-    dagreGraph.setEdge(edge.source, edge.target)
-  })
-
-  // Perform layout
-  dagre.layout(dagreGraph)
-
-  // Apply computed positions
-  nodes.forEach(node => {
-    const pos = dagreGraph.node(node.id)
-    node.position = {
-      x: pos.x - nodeWidth / 2,
-      y: pos.y - nodeHeight / 2,
+    while (isPositionOccupied(x, y)) {
+      x += nodeWidth + horizontalSpacing
     }
+    markPosition(x, y)
+
+    const isLeaf = !node.children || node.children.length === 0
+
+    nodes.push({
+      id: node.id,
+      data: {
+        label: isLeaf
+          ? `${node.title}\n${node.author || 'Unknown'} — ${node.date || 'Unknown'}`
+          : node.title,
+        ...(isLeaf && {
+          path: node.path,
+          author: node.author,
+          date: node.date,
+        }),
+      },
+      position: { x, y },
+      style: {
+        padding: 10,
+        borderRadius: 6,
+        backgroundColor: isLeaf ? '#dbeafe' : '#e0f2fe',
+        whiteSpace: 'pre-line',
+        fontSize: 12,
+        textAlign: 'center',
+        cursor: isLeaf && node.path ? 'pointer' : 'default',
+      },
+      draggable: false,
+      sourcePosition: Position.Bottom,
+      targetPosition: Position.Top,
+    })
+
+    if (parentId) {
+      edges.push({
+        id: `${parentId}-${node.id}`,
+        source: parentId,
+        target: node.id,
+      })
+    }
+
+    let childX = x
+    node.children?.forEach(child => {
+      traverse(child, node.id, childX, y)
+      childX += nodeWidth + horizontalSpacing
+    })
+  }
+
+  nodes.push({
+    id: tree.id,
+    data: { label: tree.title },
+    position: { x: 0, y: 0 },
+    style: {
+      padding: 10,
+      borderRadius: 6,
+      backgroundColor: '#e0f2fe',
+      fontSize: 14,
+      textAlign: 'center',
+    },
+    draggable: false,
+    sourcePosition: Position.Bottom,
+    targetPosition: Position.Top,
+  })
+
+  tree.children?.forEach(child => {
+    traverse(child, tree.id, 0, 0)
   })
 
   return { nodes, edges }

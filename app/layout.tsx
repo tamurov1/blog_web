@@ -28,6 +28,9 @@ export const metadata: Metadata = {
     "research",
     "frontend",
     "cybersecurity",
+    "dmytrii",
+    "tamurov",
+    "dmytrii tamurov"
   ],
 };
 
