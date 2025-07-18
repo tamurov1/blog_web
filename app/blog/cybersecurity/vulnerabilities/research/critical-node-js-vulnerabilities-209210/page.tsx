@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import { FaTwitter, FaGithub, FaLinkedin } from 'react-icons/fa'
+import { FaTwitter, FaGithub, FaLinkedin, FaYoutube } from 'react-icons/fa'
 import { FiSearch } from 'react-icons/fi'
 import { notFound } from 'next/navigation'
 
@@ -42,6 +42,9 @@ export default function HomePage() {
           </p>
 
           <div className="flex flex-col mt-4 gap-2 text-sm">
+            <a href="https://www.youtube.com/channel/UChUvWsi-Dpb6abY6SZsxgxA" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-red-600">
+              <FaYoutube /> YouTube
+            </a>
             <a href="https://x.com/Dmytriitmk" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-blue-500">
               <FaTwitter /> X (formerly Twitter)
             </a>
