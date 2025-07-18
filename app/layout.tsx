@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Dmytrii Tamurov's Portfolio",
-  description: "Created by the biggest brains in the world.",
+  title: "Dmytrii Tamurov",
+  description: "Cybersecurity, development, Olympic weightlifting — thoughts, blogs, and ideas in one place.",
   authors: [{ name: "Dmytrii Tamurov", url: "https://dmytriitamurov.com" }],
   keywords: [
     "Dmytrii Tamurov",
@@ -30,7 +30,10 @@ export const metadata: Metadata = {
     "cybersecurity",
     "dmytrii",
     "tamurov",
-    "dmytrii tamurov"
+    "dmytrii tamurov",
+    "cybersecurity",
+    "tamurov project",
+    "tamurov cybersecurity"
   ],
 };
 
