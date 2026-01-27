@@ -9,9 +9,9 @@ export default function PostList() {
   return (
     <div className="h-full max-h-[400px] overflow-y-auto space-y-4 pr-2">
       {posts.map((post) => (
-        <a
+        <Link
           key={post.id}
-          href={post.path}
+          href={post.path || '#'}
           className="block p-4 border border-gray-200 rounded hover:bg-gray-50 transition"
         >
           <h3 className="text-lg font-semibold">{post.title}</h3>
@@ -19,7 +19,7 @@ export default function PostList() {
             <span>By {post.author || 'Unknown Author'}</span> &nbsp;|&nbsp;{' '}
             <time dateTime={post.date}>{post.date || 'Unknown Date'}</time>
           </p>
-        </a>
+        </Link>
       ))}
     </div>
   )

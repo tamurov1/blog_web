@@ -55,5 +55,11 @@ export const blogGraph: BlogNode = {
         },
       ],
     },
+    {
+      id: 'thoughts-journal',
+      title: 'Thoughts Journal',
+      children: [
+      ],
+    },
   ]
 };

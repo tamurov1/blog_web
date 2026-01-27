@@ -31,6 +31,9 @@ function BlogMapCanvas() {
         backgroundColor: node.data?.path ? '#dbeafe' : '#e0f2fe',
         whiteSpace: 'pre-line',
         cursor: node.data?.path ? 'pointer' : 'default',
+        textAlign: 'center',
+        minWidth: 200,
+        minHeight: 80,
       },
     }))
   )

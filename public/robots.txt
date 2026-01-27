@@ -1,4 +1,9 @@
+# *
 User-agent: *
 Allow: /
 
+# Host
+Host: https://dmytriitamurov.com
+
+# Sitemaps
 Sitemap: https://dmytriitamurov.com/sitemap.xml
