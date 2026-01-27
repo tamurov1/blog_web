@@ -1,21 +1,19 @@
 'use client'
-import { useRouter } from 'next/navigation';
 import Image from "next/image";
+import Link from "next/link";
 import { FiSearch } from "react-icons/fi";
 
 export default function ShopPage() {
-  const router = useRouter();
-
   return (
     <main className="min-h-screen bg-white text-black p-6 sm:p-12 font-sans">
       {/* Header */}
       <div className="flex justify-between items-center mb-12">
         <div className="text-2xl font-bold tracking-tight select-none cursor-default">TMK</div>
         <nav className="flex gap-4 items-center">
-          <a href="/" className="hover:underline">Home</a>
-          <a href="/map" className="hover:underline">Map</a>
-          <a href="/about" className="hover:underline">About</a>
-          <a href="/shop" className="hover:underline">Shop</a>
+          <Link href="/" className="hover:underline">Home</Link>
+          <Link href="/map" className="hover:underline">Map</Link>
+          <Link href="/about" className="hover:underline">About</Link>
+          <Link href="/shop" className="hover:underline">Shop</Link>
           <FiSearch className="text-xl cursor-pointer hover:opacity-70" />
         </nav>
       </div>
@@ -46,7 +44,7 @@ export default function ShopPage() {
               />
             </div>
             <p className="mt-2 text-sm text-gray-600">
-              Limited edition hoodie by TMK — launching soon.
+              Limited edition hoodie by TMK - launching soon.
             </p>
           </div>
         </aside>

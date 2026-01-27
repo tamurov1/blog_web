@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { FaTwitter, FaGithub, FaLinkedin, FaYoutube } from 'react-icons/fa'
 import { FiSearch } from 'react-icons/fi'
 import BlogMap from '@/components/BlogMap'
@@ -16,10 +17,10 @@ export default function HomePage() {
       <div className="flex justify-between items-center mb-12">
         <div className="text-2xl font-bold tracking-tight select-none cursor-default">TMK</div>
         <nav className="flex gap-4 items-center">
-          <a href="/" className="hover:underline">Home</a>
-          <a href="/map" className="hover:underline">Map</a>
-          <a href="/about" className="hover:underline">About</a>
-          <a href="/shop" className="hover:underline">Shop</a>
+          <Link href="/" className="hover:underline">Home</Link>
+          <Link href="/map" className="hover:underline">Map</Link>
+          <Link href="/about" className="hover:underline">About</Link>
+          <Link href="/shop" className="hover:underline">Shop</Link>
           <FiSearch className="text-xl cursor-pointer hover:opacity-70" />
         </nav>
       </div>
@@ -41,7 +42,7 @@ export default function HomePage() {
 
           <h1 className="text-xl font-semibold">Dmytrii Tamurov</h1>
           <p className="mt-2 text-gray-600">
-            Cybersecurity, development, Olympic weightlifting — thoughts, blogs, and ideas in one place.
+            Cybersecurity, development, Olympic weightlifting - thoughts, blogs, and ideas in one place.
           </p>
 
           <div className="flex flex-col mt-4 gap-2">

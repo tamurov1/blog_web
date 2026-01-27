@@ -22,7 +22,7 @@ export function generateFlowData(tree: BlogNode): { nodes: Node[]; edges: Edge[]
       id,
       data: {
         label: isLeaf
-          ? `${node.title}\n${node.author || 'Unknown'} — ${node.date || 'Unknown'}`
+          ? `${node.title}\n${node.author || 'Unknown'} - ${node.date || 'Unknown'}`
           : node.title,
         path: node.path,
         author: node.author,

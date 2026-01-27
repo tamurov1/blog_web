@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { FaTwitter, FaGithub, FaLinkedin, FaYoutube } from 'react-icons/fa'
 import { FiSearch } from "react-icons/fi";
 
@@ -9,10 +10,10 @@ export default function AboutPage() {
       <div className="flex justify-between items-center mb-12">
         <div className="text-2xl font-bold tracking-tight select-none cursor-default">TMK</div>
         <nav className="flex gap-4 items-center">
-          <a href="/" className="hover:underline">Home</a>
-          <a href="/map" className="hover:underline">Map</a>
-          <a href="/about" className="hover:underline">About</a>
-          <a href="/shop" className="hover:underline">Shop</a>
+          <Link href="/" className="hover:underline">Home</Link>
+          <Link href="/map" className="hover:underline">Map</Link>
+          <Link href="/about" className="hover:underline">About</Link>
+          <Link href="/shop" className="hover:underline">Shop</Link>
           <FiSearch className="text-xl cursor-pointer hover:opacity-70" />
         </nav>
       </div>
@@ -34,7 +35,7 @@ export default function AboutPage() {
           
           <h1 className="text-xl font-semibold">Dmytrii Tamurov</h1>
           <p className="mt-2 text-gray-600">
-            Cybersecurity, development, Olympic weightlifting — thoughts, blogs, and ideas in one place.
+            Cybersecurity, development, Olympic weightlifting - thoughts, blogs, and ideas in one place.
           </p>
 
           <div className="flex flex-col mt-4 gap-2">
@@ -59,14 +60,14 @@ export default function AboutPage() {
             <p className="text-gray-700 leading-7">
                 <b>Hello everyone!</b><br />
                 Thanks for stopping by and taking the time to read through my scratches,
-                thoughts, and digital ramblings - or as some might call it, a “Portfolio” or “About Page”.
+                thoughts, and digital ramblings - or as some might call it, a "Portfolio" or "About Page".
             <br /><br />
                 My name is Dmytrii Tamurov - I write code, break systems (ethically), ask too many questions about the human mind, and lift heavy weights professionally.
-                In simpler terms: I’m a Developer, an aspiring Cybersecurity Specialist, an amateur Researcher in Psychology, Philosophy, and Sociology, and a Professional Olympic Weightlifter.
+                In simpler terms: I'm a Developer, an aspiring Cybersecurity Specialist, an amateur Researcher in Psychology, Philosophy, and Sociology, and a Professional Olympic Weightlifter.
             <br /><br />
-                Currently, I live in Brampton, Canada, but I’m pretty mobile - mentally and geographically.
+                Currently, I live in Brampton, Canada, but I'm pretty mobile - mentally and geographically.
             <br /><br />
-                Right now, I’m gnawing on knowledge in the Software Development and Network Engineering Advanced Diploma program, and fully planning to conquer the Cyber Security Honours Bachelor right after - both at Sheridan College.
+                Right now, I'm gnawing on knowledge in the Software Development and Network Engineering Advanced Diploma program, and fully planning to conquer the Cyber Security Honours Bachelor right after - both at Sheridan College.
                 I learn fast, dive deep, and usually break something (in a good way) along the way.
             <br /><br />
                 <b>Contact Me</b><br />
