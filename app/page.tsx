@@ -64,11 +64,11 @@ export default function HomePage() {
 
           <div className="w-[150px] h-[150px] rounded-full overflow-hidden border border-gray-300 mb-4 shadow-lg ring-4 ring-white/70">
             <Image
-              src="/pic-ava.jpg"
+              src="/pic-ava.png"
               alt="Dmytrii Tamurov"
               width={150}
               height={150}
-              className="object-cover scale-200"
+              className="object-cover scale-100"
               priority
             />
           </div>
