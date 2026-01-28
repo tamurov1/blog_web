@@ -3,7 +3,7 @@
 import { useEffect, useState, type RefObject } from 'react'
 
 type BackgroundFXProps = {
-  containerRef: RefObject<HTMLElement>
+  containerRef: RefObject<HTMLElement | null>
 }
 
 export default function BackgroundFX({ containerRef }: BackgroundFXProps) {
