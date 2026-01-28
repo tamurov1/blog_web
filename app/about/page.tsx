@@ -18,7 +18,17 @@ export default function AboutPage() {
       <BackgroundFX containerRef={mainRef} />
       {/* Header */}
       <div className="flex justify-between items-center mb-12 relative z-10 animate-fade-up">
-        <div className="text-2xl font-bold tracking-tight select-none cursor-default">TMK</div>
+        <div className="flex items-center gap-2 text-2xl font-bold tracking-tight select-none cursor-default">
+          <Image
+            src="/logo-black.png"
+            alt="TMK logo"
+            width={26}
+            height={26}
+            className="h-6 w-6 object-contain"
+            priority
+          />
+          TMK
+        </div>
         <nav className="flex gap-4 items-center">
           <Link href="/" className="hover:underline">Home</Link>
           <Link href="/map" className="hover:underline">Map</Link>
@@ -34,11 +44,11 @@ export default function AboutPage() {
         <section className="w-full sm:w-1/3 flex flex-col items-center sm:items-start text-center sm:text-left animate-fade-up-1">
         <div className="w-[150px] h-[150px] rounded-full overflow-hidden border border-gray-300 mb-4">
           <Image
-            src="/pic-ava.jpg"
+            src="/pic-ava.png"
             alt="Dmytrii Tamurov"
             width={150}
             height={150}
-            className="object-cover scale-200"
+            className="object-cover scale-100"
             priority
           />
         </div>

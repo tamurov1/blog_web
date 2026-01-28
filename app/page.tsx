@@ -41,7 +41,15 @@ export default function HomePage() {
 
       {/* Header */}
       <div className="flex justify-between items-center mb-12 relative z-10 animate-fade-up">
-        <div className="text-2xl font-bold tracking-tight select-none cursor-default">
+        <div className="flex items-center gap-2 text-2xl font-bold tracking-tight select-none cursor-default">
+          <Image
+            src="/logo-black.png"
+            alt="TMK logo"
+            width={26}
+            height={26}
+            className="h-6 w-6 object-contain"
+            priority
+          />
           TMK
         </div>
         <nav className="flex gap-4 items-center text-sm">

@@ -1,5 +1,6 @@
 'use client'
 import { useRef } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { FiSearch } from 'react-icons/fi'
 import BlogMap from '@/components/BlogMap'
@@ -16,7 +17,17 @@ export default function MapPage() {
       <BackgroundFX containerRef={mainRef} />
       {/* Header */}
       <div className="flex justify-between items-center px-8 py-4 border-b border-gray-200 relative z-10 animate-fade-up">
-        <div className="text-2xl font-bold tracking-tight select-none cursor-default">TMK</div>
+        <div className="flex items-center gap-2 text-2xl font-bold tracking-tight select-none cursor-default">
+          <Image
+            src="/logo-black.png"
+            alt="TMK logo"
+            width={26}
+            height={26}
+            className="h-6 w-6 object-contain"
+            priority
+          />
+          TMK
+        </div>
         <nav className="flex gap-4 items-center text-sm font-medium">
           <Link href="/" className="hover:underline">Home</Link>
           <Link href="/map" className="hover:underline">Map</Link>
