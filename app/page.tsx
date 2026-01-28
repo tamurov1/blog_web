@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { FaTwitter, FaGithub, FaLinkedin, FaYoutube } from 'react-icons/fa'
@@ -12,6 +12,25 @@ import BackgroundFX from '@/components/BackgroundFX'
 export default function HomePage() {
   const [viewMode, setViewMode] = useState<'map' | 'list'>('map')
   const mainRef = useRef<HTMLElement | null>(null)
+  const fullBio =
+    'Cybersecurity, development, Olympic weightlifting - thoughts, blogs, and ideas in one place.'
+  const [typedBio, setTypedBio] = useState('')
+
+  useEffect(() => {
+    const totalDurationMs = 4000
+    const stepMs = Math.max(20, Math.floor(totalDurationMs / fullBio.length))
+    let index = 0
+
+    const timer = window.setInterval(() => {
+      index += 1
+      setTypedBio(fullBio.slice(0, index))
+      if (index >= fullBio.length) {
+        window.clearInterval(timer)
+      }
+    }, stepMs)
+
+    return () => window.clearInterval(timer)
+  }, [fullBio])
 
   return (
     <main
@@ -55,8 +74,9 @@ export default function HomePage() {
           </div>
 
           <h1 className="text-xl font-semibold">Dmytrii Tamurov</h1>
-          <p className="mt-2 text-gray-600">
-            Cybersecurity, development, Olympic weightlifting - thoughts, blogs, and ideas in one place.
+          <p className="mt-2 text-gray-600 min-h-[3rem]" aria-live="polite">
+            {typedBio}
+            <span className="inline-block w-[1px] h-[1em] align-[-0.1em] bg-gray-500 ml-0.5 animate-pulse-soft" />
           </p>
 
           <div className="flex flex-wrap mt-4 gap-2 justify-center sm:justify-start">
