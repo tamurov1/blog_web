@@ -142,3 +142,65 @@ body {
     opacity: 0;
   }
 }
+
+.signal-cloud {
+  position: relative;
+  min-height: 220px;
+  border-radius: 16px;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.6), rgba(226, 232, 240, 0.4));
+  overflow: hidden;
+  padding: 8px;
+}
+
+.signal-bubble {
+  position: absolute;
+  max-width: 240px;
+  border-radius: 14px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.85);
+  padding: 10px 12px;
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08);
+  opacity: 0;
+  animation: signal-pop 12s ease-in-out infinite;
+}
+
+.signal-bubble:nth-child(1) { top: 12%; left: 6%; animation-delay: 0s; }
+.signal-bubble:nth-child(2) { top: 58%; left: 12%; animation-delay: 1.2s; }
+.signal-bubble:nth-child(3) { top: 26%; left: 36%; animation-delay: 2.4s; }
+.signal-bubble:nth-child(4) { top: 70%; left: 42%; animation-delay: 3.6s; }
+.signal-bubble:nth-child(5) { top: 16%; left: 66%; animation-delay: 4.8s; }
+.signal-bubble:nth-child(6) { top: 52%; left: 68%; animation-delay: 6s; }
+.signal-bubble:nth-child(7) { top: 34%; left: 8%; animation-delay: 7.2s; }
+.signal-bubble:nth-child(8) { top: 8%; left: 44%; animation-delay: 8.4s; }
+.signal-bubble:nth-child(9) { top: 66%; left: 78%; animation-delay: 9.6s; }
+.signal-bubble:nth-child(10) { top: 36%; left: 74%; animation-delay: 10.8s; }
+
+.signal-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.signal-meta {
+  margin-top: 6px;
+  font-size: 10px;
+  color: #64748b;
+}
+
+@keyframes signal-pop {
+  0%,
+  12% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.96);
+  }
+  20%,
+  70% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  85%,
+  100% {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+}

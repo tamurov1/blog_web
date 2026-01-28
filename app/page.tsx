@@ -124,6 +124,33 @@ export default function HomePage() {
             {viewMode === 'map' ? <BlogMap /> : <PostList />}
           </div>
 
+          {/* Signal Feed */}
+          <div className="mt-6 rounded-2xl border border-black/5 bg-white/70 p-4 shadow-lg backdrop-blur">
+            <div className="flex items-center justify-between">
+              <h2 className="text-sm font-semibold tracking-wide text-slate-800">Signal Field</h2>
+              <span className="text-[10px] uppercase tracking-[0.2em] text-slate-400">Pulse</span>
+            </div>
+            <div className="mt-4 signal-cloud">
+              {[
+                { text: 'Phishing Kits', by: 'Credential theft campaigns' },
+                { text: 'Ransomware Loaders', by: 'Affiliate operations' },
+                { text: 'Info-Stealers', by: 'Initial access brokers' },
+                { text: 'Botnet Droppers', by: 'Distributed malware' },
+                { text: 'Credential Sprayers', by: 'Password reuse' },
+                { text: 'Progress is the quiet agreement to keep learning.', by: 'Paraphrased — Notes' },
+                { text: 'Systems fail where assumptions are never questioned.', by: 'Paraphrased — Security Lore' },
+                { text: 'Strength is discipline repeated past motivation.', by: 'Paraphrased — Training Ethos' },
+                { text: 'Truth sharpens under friction.', by: 'Paraphrased — Field Journals' },
+                { text: 'Living systems adapt faster than static rules.', by: 'Paraphrased — Systems Thinking' },
+              ].map((item) => (
+                <div key={item.text} className="signal-bubble">
+                  <div className="signal-title">{item.text}</div>
+                  <div className="signal-meta">— {item.by}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
         </section>
       </div>
     </main>
