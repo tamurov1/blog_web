@@ -24,6 +24,8 @@ export default function BackgroundFX({ containerRef }: BackgroundFXProps) {
       root.style.setProperty('--grid-hue', `${Math.round(pctX * 60 - 10)}deg`)
       root.style.setProperty('--grid-shift-x', `${(pctX - 0.5) * 20}px`)
       root.style.setProperty('--grid-shift-y', `${(pctY - 0.5) * 20}px`)
+      root.style.setProperty('--grid-tilt-x', `${(pctX - 0.5) * 8}deg`)
+      root.style.setProperty('--grid-tilt-y', `${(0.5 - pctY) * 6}deg`)
     }
 
     const handleMove = (event: MouseEvent) => {

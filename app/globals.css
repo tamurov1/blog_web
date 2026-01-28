@@ -93,10 +93,13 @@ body {
   background-size: 56px 56px;
   background-position:
     calc(var(--grid-shift-x, 0px)) calc(var(--grid-shift-y, 0px));
-  transform: perspective(900px) rotateX(8deg);
+  transform:
+    perspective(900px)
+    rotateX(calc(8deg + var(--grid-tilt-y, 0deg)))
+    rotateY(var(--grid-tilt-x, 0deg));
   transform-origin: top center;
   filter: hue-rotate(var(--grid-hue, 0deg));
-  transition: filter 120ms linear;
+  transition: filter 120ms linear, transform 180ms ease-out, background-position 180ms ease-out;
 }
 
 .hero-grid::before {

@@ -2,8 +2,8 @@ import { Edge, Node, Position } from 'reactflow'
 import { BlogNode } from '@/data/blogGraph'
 import dagre from 'dagre'
 
-const nodeWidth = 220
-const nodeHeight = 100
+const baseNodeWidth = 240
+const baseNodeHeight = 110
 
 /**
  * Generates flow data with automatic layout using dagre
@@ -14,19 +14,24 @@ export function generateFlowData(tree: BlogNode): { nodes: Node[]; edges: Edge[]
   const edges: Edge[] = []
 
   // First pass: collect all nodes and edges
-  const traverse = (node: BlogNode, parentId?: string) => {
+  const traverse = (node: BlogNode, parentId?: string, level = 0) => {
     const id = node.id
     const isLeaf = !node.children || node.children.length === 0
+    const width = isLeaf ? baseNodeWidth + 40 : baseNodeWidth
+    const height = isLeaf ? baseNodeHeight + 20 : baseNodeHeight
 
     nodes.push({
       id,
+      type: 'blogNode',
       data: {
-        label: isLeaf
-          ? `${node.title}\n${node.author || 'Unknown'} - ${node.date || 'Unknown'}`
-          : node.title,
-        path: node.path,
+        title: node.title,
         author: node.author,
         date: node.date,
+        isLeaf,
+        level,
+        path: node.path,
+        width,
+        height,
       },
       // Position will be set by dagre
       position: { x: 0, y: 0 },
@@ -43,7 +48,7 @@ export function generateFlowData(tree: BlogNode): { nodes: Node[]; edges: Edge[]
       })
     }
 
-    node.children?.forEach((child) => traverse(child, id))
+    node.children?.forEach((child) => traverse(child, id, level + 1))
   }
 
   traverse(tree)
@@ -53,14 +58,17 @@ export function generateFlowData(tree: BlogNode): { nodes: Node[]; edges: Edge[]
   dagreGraph.setDefaultEdgeLabel(() => ({}))
   dagreGraph.setGraph({
     rankdir: 'TB', // Top to Bottom
-    nodesep: 50, // Horizontal spacing between nodes
-    ranksep: 120, // Vertical spacing between ranks
+    nodesep: 80, // Horizontal spacing between nodes
+    ranksep: 140, // Vertical spacing between ranks
     align: 'UL', // Align nodes to upper left
+    ranker: 'tight-tree',
   })
 
   // Add nodes to dagre graph
   nodes.forEach((node) => {
-    dagreGraph.setNode(node.id, { width: nodeWidth, height: nodeHeight })
+    const width = Number(node.data?.width) || baseNodeWidth
+    const height = Number(node.data?.height) || baseNodeHeight
+    dagreGraph.setNode(node.id, { width, height })
   })
 
   // Add edges to dagre graph
@@ -74,9 +82,11 @@ export function generateFlowData(tree: BlogNode): { nodes: Node[]; edges: Edge[]
   // Update node positions from dagre
   nodes.forEach((node) => {
     const nodeWithPosition = dagreGraph.node(node.id)
+    const width = Number(node.data?.width) || baseNodeWidth
+    const height = Number(node.data?.height) || baseNodeHeight
     node.position = {
-      x: nodeWithPosition.x - nodeWidth / 2,
-      y: nodeWithPosition.y - nodeHeight / 2,
+      x: nodeWithPosition.x - width / 2,
+      y: nodeWithPosition.y - height / 2,
     }
   })
 
