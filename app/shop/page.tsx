@@ -1,13 +1,21 @@
 'use client'
+import { useRef } from 'react'
 import Image from "next/image";
 import Link from "next/link";
 import { FiSearch } from "react-icons/fi";
+import BackgroundFX from '@/components/BackgroundFX'
 
 export default function ShopPage() {
+  const mainRef = useRef<HTMLElement | null>(null)
+
   return (
-    <main className="min-h-screen bg-white text-black p-6 sm:p-12 font-sans">
+    <main
+      ref={mainRef}
+      className="min-h-screen bg-white text-black p-6 sm:p-12 font-sans relative overflow-hidden"
+    >
+      <BackgroundFX containerRef={mainRef} />
       {/* Header */}
-      <div className="flex justify-between items-center mb-12">
+      <div className="flex justify-between items-center mb-12 relative z-10 animate-fade-up">
         <div className="text-2xl font-bold tracking-tight select-none cursor-default">TMK</div>
         <nav className="flex gap-4 items-center">
           <Link href="/" className="hover:underline">Home</Link>
@@ -19,9 +27,9 @@ export default function ShopPage() {
       </div>
 
       {/* Content */}
-      <div className="flex flex-col sm:flex-row gap-12">
+      <div className="flex flex-col sm:flex-row gap-12 relative z-10">
         {/* Sidebar: Categories & Exclusive */}
-        <aside className="w-full sm:w-1/3 flex flex-col gap-8">
+        <aside className="w-full sm:w-1/3 flex flex-col gap-8 animate-fade-up-1">
           <div>
             <h2 className="text-lg font-semibold mb-4">Categories</h2>
             <ul className="flex flex-col gap-2 text-gray-700">
@@ -34,7 +42,7 @@ export default function ShopPage() {
 
           <div>
             <h2 className="text-lg font-semibold mb-4">Exclusive Item</h2>
-            <div className="w-full h-[140px] rounded-lg overflow-hidden border border-gray-300">
+            <div className="w-full h-[140px] rounded-lg overflow-hidden border border-gray-300 shadow-lg">
               <Image
                 src="https://images.unsplash.com/photo-1618354691211-f9c81bcbfa4e"
                 alt="Exclusive Drop"
@@ -50,7 +58,7 @@ export default function ShopPage() {
         </aside>
 
         {/* Shop Display */}
-        <section className="w-full sm:w-2/3 flex items-center justify-center border border-dashed border-gray-300 rounded-lg min-h-[300px]">
+        <section className="w-full sm:w-2/3 flex items-center justify-center border border-dashed border-gray-300 rounded-lg min-h-[300px] bg-white/70 shadow-lg backdrop-blur animate-fade-up-2">
           <p className="text-lg text-gray-500">The shop is under construction. Coming soon.</p>
         </section>
       </div>

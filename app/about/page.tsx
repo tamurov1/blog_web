@@ -1,13 +1,23 @@
+'use client'
+
+import { useRef } from 'react'
 import Image from "next/image";
 import Link from "next/link";
 import { FaTwitter, FaGithub, FaLinkedin, FaYoutube } from 'react-icons/fa'
 import { FiSearch } from "react-icons/fi";
+import BackgroundFX from '@/components/BackgroundFX'
 
 export default function AboutPage() {
+  const mainRef = useRef<HTMLElement | null>(null)
+
   return (
-    <main className="min-h-screen bg-white text-black p-6 sm:p-12 font-sans">
+    <main
+      ref={mainRef}
+      className="min-h-screen bg-white text-black p-6 sm:p-12 font-sans relative overflow-hidden"
+    >
+      <BackgroundFX containerRef={mainRef} />
       {/* Header */}
-      <div className="flex justify-between items-center mb-12">
+      <div className="flex justify-between items-center mb-12 relative z-10 animate-fade-up">
         <div className="text-2xl font-bold tracking-tight select-none cursor-default">TMK</div>
         <nav className="flex gap-4 items-center">
           <Link href="/" className="hover:underline">Home</Link>
@@ -19,9 +29,9 @@ export default function AboutPage() {
       </div>
 
       {/* Content */}
-      <div className="flex flex-col sm:flex-row gap-12">
+      <div className="flex flex-col sm:flex-row gap-12 relative z-10">
         {/* Profile Block */}
-        <section className="w-full sm:w-1/3 flex flex-col items-center sm:items-start text-center sm:text-left">
+        <section className="w-full sm:w-1/3 flex flex-col items-center sm:items-start text-center sm:text-left animate-fade-up-1">
         <div className="w-[150px] h-[150px] rounded-full overflow-hidden border border-gray-300 mb-4">
           <Image
             src="/pic-ava.jpg"
@@ -56,8 +66,8 @@ export default function AboutPage() {
 
 
         {/* About Container */}
-        <section className="w-full sm:w-2/3">
-            <p className="text-gray-700 leading-7">
+        <section className="w-full sm:w-2/3 animate-fade-up-2">
+            <p className="text-gray-700 leading-7 bg-white/70 backdrop-blur p-6 rounded-lg shadow-lg border border-black/5">
                 <b>Hello everyone!</b><br />
                 Thanks for stopping by and taking the time to read through my scratches,
                 thoughts, and digital ramblings - or as some might call it, a "Portfolio" or "About Page".

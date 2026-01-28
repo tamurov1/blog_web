@@ -1,13 +1,21 @@
 'use client'
+import { useRef } from 'react'
 import Link from 'next/link'
 import { FiSearch } from 'react-icons/fi'
 import BlogMap from '@/components/BlogMap'
+import BackgroundFX from '@/components/BackgroundFX'
 
 export default function MapPage() {
+  const mainRef = useRef<HTMLElement | null>(null)
+
   return (
-    <main className="min-h-screen bg-white text-black p-0 font-sans flex flex-col">
+    <main
+      ref={mainRef}
+      className="min-h-screen bg-white text-black p-0 font-sans flex flex-col relative overflow-hidden"
+    >
+      <BackgroundFX containerRef={mainRef} />
       {/* Header */}
-      <div className="flex justify-between items-center px-8 py-4 border-b border-gray-200">
+      <div className="flex justify-between items-center px-8 py-4 border-b border-gray-200 relative z-10 animate-fade-up">
         <div className="text-2xl font-bold tracking-tight select-none cursor-default">TMK</div>
         <nav className="flex gap-4 items-center text-sm font-medium">
           <Link href="/" className="hover:underline">Home</Link>
@@ -19,8 +27,10 @@ export default function MapPage() {
       </div>
 
       {/* Fullscreen Blog Map */}
-      <div className="w-full h-[calc(100vh-64px)] overflow-hidden">
-        <BlogMap />
+      <div className="w-full h-[calc(100vh-64px)] overflow-hidden relative z-10 animate-fade-up-1">
+        <div className="h-full bg-white/70 backdrop-blur">
+          <BlogMap />
+        </div>
       </div>
     </main>
   )
