@@ -95,6 +95,21 @@ export default function HomePage() {
           </div>
 
           <div className="flex flex-col mt-4 gap-2">
+            <a
+              href="https://nexessary.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 hover:text-blue-700"
+            >
+              <Image
+                src="/nexessary.png"
+                alt="Nexessary"
+                width={16}
+                height={16}
+                className="h-4 w-4 rounded-sm object-cover"
+              />
+              Nexessary
+            </a>
             <a href="https://www.youtube.com/channel/UChUvWsi-Dpb6abY6SZsxgxA" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-red-600">
               <FaYoutube /> YouTube
             </a>
@@ -108,22 +123,6 @@ export default function HomePage() {
               <FaLinkedin /> LinkedIn
             </a>
           </div>
-
-          <a
-            href="https://nexessary.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-2 flex items-center gap-2 hover:text-blue-700"
-          >
-            <Image
-              src="/nexessary.png"
-              alt="Nexessary"
-              width={16}
-              height={16}
-              className="h-4 w-4 rounded-sm object-cover"
-            />
-            Nexessary
-          </a>
         </section>
 
         {/* Blog Map / Post List */}
@@ -142,34 +141,6 @@ export default function HomePage() {
           <div className="border border-dashed border-gray-400 p-4 rounded-md overflow-hidden h-[400px] bg-white/70 shadow-lg backdrop-blur">
             {viewMode === 'map' ? <BlogMap /> : <PostList />}
           </div>
-
-          {/* Signal Feed */}
-          <div className="mt-6 rounded-2xl border border-black/5 bg-white/70 p-4 shadow-lg backdrop-blur">
-            <div className="flex items-center justify-between">
-              <h2 className="text-sm font-semibold tracking-wide text-slate-800">Signal Field</h2>
-              <span className="text-[10px] uppercase tracking-[0.2em] text-slate-400">Pulse</span>
-            </div>
-            <div className="mt-4 signal-cloud">
-              {[
-                { text: 'Phishing Kits', by: 'Credential theft campaigns' },
-                { text: 'Ransomware Loaders', by: 'Affiliate operations' },
-                { text: 'Info-Stealers', by: 'Initial access brokers' },
-                { text: 'Botnet Droppers', by: 'Distributed malware' },
-                { text: 'Credential Sprayers', by: 'Password reuse' },
-                { text: 'Progress is the quiet agreement to keep learning.', by: 'Paraphrased — Notes' },
-                { text: 'Systems fail where assumptions are never questioned.', by: 'Paraphrased — Security Lore' },
-                { text: 'Strength is discipline repeated past motivation.', by: 'Paraphrased — Training Ethos' },
-                { text: 'Truth sharpens under friction.', by: 'Paraphrased — Field Journals' },
-                { text: 'Living systems adapt faster than static rules.', by: 'Paraphrased — Systems Thinking' },
-              ].map((item) => (
-                <div key={item.text} className="signal-bubble">
-                  <div className="signal-title">{item.text}</div>
-                  <div className="signal-meta">— {item.by}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
         </section>
       </div>
     </main>

@@ -10,6 +10,8 @@ type BlogNodeData = {
   isLeaf?: boolean
   level?: number
   path?: string
+  width?: number
+  height?: number
 }
 
 function BlogMapNode({ data }: NodeProps<BlogNodeData>) {
@@ -23,6 +25,8 @@ function BlogMapNode({ data }: NodeProps<BlogNodeData>) {
     <div
       className="group relative rounded-2xl border border-black/10 bg-white/85 px-5 py-4 text-left shadow-lg backdrop-blur-md transition-transform duration-200 hover:-translate-y-0.5"
       style={{
+        width: data?.width || (isLeaf ? 340 : 252),
+        minHeight: data?.height || (isLeaf ? 136 : 110),
         boxShadow: `0 10px 30px rgba(15, 23, 42, 0.12), inset 0 0 0 1px rgba(255,255,255,0.5)`,
         background: isLeaf
           ? `linear-gradient(145deg, rgba(255,255,255,0.95), rgba(243,244,246,0.92))`
@@ -42,7 +46,7 @@ function BlogMapNode({ data }: NodeProps<BlogNodeData>) {
       <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-400">
         Level {level + 1}
       </div>
-      <div className="text-sm font-semibold text-slate-900 leading-snug">{data?.title}</div>
+      <div className="break-words text-sm font-semibold text-slate-900 leading-snug">{data?.title}</div>
       {isLeaf && (
         <div className="mt-3 text-xs text-slate-600">
           <div className="font-medium">{data?.author || 'Unknown author'}</div>

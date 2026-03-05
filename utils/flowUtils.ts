@@ -2,8 +2,10 @@ import { Edge, Node, Position } from 'reactflow'
 import { BlogNode } from '@/data/blogGraph'
 import dagre from 'dagre'
 
-const baseNodeWidth = 240
-const baseNodeHeight = 110
+const groupNodeWidth = 252
+const groupNodeBaseHeight = 110
+const leafNodeWidth = 340
+const leafNodeBaseHeight = 136
 
 /**
  * Generates flow data with automatic layout using dagre
@@ -17,8 +19,11 @@ export function generateFlowData(tree: BlogNode): { nodes: Node[]; edges: Edge[]
   const traverse = (node: BlogNode, parentId?: string, level = 0) => {
     const id = node.id
     const isLeaf = !node.children || node.children.length === 0
-    const width = isLeaf ? baseNodeWidth + 40 : baseNodeWidth
-    const height = isLeaf ? baseNodeHeight + 20 : baseNodeHeight
+    const width = isLeaf ? leafNodeWidth : groupNodeWidth
+    const charsPerLine = isLeaf ? 36 : 24
+    const titleLines = Math.max(1, Math.ceil((node.title?.length || 0) / charsPerLine))
+    const titleExtraHeight = Math.max(0, titleLines - 1) * 18
+    const height = (isLeaf ? leafNodeBaseHeight : groupNodeBaseHeight) + titleExtraHeight
 
     nodes.push({
       id,
@@ -58,15 +63,15 @@ export function generateFlowData(tree: BlogNode): { nodes: Node[]; edges: Edge[]
   dagreGraph.setDefaultEdgeLabel(() => ({}))
   dagreGraph.setGraph({
     rankdir: 'TB', // Top to Bottom
-    nodesep: 64, // Horizontal spacing between nodes
-    ranksep: 124, // Vertical spacing between ranks
+    nodesep: 110, // Horizontal spacing between nodes
+    ranksep: 170, // Vertical spacing between ranks
     ranker: 'network-simplex',
   })
 
   // Add nodes to dagre graph
   nodes.forEach((node) => {
-    const width = Number(node.data?.width) || baseNodeWidth
-    const height = Number(node.data?.height) || baseNodeHeight
+    const width = Number(node.data?.width) || groupNodeWidth
+    const height = Number(node.data?.height) || groupNodeBaseHeight
     dagreGraph.setNode(node.id, { width, height })
   })
 
@@ -81,8 +86,8 @@ export function generateFlowData(tree: BlogNode): { nodes: Node[]; edges: Edge[]
   // Update node positions from dagre
   nodes.forEach((node) => {
     const nodeWithPosition = dagreGraph.node(node.id)
-    const width = Number(node.data?.width) || baseNodeWidth
-    const height = Number(node.data?.height) || baseNodeHeight
+    const width = Number(node.data?.width) || groupNodeWidth
+    const height = Number(node.data?.height) || groupNodeBaseHeight
     node.position = {
       x: nodeWithPosition.x - width / 2,
       y: nodeWithPosition.y - height / 2,
