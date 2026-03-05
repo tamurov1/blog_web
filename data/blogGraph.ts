@@ -29,6 +29,19 @@ export const blogGraph: BlogNode = {
   title: 'Everything',
   children: [
     {
+      id: 'projects',
+      title: 'Projects',
+      children: [
+        {
+          id: 'nexessary',
+          title: 'Nexessary: Building a Structured Workspace for Real Workflows',
+          path: '/blog/projects/nexessary/',
+          author: 'Dmytrii Tamurov',
+          date: '2026-03-04',
+        },
+      ],
+    },
+    {
       id: 'cybersecurity',
       title: 'Cybersecurity',
       children: [
