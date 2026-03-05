@@ -73,6 +73,13 @@ export const blogGraph: BlogNode = {
       title: 'Thoughts Journal',
       children: [
         {
+          id: 'ai-merge',
+          title: 'AI Merge',
+          path: '/blog/thoughts-journal/ai-merge/',
+          author: 'Dmytrii Tamurov',
+          date: '2026-03-05',
+        },
+        {
           id: 'paradox-of-good-and-bad',
           title: 'The Paradox of Good and Bad',
           path: '/blog/thoughts-journal/paradox-of-good-and-bad/',
