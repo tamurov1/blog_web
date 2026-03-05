@@ -143,6 +143,28 @@ body {
   }
 }
 
+.abstract-line,
+.abstract-ring,
+.abstract-orb {
+  position: absolute;
+  border-radius: 999px;
+  animation: float 10s ease-in-out infinite;
+}
+
+.abstract-line {
+  background: linear-gradient(90deg, rgba(15, 23, 42, 0.12), rgba(15, 23, 42, 0.02));
+  border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.abstract-ring {
+  border: 1px solid rgba(15, 23, 42, 0.14);
+  background: radial-gradient(circle at 30% 30%, rgba(15, 23, 42, 0.06), transparent 60%);
+}
+
+.abstract-orb {
+  background: radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.2), rgba(14, 116, 144, 0.08));
+}
+
 .shop-card {
   perspective: 1200px;
   transform-style: preserve-3d;

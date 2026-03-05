@@ -8,6 +8,38 @@ type BackgroundFXProps = {
 
 export default function BackgroundFX({ containerRef }: BackgroundFXProps) {
   const [waveTick, setWaveTick] = useState(0)
+  const [shapes, setShapes] = useState<
+    Array<{
+      id: string
+      kind: 'line' | 'ring' | 'orb'
+      top: number
+      left: number
+      size: number
+      rotate: number
+      opacity: number
+      blur: number
+    }>
+  >([])
+
+  useEffect(() => {
+    const count = Math.floor(10 + Math.random() * 6)
+    const next = Array.from({ length: count }).map((_, index) => {
+      const kindRoll = Math.random()
+      const kind: 'line' | 'ring' | 'orb' =
+        kindRoll < 0.5 ? 'line' : kindRoll < 0.75 ? 'ring' : 'orb'
+      return {
+        id: `${Date.now()}-${index}`,
+        kind,
+        top: Math.random() * 88,
+        left: Math.random() * 88,
+        size: 80 + Math.random() * 220,
+        rotate: Math.random() * 180,
+        opacity: 0.15 + Math.random() * 0.35,
+        blur: Math.random() * 8,
+      }
+    })
+    setShapes(next)
+  }, [])
 
   useEffect(() => {
     const root = containerRef.current
@@ -58,13 +90,23 @@ export default function BackgroundFX({ containerRef }: BackgroundFXProps) {
   }, [containerRef])
 
   return (
-    <div className="pointer-events-none absolute inset-0">
+    <div className="pointer-events-none absolute -inset-[15%]">
       <div className="hero-grid absolute inset-0 opacity-45" data-wave={waveTick} />
-      <div className="absolute -top-28 left-6 h-56 w-56 rounded-full bg-sky-200 blur-3xl opacity-55 animate-float-slow" />
-      <div className="absolute top-20 right-0 h-72 w-72 rounded-full bg-indigo-200 blur-3xl opacity-50 animate-float" />
-      <div className="absolute bottom-[-7rem] left-[10%] h-80 w-80 rounded-full bg-emerald-200 blur-3xl opacity-45 animate-float-slower" />
-      <div className="absolute top-40 left-[38%] h-16 w-24 rounded-full bg-white/60 shadow-md ring-1 ring-black/5 backdrop-blur-sm animate-float" />
-      <div className="absolute bottom-28 right-[18%] h-20 w-20 rounded-2xl bg-white/60 shadow-lg ring-1 ring-black/5 backdrop-blur-sm animate-float-slow" />
+      {shapes.map((shape) => (
+        <div
+          key={shape.id}
+          className={`abstract-${shape.kind}`}
+          style={{
+            top: `${shape.top}%`,
+            left: `${shape.left}%`,
+            width: `${shape.size}px`,
+            height: `${shape.kind === 'line' ? Math.max(10, shape.size * 0.2) : shape.size}px`,
+            opacity: shape.opacity,
+            transform: `rotate(${shape.rotate}deg)`,
+            filter: `blur(${shape.blur}px)`,
+          }}
+        />
+      ))}
     </div>
   )
 }
