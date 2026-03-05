@@ -3,7 +3,7 @@
 import { useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { FaTwitter, FaGithub, FaLinkedin, FaYoutube } from 'react-icons/fa'
+import { FaTwitter, FaLinkedin, FaYoutube } from 'react-icons/fa'
 import { FiSearch } from 'react-icons/fi'
 import BackgroundFX from '@/components/BackgroundFX'
 
@@ -56,17 +56,29 @@ export default function NexessaryPage() {
             Cybersecurity, development, Olympic weightlifting - thoughts, blogs, and ideas in one place.
           </p>
 
-          <div className="flex flex-col mt-4 gap-2 text-sm">
+          <div className="flex flex-col mt-4 gap-2">
+            <a
+              href="https://nexessary.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 hover:text-blue-700"
+            >
+              <Image
+                src="/nexessary.png"
+                alt="Nexessary"
+                width={16}
+                height={16}
+                className="h-4 w-4 rounded-sm object-cover"
+              />
+              Nexessary
+            </a>
             <a href="https://www.youtube.com/channel/UChUvWsi-Dpb6abY6SZsxgxA" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-red-600">
               <FaYoutube /> YouTube
             </a>
-            <a href="https://x.com/Dmytriitmk" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-blue-500">
-              <FaTwitter /> X (formerly Twitter)
+            <a href="https://twitter.com/" className="flex items-center gap-2 hover:text-blue-500">
+              <FaTwitter /> Twitter
             </a>
-            <a href="https://github.com/tamurov1" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-gray-700">
-              <FaGithub /> GitHub
-            </a>
-            <a href="https://www.linkedin.com/in/dmytrii-tamurov-40b6aa274/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-blue-700">
+            <a href="https://linkedin.com/" className="flex items-center gap-2 hover:text-blue-700">
               <FaLinkedin /> LinkedIn
             </a>
           </div>

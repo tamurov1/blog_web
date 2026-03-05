@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { FaTwitter, FaGithub, FaLinkedin, FaYoutube } from 'react-icons/fa'
+import { FaTwitter, FaLinkedin, FaYoutube } from 'react-icons/fa'
 import { FiSearch } from 'react-icons/fi'
 import BlogMap from '@/components/BlogMap'
 import PostList from '@/components/PostList'
@@ -35,7 +35,7 @@ export default function HomePage() {
   return (
     <main
       ref={mainRef}
-      className="min-h-screen bg-white text-black p-6 sm:p-12 font-sans relative overflow-hidden"
+      className="h-screen bg-white text-black p-6 sm:p-12 font-sans relative overflow-hidden"
     >
       <BackgroundFX containerRef={mainRef} />
 
@@ -116,9 +116,6 @@ export default function HomePage() {
             <a href="https://twitter.com/" className="flex items-center gap-2 hover:text-blue-500">
               <FaTwitter /> Twitter
             </a>
-            <a href="https://github.com/" className="flex items-center gap-2 hover:text-gray-700">
-              <FaGithub /> GitHub
-            </a>
             <a href="https://linkedin.com/" className="flex items-center gap-2 hover:text-blue-700">
               <FaLinkedin /> LinkedIn
             </a>
@@ -138,7 +135,7 @@ export default function HomePage() {
           </div>
 
           {/* Content View */}
-          <div className="border border-dashed border-gray-400 p-4 rounded-md overflow-hidden min-h-[420px] sm:h-[calc(100vh-150px)] bg-white/70 shadow-lg backdrop-blur">
+          <div className="border border-dashed border-gray-400 p-4 rounded-md overflow-hidden min-h-[360px] sm:h-[calc(95vh-230px)] bg-white/70 shadow-lg backdrop-blur">
             {viewMode === 'map' ? <BlogMap /> : <PostList />}
           </div>
         </section>
