@@ -87,6 +87,9 @@ export default function HomePage() {
               Security Research
             </span>
             <span className="rounded-full border border-black/10 bg-white/70 px-3 py-1 text-xs text-gray-700 shadow-sm backdrop-blur">
+              SOC Analyst
+            </span>
+            <span className="rounded-full border border-black/10 bg-white/70 px-3 py-1 text-xs text-gray-700 shadow-sm backdrop-blur">
               Full-Stack Dev
             </span>
             <span className="rounded-full border border-black/10 bg-white/70 px-3 py-1 text-xs text-gray-700 shadow-sm backdrop-blur">

@@ -89,112 +89,93 @@ export default function ParadoxOfGoodAndBadPage() {
             <h1 className="text-3xl font-bold text-blue-600 mb-4">The Paradox of Good and Bad</h1>
             <p className="text-sm text-gray-500">By Dmytrii Tamurov | March 5, 2026</p>
 
-            <p>Good is not always good. Sometimes it is actually bad.</p>
-            <p>And bad is not always bad. Sometimes it ends up being good.</p>
+            <div className="mt-6 space-y-3 [&_p]:m-0 [&_p]:border-l-2 [&_p]:border-gray-300 [&_p]:pl-4 [&_p]:leading-7 [&_ul]:my-2 [&_ul]:border-l-2 [&_ul]:border-gray-300 [&_ul]:pl-8 [&_li]:my-1">
+              <p>Good is not always good.</p>
+              <p>Sometimes it is actually bad.</p>
+              <p>And bad is not always bad.</p>
+              <p>Sometimes it ends up being good.</p>
 
-            <p>
-              Most people know this on some level, but strangely, they do not really understand it.
-            </p>
+              <p>Most people know this on some level.</p>
+              <p>But strangely, they do not really understand it.</p>
 
-            <p>
-              As humans we constantly categorize things. Our brain loves labels. We group, name, and simplify everything around us because that is how we make sense of the world.
-            </p>
+              <p>As humans we constantly categorize things.</p>
+              <p>Our brain loves labels.</p>
+              <p>We group, name, and simplify everything around us because that is how we make sense of the world.</p>
 
-            <p>
-              One of the deepest and most common labels we use is simple: Good and Bad.
-            </p>
+              <p>One of the deepest and most common labels we use is simple:</p>
+              <p>Good and Bad.</p>
 
-            <p>
-              Think about the last time you judged something as good or bad. Most likely it was today.
-            </p>
+              <p>Think about the last time you judged something as good or bad.</p>
+              <p>Most likely it was today.</p>
 
-            <p>
-              This comparison mechanism is fundamental. It helps us decide what to do and what not to do. It is supposed to help us move toward better decisions.
-            </p>
+              <p>This comparison mechanism is fundamental.</p>
+              <p>It helps us decide what to do and what not to do.</p>
+              <p>It is supposed to help us move toward better decisions.</p>
 
-            <p>But here is the interesting question: Is it actually always helping?</p>
-            <p>Sometimes yes. Sometimes not really.</p>
+              <p>But here is the interesting question:</p>
+              <p>Is it actually always helping?</p>
+              <p>Sometimes yes.</p>
+              <p>Sometimes not really.</p>
 
-            <p>
-              Most of the time we judge things based on how we feel in the moment. Something feels good, we label it good. Something feels uncomfortable, we label it bad.
-            </p>
+              <p>Most of the time we judge things based on how we feel in the moment.</p>
+              <p>Something feels good, we label it good.</p>
+              <p>Something feels uncomfortable, we label it bad.</p>
 
-            <p>
-              A smaller number of people try to look further into the future. They can recognize that something uncomfortable now might actually produce something valuable later.
-            </p>
+              <p>A smaller number of people try to look further into the future.</p>
+              <p>They can recognize that something uncomfortable now might actually produce something valuable later.</p>
 
-            <p>
-              Either way, the mechanism itself is important. Civilization probably would not exist without it.
-            </p>
+              <p>Either way, the mechanism itself is important.</p>
+              <p>Civilization probably would not exist without it.</p>
 
-            <h2 className="mt-10 text-2xl">Where the Paradox Starts</h2>
-            <p>
-              If good is good, and bad is bad, then logically we should always choose the good option and avoid the bad one.
-            </p>
-            <p>Sounds simple. But reality is not that simple.</p>
+              <h2 className="mt-10 text-2xl">Where the Paradox Starts</h2>
+              <p>If good is good, and bad is bad, then logically we should always choose the good option and avoid the bad one.</p>
+              <p>Sounds simple.</p>
+              <p>But reality is not that simple.</p>
 
-            <p>
-              Good and Bad are extremely subjective categories. To understand them properly, you need the ability to look at things from multiple perspectives.
-            </p>
+              <p>Good and Bad are extremely subjective categories.</p>
+              <p>To understand them properly, you need the ability to look at things from multiple perspectives.</p>
+              <p>Only then the full picture starts to appear.</p>
 
-            <p>Only then the full picture starts to appear.</p>
+              <h2 className="mt-10 text-2xl">A Modern Example: Social Media</h2>
+              <p>Some people believe social media is good.</p>
+              <p>Others believe it is bad.</p>
+              <p>And interestingly enough, both sides are correct.</p>
 
-            <h2 className="mt-10 text-2xl">A Modern Example: Social Media</h2>
-            <p>
-              Some people believe social media is good. Others believe it is bad. And interestingly enough, both sides are correct.
-            </p>
+              <h3 className="mt-8 text-xl">Why Social Media Can Be Good</h3>
+              <ul className="list-disc">
+                <li>Some people literally make their living through social media.</li>
+                <li>It provides entertainment and connection.</li>
+                <li>It can be used as discipline training for attention control.</li>
+              </ul>
 
-            <h3 className="mt-8 text-xl">Why Social Media Can Be Good</h3>
-            <ul className="list-disc list-inside">
-              <li>Some people literally make their living through social media.</li>
-              <li>It provides entertainment and connection.</li>
-              <li>It can be used as discipline training for attention control.</li>
-            </ul>
+              <h3 className="mt-8 text-xl">Why Social Media Can Be Bad</h3>
+              <ul className="list-disc">
+                <li>Many people become addicted to endless scrolling.</li>
+                <li>It can create comparison and dissatisfaction.</li>
+                <li>It can reduce focus and distort how we evaluate our own life.</li>
+              </ul>
 
-            <h3 className="mt-8 text-xl">Why Social Media Can Be Bad</h3>
-            <ul className="list-disc list-inside">
-              <li>Many people become addicted to endless scrolling.</li>
-              <li>It can create comparison and dissatisfaction.</li>
-              <li>It can reduce focus and distort how we evaluate our own life.</li>
-            </ul>
+              <h2 className="mt-10 text-2xl">So, Good or Bad?</h2>
+              <p>The honest answer is: both.</p>
+              <p>It depends on perspective and on the person using it.</p>
+              <p>The same tool can build someone&apos;s career or destroy someone&apos;s focus.</p>
+              <p>The same environment can train discipline or create addiction.</p>
 
-            <h2 className="mt-10 text-2xl">So, Good or Bad?</h2>
-            <p>The honest answer is: both.</p>
-            <p>
-              It depends on perspective and on the person using it. The same tool can build someone&apos;s career or destroy someone&apos;s focus.
-            </p>
+              <p>In many cases when we decide something is good or bad, we are actually just describing our current perspective, not the full truth.</p>
+              <p>To truly understand a situation you have to zoom out and look from multiple angles.</p>
 
-            <p>
-              The same environment can train discipline or create addiction.
-            </p>
+              <p>And even then, the funny part is:</p>
+              <p>You still have to choose.</p>
+              <p>And once you choose, you will probably justify why your choice was the right one.</p>
 
-            <p>
-              In many cases when we decide something is good or bad, we are actually just describing our current perspective, not the full truth.
-            </p>
+              <p>Because just like good and bad, even right and wrong are often subjective.</p>
+              <p>Ironically, those very ideas helped humanity build civilization: laws, fairness, order, cooperation.</p>
+              <p>But the moment you start thinking deeper about them, a little bit of philosophical chaos appears.</p>
 
-            <p>
-              To truly understand a situation you have to zoom out and look from multiple angles.
-            </p>
-
-            <p>
-              And even then, the funny part is: you still have to choose. And once you choose, you will probably justify why your choice was the right one.
-            </p>
-
-            <p>
-              Because just like good and bad, even right and wrong are often subjective.
-            </p>
-
-            <p>
-              Ironically, those very ideas helped humanity build civilization: laws, fairness, order, cooperation.
-            </p>
-
-            <p>
-              But the moment you start thinking deeper about them, a little bit of philosophical chaos appears.
-            </p>
-
-            <p>
-              Which is probably a good thing. Or maybe a bad thing. Depends on your perspective.
-            </p>
+              <p>Which is probably a good thing.</p>
+              <p>Or maybe a bad thing.</p>
+              <p>Depends on your perspective.</p>
+            </div>
           </article>
         </section>
       </div>
