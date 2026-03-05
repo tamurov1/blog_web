@@ -72,6 +72,13 @@ export const blogGraph: BlogNode = {
       id: 'thoughts-journal',
       title: 'Thoughts Journal',
       children: [
+        {
+          id: 'paradox-of-good-and-bad',
+          title: 'The Paradox of Good and Bad',
+          path: '/blog/thoughts-journal/paradox-of-good-and-bad/',
+          author: 'Dmytrii Tamurov',
+          date: '2026-03-05',
+        },
       ],
     },
   ]
