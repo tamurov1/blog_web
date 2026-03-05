@@ -95,7 +95,7 @@ export default function AiMergePage() {
             <div className="mt-6 space-y-3 [&_p]:m-0 [&_p]:border-l-2 [&_p]:border-gray-300 [&_p]:pl-4 [&_p]:leading-7">
               <p><strong>Disclaimer:</strong></p>
               <p>This is my personal blog and these are simply my thoughts and observations.</p>
-              <p>I am not claiming this as absolute truth, just sharing how I currently see things.</p>
+              <br></br>
 
               <p>Human merge with AI is inevitable.</p>
               <p>The real question is not if, but how and when it will happen.</p>
