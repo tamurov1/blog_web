@@ -138,7 +138,7 @@ export default function HomePage() {
           </div>
 
           {/* Content View */}
-          <div className="border border-dashed border-gray-400 p-4 rounded-md overflow-hidden h-[400px] bg-white/70 shadow-lg backdrop-blur">
+          <div className="border border-dashed border-gray-400 p-4 rounded-md overflow-hidden min-h-[420px] sm:h-[calc(100vh-150px)] bg-white/70 shadow-lg backdrop-blur">
             {viewMode === 'map' ? <BlogMap /> : <PostList />}
           </div>
         </section>
