@@ -105,17 +105,33 @@ export default function NexessaryPage() {
 
             <div className="mt-8 p-4 rounded-md border border-blue-200 bg-blue-50/70">
               <h3 className="text-lg font-semibold text-blue-700 m-0">Project Link</h3>
-              <p className="mt-2 mb-0">
-                Website:{' '}
+              <div className="mt-3 flex flex-col sm:flex-row gap-4 sm:items-center">
                 <a
                   href="https://nexessary.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-700 underline"
+                  className="inline-block overflow-hidden rounded-lg border border-blue-200 bg-white shadow-sm transition hover:shadow-md"
                 >
-                  https://nexessary.com
+                  <Image
+                    src="/nexessary.png"
+                    alt="Nexessary preview"
+                    width={240}
+                    height={140}
+                    className="h-auto w-full sm:w-[240px] object-cover"
+                  />
                 </a>
-              </p>
+                <p className="m-0">
+                  Website:{' '}
+                  <a
+                    href="https://nexessary.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-700 underline"
+                  >
+                    https://nexessary.com
+                  </a>
+                </p>
+              </div>
             </div>
           </article>
         </section>

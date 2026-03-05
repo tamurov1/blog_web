@@ -113,6 +113,21 @@ export default function HomePage() {
               <FaLinkedin /> LinkedIn
             </a>
           </div>
+
+          <a
+            href="https://nexessary.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-5 block overflow-hidden rounded-xl border border-black/10 bg-white/80 shadow-md transition hover:shadow-lg"
+          >
+            <Image
+              src="/nexessary.png"
+              alt="Visit Nexessary"
+              width={320}
+              height={190}
+              className="h-auto w-full max-w-[320px] object-cover"
+            />
+          </a>
         </section>
 
         {/* Blog Map / Post List */}
