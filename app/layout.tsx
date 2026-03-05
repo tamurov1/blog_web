@@ -15,12 +15,25 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Dmytrii Tamurov",
+  metadataBase: new URL("https://dmytriitamurov.com"),
+  title: {
+    default: "Dmytrii Tamurov",
+    template: "%s | Dmytrii Tamurov",
+  },
   description:
-    "Cybersecurity, development, Olympic weightlifting - thoughts, blogs, and ideas in one place.",
+    "Official site of Dmytrii Tamurov - cybersecurity and software projects, including Nexessary.",
   authors: [{ name: "Dmytrii Tamurov", url: "https://dmytriitamurov.com" }],
+  creator: "Dmytrii Tamurov",
+  publisher: "Dmytrii Tamurov",
+  alternates: {
+    canonical: "https://dmytriitamurov.com",
+  },
   keywords: [
     "Dmytrii Tamurov",
+    "Dmytrii Tamurov Nexessary",
+    "Nexessary",
+    "Nexessary founder",
+    "Dmytrii Tamurov projects",
     "portfolio",
     "TMK",
     "personal website",
@@ -36,6 +49,29 @@ export const metadata: Metadata = {
     "tamurov project",
     "tamurov cybersecurity",
   ],
+  openGraph: {
+    type: "website",
+    url: "https://dmytriitamurov.com",
+    title: "Dmytrii Tamurov",
+    description:
+      "Official site of Dmytrii Tamurov - cybersecurity and software projects, including Nexessary.",
+    siteName: "Dmytrii Tamurov",
+    images: [
+      {
+        url: "/pic-ava.png",
+        width: 150,
+        height: 150,
+        alt: "Dmytrii Tamurov",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Dmytrii Tamurov",
+    description:
+      "Cybersecurity and software projects by Dmytrii Tamurov, including Nexessary.",
+    images: ["/pic-ava.png"],
+  },
 };
 
 export default function RootLayout({

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import Script from 'next/script'
 import { FaTwitter, FaLinkedin, FaYoutube } from 'react-icons/fa'
 import { FiSearch } from 'react-icons/fi'
 import BlogMap from '@/components/BlogMap'
@@ -15,6 +16,36 @@ export default function HomePage() {
   const fullBio =
     'Cybersecurity, development, Olympic weightlifting - thoughts, blogs, and ideas in one place.'
   const [typedBio, setTypedBio] = useState('')
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Person',
+        '@id': 'https://dmytriitamurov.com/#person',
+        name: 'Dmytrii Tamurov',
+        url: 'https://dmytriitamurov.com',
+        jobTitle: 'Cybersecurity Researcher',
+        knowsAbout: ['Cybersecurity', 'Software Development', 'SOC Analysis'],
+        sameAs: [
+          'https://nexessary.com',
+          'https://x.com/Dmytriitmk',
+          'https://www.linkedin.com/in/dmytrii-tamurov-40b6aa274/',
+          'https://www.youtube.com/channel/UChUvWsi-Dpb6abY6SZsxgxA',
+        ],
+      },
+      {
+        '@type': 'SoftwareApplication',
+        '@id': 'https://nexessary.com/#app',
+        name: 'Nexessary',
+        applicationCategory: 'BusinessApplication',
+        operatingSystem: 'Web',
+        url: 'https://nexessary.com',
+        creator: {
+          '@id': 'https://dmytriitamurov.com/#person',
+        },
+      },
+    ],
+  }
 
   useEffect(() => {
     const totalDurationMs = 4000
@@ -37,6 +68,11 @@ export default function HomePage() {
       ref={mainRef}
       className="h-screen bg-white text-black p-6 sm:p-12 font-sans relative overflow-hidden"
     >
+      <Script
+        id="structured-data-person-nexessary"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       <BackgroundFX containerRef={mainRef} />
 
       {/* Header */}
