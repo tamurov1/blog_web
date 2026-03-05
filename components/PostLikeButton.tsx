@@ -8,19 +8,36 @@ type PostLikeButtonProps = {
 }
 
 export default function PostLikeButton({ postId, initialCount = 0 }: PostLikeButtonProps) {
+  const deviceKey = 'tmk:device-id'
   const likedKey = useMemo(() => `tmk:liked:${postId}`, [postId])
-  const countKey = useMemo(() => `tmk:likes:${postId}`, [postId])
+  const countKey = useMemo(() => `tmk:last-count:${postId}`, [postId])
 
   const [liked, setLiked] = useState(false)
   const [count, setCount] = useState(initialCount)
+  const [deviceId, setDeviceId] = useState('')
   const [ready, setReady] = useState(false)
+  const [busy, setBusy] = useState(false)
 
   useEffect(() => {
+    const createDeviceId = () => {
+      if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+        return crypto.randomUUID()
+      }
+      return `${Date.now()}-${Math.random().toString(36).slice(2)}`
+    }
+
     try {
+      let localDeviceId = localStorage.getItem(deviceKey) || ''
+      if (!localDeviceId) {
+        localDeviceId = createDeviceId()
+        localStorage.setItem(deviceKey, localDeviceId)
+      }
+
       const storedLiked = localStorage.getItem(likedKey) === '1'
       const rawCount = localStorage.getItem(countKey)
       const storedCount = rawCount ? Number.parseInt(rawCount, 10) : initialCount
 
+      setDeviceId(localDeviceId)
       setLiked(storedLiked)
       setCount(Number.isFinite(storedCount) ? storedCount : initialCount)
     } catch {
@@ -31,21 +48,85 @@ export default function PostLikeButton({ postId, initialCount = 0 }: PostLikeBut
     }
   }, [countKey, likedKey, initialCount])
 
-  const toggleLike = () => {
-    if (!ready) return
+  useEffect(() => {
+    if (!ready || !deviceId) return
 
+    let mounted = true
+
+    const syncFromServer = async () => {
+      try {
+        const res = await fetch(`/api/likes/${encodeURIComponent(postId)}?deviceId=${encodeURIComponent(deviceId)}`, {
+          cache: 'no-store',
+        })
+
+        if (!res.ok) return
+
+        const data = await res.json()
+        if (!mounted) return
+
+        const nextLiked = Boolean(data?.liked)
+        const nextCount = Number.isFinite(Number(data?.count)) ? Number(data.count) : count
+
+        setLiked(nextLiked)
+        setCount(nextCount)
+
+        localStorage.setItem(likedKey, nextLiked ? '1' : '0')
+        localStorage.setItem(countKey, String(nextCount))
+      } catch {
+        // Keep local state if server is unavailable.
+      }
+    }
+
+    syncFromServer()
+
+    return () => {
+      mounted = false
+    }
+  }, [ready, deviceId, postId, likedKey, countKey, count])
+
+  const toggleLike = async () => {
+    if (!ready || !deviceId || busy) return
+
+    setBusy(true)
     const nextLiked = !liked
-    const nextCount = nextLiked ? count + 1 : Math.max(initialCount, count - 1)
-
-    setLiked(nextLiked)
-    setCount(nextCount)
 
     try {
-      localStorage.setItem(likedKey, nextLiked ? '1' : '0')
-      localStorage.setItem(countKey, String(nextCount))
+      const res = await fetch(`/api/likes/${encodeURIComponent(postId)}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          deviceId,
+          like: nextLiked,
+        }),
+      })
+
+      if (res.ok) {
+        const data = await res.json()
+        const nextCount = Number.isFinite(Number(data?.count)) ? Number(data.count) : count
+
+        setLiked(Boolean(data?.liked))
+        setCount(nextCount)
+
+        localStorage.setItem(likedKey, data?.liked ? '1' : '0')
+        localStorage.setItem(countKey, String(nextCount))
+      } else {
+        const fallbackCount = nextLiked ? count + 1 : Math.max(initialCount, count - 1)
+        setLiked(nextLiked)
+        setCount(fallbackCount)
+        localStorage.setItem(likedKey, nextLiked ? '1' : '0')
+        localStorage.setItem(countKey, String(fallbackCount))
+      }
     } catch {
-      // Ignore storage errors (private mode/quota) and keep in-memory state.
+      const fallbackCount = nextLiked ? count + 1 : Math.max(initialCount, count - 1)
+      setLiked(nextLiked)
+      setCount(fallbackCount)
+      localStorage.setItem(likedKey, nextLiked ? '1' : '0')
+      localStorage.setItem(countKey, String(fallbackCount))
     }
+
+    setBusy(false)
   }
 
   return (
@@ -58,8 +139,9 @@ export default function PostLikeButton({ postId, initialCount = 0 }: PostLikeBut
           : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
       }`}
       aria-pressed={liked}
+      disabled={busy}
     >
-      <span aria-hidden>{liked ? '♥' : '♡'}</span>
+      <span aria-hidden>{liked ? '?' : '?'}</span>
       <span>{count}</span>
       <span>{count === 1 ? 'Like' : 'Likes'}</span>
     </button>

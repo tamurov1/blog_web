@@ -48,7 +48,8 @@ export default function HomePage() {
               alt="Dmytrii Tamurov"
               width={150}
               height={150}
-              className="object-cover scale-100"
+              className="pointer-events-none select-none object-cover scale-100"
+              draggable={false}
               priority
             />
           </div>
@@ -77,10 +78,10 @@ export default function HomePage() {
             <a href="https://www.youtube.com/channel/UChUvWsi-Dpb6abY6SZsxgxA" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-red-600">
               <FaYoutube /> YouTube
             </a>
-            <a href="https://twitter.com/" className="flex items-center gap-2 hover:text-blue-500">
-              <FaTwitter /> Twitter
+            <a href="https://x.com/tamurofff" className="flex items-center gap-2 hover:text-blue-500">
+              <FaTwitter /> X
             </a>
-            <a href="https://linkedin.com/" className="flex items-center gap-2 hover:text-blue-700">
+            <a href="https://www.linkedin.com/in/dmytrii-tamurov-40b6aa274" className="flex items-center gap-2 hover:text-blue-700">
               <FaLinkedin /> LinkedIn
             </a>
           </div>

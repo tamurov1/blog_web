@@ -28,7 +28,7 @@ export default function HomePage() {
         knowsAbout: ['Cybersecurity', 'Software Development', 'SOC Analysis'],
         sameAs: [
           'https://nexessary.com',
-          'https://x.com/Dmytriitmk',
+          'https://x.com/tamurofff',
           'https://www.linkedin.com/in/dmytrii-tamurov-40b6aa274/',
           'https://www.youtube.com/channel/UChUvWsi-Dpb6abY6SZsxgxA',
         ],
@@ -100,14 +100,15 @@ export default function HomePage() {
       {/* Content */}
       <div className="flex flex-col sm:flex-row gap-12 relative z-10">
         {/* Profile Block */}
-        <section className="w-full sm:w-1/3 flex flex-col items-center sm:items-start text-center sm:text-left animate-fade-up-1">
+        <section className="order-2 sm:order-1 w-full sm:w-1/3 flex flex-col items-center sm:items-start text-center sm:text-left animate-fade-up-1">
           <div className="w-[150px] h-[150px] rounded-full overflow-hidden border border-gray-300 mb-4 shadow-lg ring-4 ring-white/70">
             <Image
               src="/pic-ava.png"
               alt="Dmytrii Tamurov"
               width={150}
               height={150}
-              className="object-cover scale-100"
+              className="pointer-events-none select-none object-cover scale-100"
+              draggable={false}
               priority
             />
           </div>
@@ -152,17 +153,17 @@ export default function HomePage() {
             <a href="https://www.youtube.com/channel/UChUvWsi-Dpb6abY6SZsxgxA" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-red-600">
               <FaYoutube /> YouTube
             </a>
-            <a href="https://twitter.com/" className="flex items-center gap-2 hover:text-blue-500">
-              <FaTwitter /> Twitter
+            <a href="https://x.com/tamurofff" className="flex items-center gap-2 hover:text-blue-500">
+              <FaTwitter /> X
             </a>
-            <a href="https://linkedin.com/" className="flex items-center gap-2 hover:text-blue-700">
+            <a href="https://www.linkedin.com/in/dmytrii-tamurov-40b6aa274" className="flex items-center gap-2 hover:text-blue-700">
               <FaLinkedin /> LinkedIn
             </a>
           </div>
         </section>
 
         {/* Blog Map / Post List */}
-        <section className="w-full sm:w-2/3 animate-fade-up-2">
+        <section className="order-1 sm:order-2 w-full sm:w-2/3 animate-fade-up-2">
           {/* Toggle Button */}
           <div className="mb-4 flex justify-end">
             <button
@@ -174,7 +175,7 @@ export default function HomePage() {
           </div>
 
           {/* Content View */}
-          <div className="border border-dashed border-gray-400 p-4 rounded-md overflow-hidden min-h-[360px] sm:h-[calc(95vh-230px)] bg-white/70 shadow-lg backdrop-blur">
+          <div className="border border-dashed border-gray-400 p-4 rounded-md overflow-hidden h-[52vh] min-h-[320px] sm:h-[calc(95vh-230px)] bg-white/70 shadow-lg backdrop-blur">
             {viewMode === 'map' ? <BlogMap /> : <PostList />}
           </div>
         </section>
