@@ -59,10 +59,13 @@ function BlogMapCanvas() {
       fitViewOptions={{ padding: 0.24, duration: 350 }}
       minZoom={0.35}
       maxZoom={1.65}
-      panOnScroll
+      panOnDrag
+      panOnScroll={false}
       zoomOnScroll
+      zoomOnPinch
       selectionOnDrag={false}
       proOptions={{ hideAttribution: true }}
+      style={{ touchAction: 'none' }}
     >
       <MiniMap
         style={{ width: 150, height: 100 }}
@@ -78,7 +81,7 @@ function BlogMapCanvas() {
 export default function BlogMap() {
   return (
     <ReactFlowProvider>
-      <div className="w-full h-full min-h-[380px]">
+      <div className="w-full h-full min-h-0">
         <BlogMapCanvas />
       </div>
     </ReactFlowProvider>

@@ -7,7 +7,7 @@ const posts = flattenBlogPosts(blogGraph)
 
 export default function PostList() {
   return (
-    <div className="h-full max-h-[400px] overflow-y-auto space-y-4 pr-2">
+    <div className="h-full overflow-y-auto overscroll-contain space-y-4 pr-2">
       {posts.map((post) => (
         <Link
           key={post.id}
