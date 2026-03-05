@@ -118,15 +118,16 @@ export default function HomePage() {
             href="https://nexessary.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-5 block overflow-hidden rounded-xl border border-black/10 bg-white/80 shadow-md transition hover:shadow-lg"
+            className="mt-2 flex items-center gap-2 hover:text-blue-700"
           >
             <Image
               src="/nexessary.png"
-              alt="Visit Nexessary"
-              width={320}
-              height={190}
-              className="h-auto w-full max-w-[320px] object-cover"
+              alt="Nexessary"
+              width={16}
+              height={16}
+              className="h-4 w-4 rounded-sm object-cover"
             />
+            Nexessary
           </a>
         </section>
 
