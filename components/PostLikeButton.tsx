@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
+import { FaHeart, FaRegHeart } from 'react-icons/fa'
 
 type PostLikeButtonProps = {
   postId: string
@@ -141,7 +142,7 @@ export default function PostLikeButton({ postId, initialCount = 0 }: PostLikeBut
       aria-pressed={liked}
       disabled={busy}
     >
-      <span aria-hidden>{liked ? '?' : '?'}</span>
+      <span aria-hidden>{liked ? <FaHeart /> : <FaRegHeart />}</span>
       <span>{count}</span>
       <span>{count === 1 ? 'Like' : 'Likes'}</span>
     </button>
