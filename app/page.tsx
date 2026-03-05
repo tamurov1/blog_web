@@ -66,7 +66,7 @@ export default function HomePage() {
   return (
     <main
       ref={mainRef}
-      className="h-screen bg-white text-black p-6 sm:p-12 font-sans relative overflow-hidden"
+      className="min-h-screen sm:h-screen bg-white text-black p-6 sm:p-12 font-sans relative overflow-x-hidden overflow-y-auto sm:overflow-hidden"
     >
       <Script
         id="structured-data-person-nexessary"

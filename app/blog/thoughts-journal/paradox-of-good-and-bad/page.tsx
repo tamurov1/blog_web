@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { FaTwitter, FaLinkedin, FaYoutube } from 'react-icons/fa'
 import { FiSearch } from 'react-icons/fi'
 import BackgroundFX from '@/components/BackgroundFX'
+import PostLikeButton from '@/components/PostLikeButton'
 
 export default function ParadoxOfGoodAndBadPage() {
   const mainRef = useRef<HTMLElement | null>(null)
@@ -88,6 +89,7 @@ export default function ParadoxOfGoodAndBadPage() {
           <article className="prose prose-lg max-w-none text-gray-800 bg-white/70 backdrop-blur p-6 rounded-lg shadow-lg border border-black/5">
             <h1 className="text-3xl font-bold text-blue-600 mb-4">The Paradox of Good and Bad</h1>
             <p className="text-sm text-gray-500">By Dmytrii Tamurov | March 5, 2026</p>
+            <PostLikeButton postId="paradox-of-good-and-bad" />
 
             <div className="mt-6 space-y-3 [&_p]:m-0 [&_p]:border-l-2 [&_p]:border-gray-300 [&_p]:pl-4 [&_p]:leading-7 [&_ul]:my-2 [&_ul]:border-l-2 [&_ul]:border-gray-300 [&_ul]:pl-8 [&_li]:my-1">
               <p>Good is not always good.</p>

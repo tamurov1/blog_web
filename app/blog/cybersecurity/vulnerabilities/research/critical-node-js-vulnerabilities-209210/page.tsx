@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { FaTwitter, FaLinkedin, FaYoutube } from 'react-icons/fa'
 import { FiSearch } from 'react-icons/fi'
 import BackgroundFX from '@/components/BackgroundFX'
+import PostLikeButton from '@/components/PostLikeButton'
 
 export default function HomePage() {
   const mainRef = useRef<HTMLElement | null>(null)
@@ -90,6 +91,7 @@ export default function HomePage() {
             <div className="prose prose-lg max-w-none text-gray-800 bg-white/70 backdrop-blur p-6 rounded-lg shadow-lg border border-black/5">
               <h1 className="text-3xl font-bold text-blue-600 mb-4">Critical Node.js Vulnerabilities (CVE-2025-27209 & CVE-2025-27210)</h1>
               <p className="text-sm text-gray-500">By Dmytrii Tamurov | July 17, 2025</p>
+              <PostLikeButton postId="critical-node-js-vulnerabilities-209210" />
 
                 <div className="prose prose-lg max-w-4xl mx-auto mt-10">
                   <p>

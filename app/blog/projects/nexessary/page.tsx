@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { FaTwitter, FaLinkedin, FaYoutube } from 'react-icons/fa'
 import { FiSearch } from 'react-icons/fi'
 import BackgroundFX from '@/components/BackgroundFX'
+import PostLikeButton from '@/components/PostLikeButton'
 
 export default function NexessaryPage() {
   const mainRef = useRef<HTMLElement | null>(null)
@@ -88,6 +89,7 @@ export default function NexessaryPage() {
           <article className="prose prose-lg max-w-none text-gray-800 bg-white/70 backdrop-blur p-6 rounded-lg shadow-lg border border-black/5">
             <h1 className="text-3xl font-bold text-blue-600 mb-4">Nexessary: Building a Structured Workspace for Real Workflows</h1>
             <p className="text-sm text-gray-500">By Dmytrii Tamurov | March 4, 2026</p>
+            <PostLikeButton postId="nexessary-building-a-structured-workspace" />
 
             <p>
               Nexessary is a web application that I started building from a simple idea: most people work with too many tools that do not actually connect well with each other.
