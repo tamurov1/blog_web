@@ -65,11 +65,6 @@ export default function HomePage() {
       <div className="flex flex-col sm:flex-row gap-12 relative z-10">
         {/* Profile Block */}
         <section className="w-full sm:w-1/3 flex flex-col items-center sm:items-start text-center sm:text-left animate-fade-up-1">
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/70 px-3 py-1 text-xs text-gray-700 shadow-sm backdrop-blur">
-            <span className="inline-block h-2 w-2 rounded-full bg-emerald-500 animate-pulse-soft" />
-            Online and active
-          </div>
-
           <div className="w-[150px] h-[150px] rounded-full overflow-hidden border border-gray-300 mb-4 shadow-lg ring-4 ring-white/70">
             <Image
               src="/pic-ava.png"

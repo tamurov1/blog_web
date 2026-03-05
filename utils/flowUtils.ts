@@ -58,10 +58,9 @@ export function generateFlowData(tree: BlogNode): { nodes: Node[]; edges: Edge[]
   dagreGraph.setDefaultEdgeLabel(() => ({}))
   dagreGraph.setGraph({
     rankdir: 'TB', // Top to Bottom
-    nodesep: 80, // Horizontal spacing between nodes
-    ranksep: 140, // Vertical spacing between ranks
-    align: 'UL', // Align nodes to upper left
-    ranker: 'tight-tree',
+    nodesep: 64, // Horizontal spacing between nodes
+    ranksep: 124, // Vertical spacing between ranks
+    ranker: 'network-simplex',
   })
 
   // Add nodes to dagre graph

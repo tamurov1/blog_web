@@ -30,10 +30,10 @@ function BlogMapCanvas() {
         type: MarkerType.ArrowClosed,
         width: 16,
         height: 16,
-        color: 'rgba(15, 23, 42, 0.35)',
+        color: 'rgba(75, 85, 99, 0.45)',
       },
       style: {
-        stroke: 'rgba(15, 23, 42, 0.28)',
+        stroke: 'rgba(75, 85, 99, 0.32)',
         strokeWidth: 1.5,
       },
     }))
@@ -56,10 +56,9 @@ function BlogMapCanvas() {
       edgesFocusable={false}
       onNodeClick={onNodeClick}
       fitView
-      fitViewOptions={{ padding: 0.35 }}
-      minZoom={0.25}
-      maxZoom={1.8}
-      defaultViewport={{ x: 0, y: 0, zoom: 0.9 }}
+      fitViewOptions={{ padding: 0.24, duration: 350 }}
+      minZoom={0.35}
+      maxZoom={1.65}
       panOnScroll
       zoomOnScroll
       selectionOnDrag={false}
@@ -67,10 +66,11 @@ function BlogMapCanvas() {
     >
       <MiniMap
         style={{ width: 150, height: 100 }}
-        nodeColor={(n) => (n.data?.path ? '#60a5fa' : '#c7d2fe')}
+        nodeColor={(n) => (n.data?.path ? '#6b7280' : '#9ca3af')}
+        maskColor="rgba(243, 244, 246, 0.75)"
       />
       <Controls showInteractive />
-      <Background gap={24} color="rgba(15, 23, 42, 0.06)" />
+      <Background gap={24} color="rgba(107, 114, 128, 0.16)" />
     </ReactFlow>
   )
 }

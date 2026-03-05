@@ -15,7 +15,7 @@ type BlogNodeData = {
 function BlogMapNode({ data }: NodeProps<BlogNodeData>) {
   const isLeaf = Boolean(data?.isLeaf)
   const level = Number(data?.level || 0)
-  const depthTint = Math.min(level * 8, 28)
+  const levelShade = Math.min(level * 12, 42)
 
   const isClickable = Boolean(data?.path)
 
@@ -25,8 +25,8 @@ function BlogMapNode({ data }: NodeProps<BlogNodeData>) {
       style={{
         boxShadow: `0 10px 30px rgba(15, 23, 42, 0.12), inset 0 0 0 1px rgba(255,255,255,0.5)`,
         background: isLeaf
-          ? `linear-gradient(145deg, rgba(255,255,255,0.95), rgba(239,246,255,0.85))`
-          : `linear-gradient(145deg, rgba(255,255,255,0.95), rgba(224,242,254,0.85))`,
+          ? `linear-gradient(145deg, rgba(255,255,255,0.95), rgba(243,244,246,0.92))`
+          : `linear-gradient(145deg, rgba(255,255,255,0.95), rgba(229,231,235,0.9))`,
         borderColor: `rgba(15, 23, 42, 0.08)`,
         cursor: isClickable ? 'pointer' : 'default',
       }}
@@ -35,7 +35,7 @@ function BlogMapNode({ data }: NodeProps<BlogNodeData>) {
         {isLeaf ? 'Post' : 'Group'}
       </div>
       {isClickable && (
-        <div className="absolute -top-3 left-4 rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-semibold text-emerald-700 shadow-sm ring-1 ring-emerald-200/80">
+        <div className="absolute -top-3 left-4 rounded-full bg-gray-100 px-2.5 py-1 text-[10px] font-semibold text-gray-700 shadow-sm ring-1 ring-gray-300/80">
           Open
         </div>
       )}
@@ -52,7 +52,7 @@ function BlogMapNode({ data }: NodeProps<BlogNodeData>) {
       <div
         className="absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-200 group-hover:opacity-100"
         style={{
-          background: `radial-gradient(circle at 20% 10%, rgba(59,130,246,0.18), transparent 60%)`,
+          background: `radial-gradient(circle at 20% 10%, rgba(107,114,128,0.16), transparent 60%)`,
         }}
       />
       <div
@@ -64,9 +64,9 @@ function BlogMapNode({ data }: NodeProps<BlogNodeData>) {
       <div
         className="absolute inset-x-5 bottom-2.5 h-1.5 rounded-full"
         style={{
-          background: `linear-gradient(90deg, rgba(59,130,246,0.35), rgba(14,116,144,0.55))`,
+          background: `linear-gradient(90deg, rgba(107,114,128,0.35), rgba(55,65,81,0.6))`,
           opacity: isLeaf ? 0.85 : 0.6,
-          filter: `hue-rotate(${depthTint}deg)`,
+          filter: `grayscale(1) brightness(${1 - levelShade / 180})`,
         }}
       />
       <Handle type="target" position={Position.Top} className="!h-2 !w-2 !border-0 !bg-slate-300/70" />
