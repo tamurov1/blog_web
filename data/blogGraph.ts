@@ -73,6 +73,13 @@ export const blogGraph: BlogNode = {
       title: 'Thoughts Journal',
       children: [
         {
+          id: 'human-fear',
+          title: 'Human Fear',
+          path: '/blog/thoughts-journal/human-fear/',
+          author: 'Dmytrii Tamurov',
+          date: '2026-03-10',
+        },
+        {
           id: 'ai-merge',
           title: 'AI Merge',
           path: '/blog/thoughts-journal/ai-merge/',
