@@ -2,11 +2,10 @@
 
 import { useRef } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
 import { FaTwitter, FaLinkedin, FaYoutube } from 'react-icons/fa'
-import { FiSearch } from 'react-icons/fi'
 import BackgroundFX from '@/components/BackgroundFX'
 import PostLikeButton from '@/components/PostLikeButton'
+import SiteHeader from '@/components/SiteHeader'
 
 export default function AiMergePage() {
   const mainRef = useRef<HTMLElement | null>(null)
@@ -18,27 +17,7 @@ export default function AiMergePage() {
     >
       <BackgroundFX containerRef={mainRef} />
 
-      <header className="flex justify-between items-center mb-12 relative z-10 animate-fade-up">
-        <div className="flex items-center gap-2 text-2xl font-bold tracking-tight select-none cursor-default">
-          <Image
-            src="/logo-black.png"
-            alt="TMK logo"
-            width={26}
-            height={26}
-            className="h-6 w-6 object-contain"
-            priority
-          />
-          TMK
-        </div>
-        <nav className="flex flex-wrap gap-x-4 gap-y-2 items-center text-sm">
-          <Link href="/" className="tmk-nav-link">Home</Link>
-          <Link href="/map" className="tmk-nav-link">Map</Link>
-          <Link href="/cybernews" className="tmk-nav-link tmk-nav-link-featured">Cybernews</Link>
-          <Link href="/about" className="tmk-nav-link">About</Link>
-          <Link href="/shop" className="tmk-nav-link">Shop</Link>
-          <FiSearch className="text-xl cursor-pointer hover:opacity-70" aria-label="Search" />
-        </nav>
-      </header>
+      <SiteHeader className="-mx-6 -mt-6 mb-12 animate-fade-up sm:-mx-12 sm:-mt-12" />
 
       <div className="flex flex-col sm:flex-row gap-12 relative z-10">
         <aside className="w-full sm:w-1/3 flex flex-col items-center sm:items-start text-center sm:text-left animate-fade-up-1">

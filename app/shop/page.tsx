@@ -1,11 +1,9 @@
 'use client'
 import { useRef } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { FiSearch } from 'react-icons/fi'
 import BackgroundFX from '@/components/BackgroundFX'
 import ShopIntro from '@/components/ShopIntro'
 import ProductTiles from '@/components/ProductTiles'
+import SiteHeader from '@/components/SiteHeader'
 
 export default function ShopPage() {
   const mainRef = useRef<HTMLElement | null>(null)
@@ -16,28 +14,7 @@ export default function ShopPage() {
       className="min-h-screen bg-[#FAFAFA] text-[#111] p-6 sm:p-12 font-sans relative overflow-hidden"
     >
       <BackgroundFX containerRef={mainRef} />
-      {/* Header */}
-      <div className="flex justify-between items-center mb-12 relative z-10 animate-fade-up">
-        <div className="flex items-center gap-2 text-2xl font-bold tracking-tight select-none cursor-default">
-          <Image
-            src="/logo-black.png"
-            alt="TMK logo"
-            width={26}
-            height={26}
-            className="h-6 w-6 object-contain"
-            priority
-          />
-          TMK
-        </div>
-        <nav className="flex flex-wrap gap-x-4 gap-y-2 items-center">
-          <Link href="/" className="tmk-nav-link">Home</Link>
-          <Link href="/map" className="tmk-nav-link">Map</Link>
-          <Link href="/cybernews" className="tmk-nav-link tmk-nav-link-featured">Cybernews</Link>
-          <Link href="/about" className="tmk-nav-link">About</Link>
-          <Link href="/shop" className="tmk-nav-link">Shop</Link>
-          <FiSearch className="text-xl cursor-pointer hover:opacity-70" />
-        </nav>
-      </div>
+      <SiteHeader className="-mx-6 -mt-6 mb-12 animate-fade-up sm:-mx-12 sm:-mt-12" />
 
       <div className="relative z-10 space-y-10">
         <ShopIntro />
