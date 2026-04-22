@@ -30,6 +30,19 @@ export async function generateMetadata({ params }: CyberNewsPostPageProps): Prom
   return {
     title: post.title,
     description: post.deck,
+    keywords: [
+      post.title,
+      `${post.category} cybersecurity news`,
+      `${post.category} security threats`,
+      ...post.tags,
+      'cybersecurity news',
+      'cyber security news',
+      'threat intelligence',
+      'security research',
+      'incident response',
+      'vulnerability analysis',
+      'Dmytrii Tamurov',
+    ],
     alternates: {
       canonical: `/cybernews/${post.id}`,
     },
@@ -68,7 +81,7 @@ export default async function CyberNewsPostPage({ params }: CyberNewsPostPagePro
 
   const articleSchema = {
     '@context': 'https://schema.org',
-    '@type': 'Article',
+    '@type': 'NewsArticle',
     headline: post.title,
     description: post.deck,
     datePublished: post.publishedAt,
@@ -89,8 +102,38 @@ export default async function CyberNewsPostPage({ params }: CyberNewsPostPagePro
     },
     articleSection: post.category,
     keywords: post.tags.join(', '),
+    wordCount: post.body
+      .flatMap((section) => [section.heading, ...section.paragraphs])
+      .join(' ')
+      .split(/\s+/)
+      .filter(Boolean).length,
     image: 'https://dmytriitamurov.com/pic-ava.png',
     isBasedOn: post.sourceUrl,
+  }
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://dmytriitamurov.com',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Cybernews',
+        item: 'https://dmytriitamurov.com/cybernews',
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: post.title,
+        item: `https://dmytriitamurov.com/cybernews/${post.id}`,
+      },
+    ],
   }
 
   return (
@@ -99,6 +142,11 @@ export default async function CyberNewsPostPage({ params }: CyberNewsPostPagePro
         id={`article-schema-${post.id}`}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <Script
+        id={`breadcrumb-schema-${post.id}`}
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <CyberNewsPostLayout post={post} />
     </CyberNewsShell>

@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import {
   FiBookmark,
+  FiCoffee,
   FiChevronLeft,
   FiChevronRight,
   FiClock,
@@ -277,11 +278,19 @@ export default function CyberNewsFeed() {
 
         <aside className="space-y-4 lg:sticky lg:top-4">
           <div className="rounded-lg border border-black/5 bg-white/80 p-4 shadow-lg backdrop-blur">
-            <h2 className="text-sm font-semibold text-gray-950">Feed Format</h2>
+            <div className="flex items-center gap-2 text-sm font-semibold text-gray-950">
+              <FiCoffee className="text-red-500" aria-hidden="true" />
+              Give for a cup of coffee
+            </div>
             <p className="mt-2 text-sm leading-6 text-gray-600">
-              Each feed page is capped at {CYBER_NEWS_PAGE_SIZE} posts. Open a story to read the full post,
-              save it, and keep the feed height tied to the current page.
+              Support independent cybersecurity notes, research time, and better threat writeups.
             </p>
+            <a
+              href="#"
+              className="mt-4 inline-flex h-10 w-full items-center justify-center rounded-md bg-black px-3 text-sm font-medium text-white shadow-sm transition hover:bg-gray-800"
+            >
+              Buy a coffee
+            </a>
           </div>
           <AdSlot slot="CYBERNEWS_FEED_SIDEBAR_1" className="hidden min-h-[600px] lg:block" />
         </aside>

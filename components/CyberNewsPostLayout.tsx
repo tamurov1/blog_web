@@ -12,6 +12,7 @@ import {
 import { ADSENSE_CLIENT_ID } from '@/data/adsense'
 import { cyberNewsPosts, severityStyles, type NewsPost } from '@/data/cyberNews'
 import CyberNewsSaveButton from '@/components/CyberNewsSaveButton'
+import CyberNewsViewCounter from '@/components/CyberNewsViewCounter'
 
 function AdSlot({
   slot,
@@ -75,6 +76,7 @@ export default function CyberNewsPostLayout({ post }: { post: NewsPost }) {
 
         <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-sm text-gray-500">
           <time dateTime={post.publishedAt}>{post.publishedAt}</time>
+          <CyberNewsViewCounter postId={post.id} />
           <a
             href={post.sourceUrl}
             target="_blank"
