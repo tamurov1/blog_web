@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
+import { ADSENSE_CLIENT_ID } from "@/data/adsense";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -84,6 +86,13 @@ export default function RootLayout({
       <body
         className={`antialiased ${geistSans.variable} ${geistMono.variable} font-sans`}
       >
+        <Script
+          id="google-adsense"
+          async
+          strategy="afterInteractive"
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT_ID}`}
+          crossOrigin="anonymous"
+        />
         {children}
       </body>
     </html>

@@ -1,0 +1,1 @@
+export const ADSENSE_CLIENT_ID = 'ca-pub-7645649043424162'
