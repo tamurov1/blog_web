@@ -18,6 +18,9 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://dmytriitamurov.com"),
+  other: {
+    "google-adsense-account": ADSENSE_CLIENT_ID,
+  },
   title: {
     default: "Dmytrii Tamurov",
     template: "%s | Dmytrii Tamurov",
