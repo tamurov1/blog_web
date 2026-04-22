@@ -280,10 +280,10 @@ export default function CyberNewsFeed() {
           <div className="rounded-lg border border-black/5 bg-white/80 p-4 shadow-lg backdrop-blur">
             <div className="flex items-center gap-2 text-sm font-semibold text-gray-950">
               <FiCoffee className="text-red-500" aria-hidden="true" />
-              Give for a cup of coffee
+              For a cup of coffee
             </div>
             <p className="mt-2 text-sm leading-6 text-gray-600">
-              Support independent cybersecurity notes, research time, and better threat writeups.
+              Support one coffee cup budget project.
             </p>
             <a
               href="#"
