@@ -29,11 +29,12 @@ export default function AboutPage() {
           />
           TMK
         </div>
-        <nav className="flex gap-4 items-center">
-          <Link href="/" className="hover:underline">Home</Link>
-          <Link href="/map" className="hover:underline">Map</Link>
-          <Link href="/about" className="hover:underline">About</Link>
-          <Link href="/shop" className="hover:underline">Shop</Link>
+        <nav className="flex flex-wrap gap-x-4 gap-y-2 items-center">
+          <Link href="/" className="tmk-nav-link">Home</Link>
+          <Link href="/map" className="tmk-nav-link">Map</Link>
+          <Link href="/cybernews" className="tmk-nav-link tmk-nav-link-featured">Cybernews</Link>
+          <Link href="/about" className="tmk-nav-link">About</Link>
+          <Link href="/shop" className="tmk-nav-link">Shop</Link>
           <FiSearch className="text-xl cursor-pointer hover:opacity-70" />
         </nav>
       </div>

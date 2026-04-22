@@ -1,23 +1,22 @@
 'use client'
-import { useRef } from 'react'
+
+import { useRef, type ReactNode } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { FiSearch } from 'react-icons/fi'
 import BackgroundFX from '@/components/BackgroundFX'
-import ShopIntro from '@/components/ShopIntro'
-import ProductTiles from '@/components/ProductTiles'
+import CyberNewsFeed from '@/components/CyberNewsFeed'
 
-export default function ShopPage() {
+export default function CyberNewsShell({ children }: { children?: ReactNode }) {
   const mainRef = useRef<HTMLElement | null>(null)
 
   return (
     <main
       ref={mainRef}
-      className="min-h-screen bg-[#FAFAFA] text-[#111] p-6 sm:p-12 font-sans relative overflow-hidden"
+      className="min-h-screen bg-white text-black font-sans relative overflow-x-hidden"
     >
       <BackgroundFX containerRef={mainRef} />
-      {/* Header */}
-      <div className="flex justify-between items-center mb-12 relative z-10 animate-fade-up">
+      <header className="relative z-10 flex flex-col gap-4 border-b border-gray-200 bg-white/70 px-4 py-4 backdrop-blur sm:flex-row sm:items-center sm:justify-between sm:px-8">
         <div className="flex items-center gap-2 text-2xl font-bold tracking-tight select-none cursor-default">
           <Image
             src="/logo-black.png"
@@ -29,19 +28,20 @@ export default function ShopPage() {
           />
           TMK
         </div>
-        <nav className="flex flex-wrap gap-x-4 gap-y-2 items-center">
+        <nav className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm font-medium">
           <Link href="/" className="tmk-nav-link">Home</Link>
           <Link href="/map" className="tmk-nav-link">Map</Link>
-          <Link href="/cybernews" className="tmk-nav-link tmk-nav-link-featured">Cybernews</Link>
+          <Link href="/cybernews" className="tmk-nav-link tmk-nav-link-featured text-blue-600">Cybernews</Link>
           <Link href="/about" className="tmk-nav-link">About</Link>
           <Link href="/shop" className="tmk-nav-link">Shop</Link>
-          <FiSearch className="text-xl cursor-pointer hover:opacity-70" />
+          <Link href="/search" aria-label="Search" className="text-xl hover:opacity-70">
+            <FiSearch />
+          </Link>
         </nav>
-      </div>
+      </header>
 
-      <div className="relative z-10 space-y-10">
-        <ShopIntro />
-        <ProductTiles />
+      <div className="relative z-10 pt-6">
+        {children || <CyberNewsFeed />}
       </div>
     </main>
   )
