@@ -24,34 +24,25 @@ import { ADSENSE_CLIENT_ID } from '@/data/adsense'
 import CyberNewsSaveButton from '@/components/CyberNewsSaveButton'
 
 function AdSlot({
-  label,
-  size,
   slot,
   className = '',
 }: {
-  label: string
-  size: string
   slot: string
   className?: string
 }) {
   return (
     <aside
-      className={`flex min-h-24 items-center justify-center rounded-md border border-dashed border-gray-300 bg-white/75 p-4 text-center text-xs font-medium uppercase tracking-[0.18em] text-gray-400 shadow-sm backdrop-blur ${className}`}
-      aria-label={`${label} advertising placeholder`}
+      className={`overflow-hidden rounded-md bg-white ${className}`}
+      aria-hidden="true"
     >
       <ins
-        className="adsbygoogle hidden"
+        className="adsbygoogle"
         style={{ display: 'block' }}
         data-ad-client={ADSENSE_CLIENT_ID}
         data-ad-slot={slot}
         data-ad-format="auto"
         data-full-width-responsive="true"
       />
-      <div>
-        <div>{label}</div>
-        <div className="mt-1 text-[10px] tracking-[0.14em]">{size}</div>
-        <div className="mt-2 text-[9px] tracking-[0.12em]">AdSense slot: {slot}</div>
-      </div>
     </aside>
   )
 }
@@ -117,8 +108,8 @@ export default function CyberNewsFeed() {
         </Link>
       </section>
 
-      <AdSlot label="Leaderboard ad" size="970 x 90 / responsive" slot="CYBERNEWS_FEED_LEADERBOARD_1" className="hidden min-h-[90px] lg:flex" />
-      <AdSlot label="Mobile banner ad" size="320 x 100" slot="CYBERNEWS_FEED_MOBILE_1" className="flex min-h-[100px] lg:hidden" />
+      <AdSlot slot="CYBERNEWS_FEED_LEADERBOARD_1" className="hidden min-h-[90px] lg:block" />
+      <AdSlot slot="CYBERNEWS_FEED_MOBILE_1" className="block min-h-[100px] lg:hidden" />
 
       <section className="grid items-start gap-6 lg:grid-cols-[280px_minmax(0,1fr)_280px]">
         <div className="space-y-4 lg:sticky lg:top-4">
@@ -180,7 +171,7 @@ export default function CyberNewsFeed() {
             </div>
           </div>
 
-          <AdSlot label="Sponsored report" size="300 x 250" slot="CYBERNEWS_FEED_SPONSORED_1" className="min-h-[250px]" />
+          <AdSlot slot="CYBERNEWS_FEED_SPONSORED_1" className="min-h-[250px]" />
         </div>
 
         <div className="space-y-4">
@@ -204,7 +195,7 @@ export default function CyberNewsFeed() {
           <div className="grid auto-rows-auto gap-3">
             {visiblePosts.map((post, index) => (
               <div key={post.id}>
-                {index === 2 && <AdSlot label="In-feed ad" size="728 x 90 / responsive" slot="CYBERNEWS_FEED_INLINE_1" className="mb-3 min-h-[90px]" />}
+                {index === 2 && <AdSlot slot="CYBERNEWS_FEED_INLINE_1" className="mb-3 min-h-[90px]" />}
                 <article className="rounded-lg border border-black/5 bg-white/75 p-4 shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:shadow-md">
                   <div className="flex flex-wrap items-center gap-2">
                     <span className={`rounded-md border px-2 py-1 text-[11px] font-bold ${severityStyles(post.severity)}`}>
@@ -292,7 +283,7 @@ export default function CyberNewsFeed() {
               save it, and keep the feed height tied to the current page.
             </p>
           </div>
-          <AdSlot label="Sidebar ad" size="300 x 600" slot="CYBERNEWS_FEED_SIDEBAR_1" className="hidden min-h-[600px] lg:flex" />
+          <AdSlot slot="CYBERNEWS_FEED_SIDEBAR_1" className="hidden min-h-[600px] lg:block" />
         </aside>
       </section>
     </div>
