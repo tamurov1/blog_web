@@ -2,13 +2,26 @@ import type { Metadata } from 'next'
 import Script from 'next/script'
 import CyberNewsShell from '@/components/CyberNewsShell'
 import CyberNewsFeed from '@/components/CyberNewsFeed'
-import { cyberNewsPosts } from '@/data/cyberNews'
+import {
+  CYBERNEWS_AUTHOR_NAME,
+  CYBERNEWS_AUTHOR_URL,
+  CYBERNEWS_BRAND_NAME,
+  CYBERNEWS_SITE_URL,
+  cyberNewsPosts,
+} from '@/data/cyberNews'
 
 export const metadata: Metadata = {
-  title: 'Cybersecurity News, Vulnerability Reports, Threat Intelligence and Incident Briefs',
+  title: 'Dmytrii Tamurov Cybernews - Cybersecurity News, Vulnerability Reports and Threat Intelligence',
   description:
-    'Cybernews by Dmytrii Tamurov: cybersecurity news, vulnerability reports, ransomware updates, cloud security threats, supply-chain risk, incident response notes, and practical defense analysis.',
+    'Dmytrii Tamurov Cybernews on dmytriitamurov.com covers cybersecurity news, vulnerability reports, ransomware updates, cloud security threats, supply-chain risk, incident response notes, and practical defense analysis.',
+  authors: [{ name: CYBERNEWS_AUTHOR_NAME, url: CYBERNEWS_AUTHOR_URL }],
+  creator: CYBERNEWS_AUTHOR_NAME,
+  publisher: CYBERNEWS_AUTHOR_NAME,
   keywords: [
+    'Dmytrii Tamurov Cybernews',
+    'Dmytrii Tamurov cybersecurity news',
+    'dmytriitamurov.com cybernews',
+    'TMK cybernews',
     'cybersecurity news',
     'cyber security news',
     'latest cybersecurity threats',
@@ -30,24 +43,24 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: '/cybernews',
-    title: 'Cybersecurity News and Threat Intelligence | Dmytrii Tamurov',
+    title: 'Dmytrii Tamurov Cybernews | Cybersecurity News and Threat Intelligence',
     description:
-      'A structured cybersecurity news feed with vulnerability reports, ransomware updates, cloud security threats, incident response notes, and analyst context.',
-    siteName: 'Dmytrii Tamurov',
+      'Cybersecurity news and threat intelligence by Dmytrii Tamurov on dmytriitamurov.com.',
+    siteName: CYBERNEWS_BRAND_NAME,
     images: [
       {
         url: '/pic-ava.png',
         width: 150,
         height: 150,
-        alt: 'Dmytrii Tamurov cybersecurity news',
+        alt: 'Dmytrii Tamurov Cybernews',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Cybersecurity News and Threat Intelligence',
+    title: 'Dmytrii Tamurov Cybernews',
     description:
-      'Cybersecurity news, vulnerabilities, ransomware updates, cloud threats, and practical defense analysis.',
+      'Cybersecurity news, vulnerabilities, ransomware updates, cloud threats, and practical defense analysis by Dmytrii Tamurov.',
     images: ['/pic-ava.png'],
   },
 }
@@ -56,13 +69,34 @@ export default function CyberNewsPage() {
   const itemListSchema = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: 'Cybersecurity News and Threat Intelligence',
+    name: CYBERNEWS_BRAND_NAME,
+    alternateName: [
+      'Cybernews by Dmytrii Tamurov',
+      'TMK Cybernews',
+      'Dmytrii Tamurov Cybersecurity News',
+    ],
     description: metadata.description,
-    url: 'https://dmytriitamurov.com/cybernews',
+    url: CYBERNEWS_SITE_URL,
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'Dmytrii Tamurov',
+      url: CYBERNEWS_AUTHOR_URL,
+    },
+    creator: {
+      '@type': 'Person',
+      name: CYBERNEWS_AUTHOR_NAME,
+      url: CYBERNEWS_AUTHOR_URL,
+      knowsAbout: ['Cybersecurity', 'Threat Intelligence', 'SOC Analysis', 'Software Development'],
+    },
+    author: {
+      '@type': 'Person',
+      name: CYBERNEWS_AUTHOR_NAME,
+      url: CYBERNEWS_AUTHOR_URL,
+    },
     publisher: {
       '@type': 'Person',
-      name: 'Dmytrii Tamurov',
-      url: 'https://dmytriitamurov.com',
+      name: CYBERNEWS_AUTHOR_NAME,
+      url: CYBERNEWS_AUTHOR_URL,
     },
     mainEntity: {
       '@type': 'ItemList',

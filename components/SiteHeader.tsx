@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { FiSearch } from 'react-icons/fi'
 
@@ -16,14 +15,16 @@ export default function SiteHeader({
       } ${className}`}
     >
       <div className="flex items-center gap-2 text-2xl font-bold tracking-tight select-none cursor-default">
-        <Image
-          src="/logo-black.png"
-          alt="TMK logo"
-          width={26}
-          height={26}
-          className="h-6 w-6 object-contain"
-          priority
-        />
+        <picture>
+          <source srcSet="/favicon.ico" media="(prefers-color-scheme: dark)" />
+          <img
+            src="/logo-black.png"
+            alt="TMK logo"
+            width={26}
+            height={26}
+            className="h-6 w-6 object-contain"
+          />
+        </picture>
         TMK
       </div>
       <nav className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm font-medium">

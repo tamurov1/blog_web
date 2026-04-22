@@ -24,6 +24,10 @@ export type NewsPost = {
 }
 
 export const CYBER_NEWS_PAGE_SIZE = 50
+export const CYBERNEWS_BRAND_NAME = 'Dmytrii Tamurov Cybernews'
+export const CYBERNEWS_SITE_URL = 'https://dmytriitamurov.com/cybernews'
+export const CYBERNEWS_AUTHOR_NAME = 'Dmytrii Tamurov'
+export const CYBERNEWS_AUTHOR_URL = 'https://dmytriitamurov.com'
 
 export const cyberNewsPosts: NewsPost[] = [
   {
@@ -35,8 +39,8 @@ export const cyberNewsPosts: NewsPost[] = [
     severity: 'High',
     publishedAt: '2026-04-22',
     readTime: '5 min read',
-    source: 'TMK Cybernews Desk',
-    sourceUrl: 'https://dmytriitamurov.com/cybernews',
+    source: 'Dmytrii Tamurov Cybernews',
+    sourceUrl: CYBERNEWS_SITE_URL,
     tags: ['Identity', 'Cloud', 'Detection'],
     body: [
       {
@@ -80,8 +84,8 @@ export const cyberNewsPosts: NewsPost[] = [
     severity: 'Critical',
     publishedAt: '2026-04-21',
     readTime: '6 min read',
-    source: 'TMK Cybernews Desk',
-    sourceUrl: 'https://dmytriitamurov.com/cybernews',
+    source: 'Dmytrii Tamurov Cybernews',
+    sourceUrl: CYBERNEWS_SITE_URL,
     tags: ['Ransomware', 'Backups', 'IR'],
     body: [
       {
@@ -125,8 +129,8 @@ export const cyberNewsPosts: NewsPost[] = [
     severity: 'Medium',
     publishedAt: '2026-04-20',
     readTime: '4 min read',
-    source: 'TMK Cybernews Desk',
-    sourceUrl: 'https://dmytriitamurov.com/cybernews',
+    source: 'Dmytrii Tamurov Cybernews',
+    sourceUrl: CYBERNEWS_SITE_URL,
     tags: ['Supply Chain', 'Secrets', 'CI/CD'],
     body: [
       {
@@ -170,8 +174,8 @@ export const cyberNewsPosts: NewsPost[] = [
     severity: 'High',
     publishedAt: '2026-04-19',
     readTime: '5 min read',
-    source: 'TMK Cybernews Desk',
-    sourceUrl: 'https://dmytriitamurov.com/cybernews',
+    source: 'Dmytrii Tamurov Cybernews',
+    sourceUrl: CYBERNEWS_SITE_URL,
     tags: ['Exposure', 'Patching', 'Network'],
     body: [
       {

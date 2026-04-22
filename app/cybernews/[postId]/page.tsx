@@ -3,7 +3,14 @@ import Script from 'next/script'
 import { notFound } from 'next/navigation'
 import CyberNewsShell from '@/components/CyberNewsShell'
 import CyberNewsPostLayout from '@/components/CyberNewsPostLayout'
-import { cyberNewsPosts, getCyberNewsPost } from '@/data/cyberNews'
+import {
+  CYBERNEWS_AUTHOR_NAME,
+  CYBERNEWS_AUTHOR_URL,
+  CYBERNEWS_BRAND_NAME,
+  CYBERNEWS_SITE_URL,
+  cyberNewsPosts,
+  getCyberNewsPost,
+} from '@/data/cyberNews'
 
 type CyberNewsPostPageProps = {
   params: Promise<{
@@ -41,7 +48,9 @@ export async function generateMetadata({ params }: CyberNewsPostPageProps): Prom
       'security research',
       'incident response',
       'vulnerability analysis',
-      'Dmytrii Tamurov',
+      CYBERNEWS_BRAND_NAME,
+      `${CYBERNEWS_AUTHOR_NAME} cybersecurity`,
+      'dmytriitamurov.com cybernews',
     ],
     alternates: {
       canonical: `/cybernews/${post.id}`,
@@ -49,24 +58,24 @@ export async function generateMetadata({ params }: CyberNewsPostPageProps): Prom
     openGraph: {
       type: 'article',
       url: `/cybernews/${post.id}`,
-      title: post.title,
+      title: `${post.title} | ${CYBERNEWS_BRAND_NAME}`,
       description: post.deck,
-      siteName: 'Dmytrii Tamurov',
+      siteName: CYBERNEWS_BRAND_NAME,
       publishedTime: post.publishedAt,
-      authors: ['Dmytrii Tamurov'],
+      authors: [CYBERNEWS_AUTHOR_NAME],
       tags: post.tags,
       images: [
         {
           url: '/pic-ava.png',
           width: 150,
           height: 150,
-          alt: 'Dmytrii Tamurov',
+          alt: CYBERNEWS_BRAND_NAME,
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: post.title,
+      title: `${post.title} | ${CYBERNEWS_BRAND_NAME}`,
       description: post.deck,
       images: ['/pic-ava.png'],
     },
@@ -92,13 +101,24 @@ export default async function CyberNewsPostPage({ params }: CyberNewsPostPagePro
     },
     author: {
       '@type': 'Person',
-      name: 'Dmytrii Tamurov',
-      url: 'https://dmytriitamurov.com',
+      name: CYBERNEWS_AUTHOR_NAME,
+      url: CYBERNEWS_AUTHOR_URL,
+      knowsAbout: ['Cybersecurity', 'Threat Intelligence', 'SOC Analysis', 'Software Development'],
     },
     publisher: {
       '@type': 'Person',
+      name: CYBERNEWS_AUTHOR_NAME,
+      url: CYBERNEWS_AUTHOR_URL,
+    },
+    sourceOrganization: {
+      '@type': 'Organization',
+      name: CYBERNEWS_BRAND_NAME,
+      url: CYBERNEWS_SITE_URL,
+    },
+    isPartOf: {
+      '@type': 'WebSite',
       name: 'Dmytrii Tamurov',
-      url: 'https://dmytriitamurov.com',
+      url: CYBERNEWS_AUTHOR_URL,
     },
     articleSection: post.category,
     keywords: post.tags.join(', '),
@@ -125,7 +145,7 @@ export default async function CyberNewsPostPage({ params }: CyberNewsPostPagePro
         '@type': 'ListItem',
         position: 2,
         name: 'Cybernews',
-        item: 'https://dmytriitamurov.com/cybernews',
+        item: CYBERNEWS_SITE_URL,
       },
       {
         '@type': 'ListItem',
