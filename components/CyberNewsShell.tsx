@@ -11,9 +11,11 @@ export default function CyberNewsShell({ children }: { children?: ReactNode }) {
   return (
     <main
       ref={mainRef}
-      className="min-h-screen bg-white text-black font-sans relative overflow-x-hidden"
+      className="min-h-screen bg-white text-black font-sans relative isolate overflow-x-clip"
     >
-      <BackgroundFX containerRef={mainRef} />
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <BackgroundFX containerRef={mainRef} />
+      </div>
       <SiteHeader bordered />
 
       <div className="relative z-10 pt-6">
