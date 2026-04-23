@@ -211,24 +211,26 @@ export default function CyberNewsPostLayout({ post }: { post: NewsPost }) {
           </div>
         </section>
 
-        <section className="mt-8">
-          <h2 className="text-xl font-semibold text-gray-950">Related articles</h2>
-          <div className="mt-4 grid gap-3 sm:grid-cols-2">
-            {relatedPosts.map((relatedPost) => (
-              <Link
-                key={relatedPost.id}
-                href={`/cybernews/${relatedPost.id}`}
-                className="rounded-md border border-gray-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
-              >
-                <span className={`rounded-md border px-2 py-1 text-[11px] font-bold ${severityStyles(relatedPost.severity)}`}>
-                  {relatedPost.severity}
-                </span>
-                <h3 className="mt-3 text-base font-semibold leading-snug text-gray-950">{relatedPost.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-gray-600">{relatedPost.deck}</p>
-              </Link>
-            ))}
-          </div>
-        </section>
+        {relatedPosts.length > 0 && (
+          <section className="mt-8">
+            <h2 className="text-xl font-semibold text-gray-950">Related articles</h2>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              {relatedPosts.map((relatedPost) => (
+                <Link
+                  key={relatedPost.id}
+                  href={`/cybernews/${relatedPost.id}`}
+                  className="rounded-md border border-gray-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                >
+                  <span className={`rounded-md border px-2 py-1 text-[11px] font-bold ${severityStyles(relatedPost.severity)}`}>
+                    {relatedPost.severity}
+                  </span>
+                  <h3 className="mt-3 text-base font-semibold leading-snug text-gray-950">{relatedPost.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-gray-600">{relatedPost.deck}</p>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
       </article>
 
       <aside className="space-y-4 lg:sticky lg:top-4 lg:self-start">
