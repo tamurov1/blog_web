@@ -31,6 +31,72 @@ export const CYBERNEWS_AUTHOR_URL = 'https://dmytriitamurov.com'
 
 export const cyberNewsPosts: NewsPost[] = [
   {
+    id: 'unc6692-microsoft-teams-helpdesk-impersonation',
+    title: 'UNC6692 Turns Microsoft Teams into a High-Trust Entry Point for Enterprise Intrusions',
+    deck:
+      'UNC6692 is using spam floods, fake IT-support chats in Microsoft Teams, and modular SNOW malware to move from social engineering into credential theft, persistence, and domain-level compromise.',
+    category: 'Social Engineering',
+    severity: 'High',
+    publishedAt: '2026-04-23',
+    readTime: '6 min read',
+    source: 'Dmytrii Tamurov Cybernews',
+    sourceUrl: CYBERNEWS_SITE_URL,
+    tags: ['UNC6692', 'Microsoft Teams', 'Social Engineering', 'SNOWBELT', 'Credential Theft', 'Lateral Movement'],
+    body: [
+      {
+        heading: 'The intrusion begins by manufacturing pressure and then posing as relief',
+        paragraphs: [
+          'The campaign starts with inbox flooding. Once the target is distracted by spam volume, the attacker follows with a Microsoft Teams message from an external account impersonating internal helpdesk staff and offering assistance.',
+          'That sequence matters because it is designed around trust transfer. The attacker first creates an operational problem, then steps in as the apparent solution through a platform employees already use for internal support and collaboration.',
+        ],
+      },
+      {
+        heading: 'UNC6692 is targeting high-value users and filtering for valid enterprise victims',
+        paragraphs: [
+          'Observed activity shows deliberate prioritization of senior personnel rather than broad opportunistic targeting. That suggests the actor is optimizing for accounts with greater system access, wider internal trust, and faster paths to sensitive assets.',
+          'The delivery flow also appears selective. Victims are sent to a fake utility, presented as a mailbox repair tool, which uses gatekeeping logic before pulling an AutoHotkey payload from attacker-controlled infrastructure. That filtering helps the actor avoid noisy execution in automated analysis environments.',
+        ],
+      },
+      {
+        heading: 'The SNOW toolset expands a Teams phish into persistent post-compromise access',
+        paragraphs: [
+          'After the initial lure, the campaign deploys multiple components with distinct roles: SNOWBELT as a malicious browser-extension relay, SNOWBASIN as a local backdoor for command execution and file actions, and SNOWGLAZE as a covert tunneling layer between internal systems and attacker infrastructure.',
+          'The victim is also pushed toward a fake health-check workflow that requests mailbox credentials under the pretense of validation. That means the operation is not satisfied with one foothold. It seeks both malware-based persistence and direct credential capture early in the intrusion.',
+        ],
+      },
+      {
+        heading: 'The real objective is controlled escalation across the enterprise environment',
+        paragraphs: [
+          'Post-exploitation behavior points to systematic takeover rather than casual access. Reported actions include network scanning, credential extraction, tunneling for remote sessions, pass-the-hash movement, and collection of high-value assets such as Active Directory data.',
+          'Equally significant is the use of legitimate cloud infrastructure such as AWS S3 for hosting and exfiltration. That blends malicious traffic into trusted services and makes traditional reputation-based filtering less effective, especially when collaboration platforms are already assumed to be low-friction channels.',
+        ],
+      },
+    ],
+    whyItMatters:
+      'This campaign shows that enterprise chat platforms are no longer peripheral phishing channels. Microsoft Teams can now function as a trusted entry point for credential theft, malware delivery, and structured lateral movement when users treat in-platform support messages as inherently safe.',
+    summary: [
+      'UNC6692 combines spam flooding with fake helpdesk messages in Microsoft Teams to create urgency and exploit employee trust.',
+      'The malware chain uses modular SNOW components for command execution, covert communications, credential harvesting, and persistence.',
+      'The operation appears designed for escalation into broader enterprise control, not just initial access or one-time data theft.',
+    ],
+    timeline: [
+      'Pretext creation: the victim is overwhelmed with spam and then contacted on Teams by an external account impersonating IT support.',
+      'Initial compromise: a phishing link delivers a fake mailbox repair utility that retrieves an AutoHotkey-based payload for selected targets.',
+      'Credential and foothold expansion: SNOW malware components are deployed while the victim is prompted to submit mailbox credentials through a fake health-check flow.',
+      'Enterprise escalation: the actor scans the network, extracts credentials, moves laterally, and uses trusted cloud infrastructure for staging and exfiltration.',
+    ],
+    analystNote:
+      'Security teams that still model phishing primarily around email are behind the threat. Collaboration tools, external tenant messaging, and cloud-hosted payload paths now need the same defensive scrutiny as traditional mail gateways and web proxies.',
+    indicators: [
+      'Unexpected Teams messages from external tenants claiming to be helpdesk staff',
+      'Mailbox repair or sync utilities delivered through chat links',
+      'AutoHotkey execution tied to cloud-hosted payload retrieval',
+      'Unapproved browser extensions on Microsoft Edge',
+      'Internal hosts exposing suspicious local HTTP listeners on ports 8000 to 8002',
+    ],
+    relatedIds: [],
+  },
+  {
     id: 'bitwarden-cli-supply-chain-breach',
     title: 'Bitwarden CLI Supply Chain Breach: How One Compromised Package Could Cascade Across CI/CD Pipelines',
     deck:
