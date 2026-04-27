@@ -74,7 +74,7 @@ export default function AboutPage() {
             <br /><br />
                 Currently, I live in Brampton, Canada, and study Software Development and Network Engineering at Sheridan College while preparing for deeper cybersecurity work.
             <br /><br />
-                The writing here focuses on vulnerability research, threat intelligence, secure development, cloud and endpoint risk, incident response notes, and the systems that support modern IT operations. Nexessary stays here as an active software project connected to that work.
+                The writing here focuses on vulnerability research, threat intelligence, secure development, cloud and endpoint risk, incident response notes, and the systems that support modern IT operations. Nexessary is also included as an important software project of mine, separate from the cybersecurity focus.
             <br /><br />
                 <b>Contact Me</b><br />
                 If you want to discuss cybersecurity research, IT projects, or collaboration, LinkedIn and YouTube are the best public channels listed here.

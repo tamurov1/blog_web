@@ -24,7 +24,7 @@ const blogResults: SearchResult[] = flattenBlogPosts(blogGraph)
     title: post.title,
     href: post.path || '#',
     date: post.date,
-    type: 'Research post',
+    type: post.path?.startsWith('/blog/projects/') ? 'Project' : 'Research post',
     summary: post.author ? `By ${post.author}` : undefined,
     terms: [post.title, post.author, post.date, post.path].filter(Boolean).join(' '),
   }))

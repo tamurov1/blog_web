@@ -25,12 +25,12 @@ export interface BlogNode {
 
 export const blogGraph: BlogNode = {
 
-  id: 'cybersecurity-hub',
-  title: 'Cybersecurity Hub',
+  id: 'dmytrii-tamurov',
+  title: 'Dmytrii Tamurov',
   children: [
     {
       id: 'projects',
-      title: 'Security-Focused Projects',
+      title: 'Important Projects',
       children: [
         {
           id: 'nexessary',
