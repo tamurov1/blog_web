@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     template: "%s | Dmytrii Tamurov",
   },
   description:
-    "Official site of Dmytrii Tamurov - cybersecurity and software projects, including Nexessary.",
+    "Cybersecurity and IT research by Dmytrii Tamurov: threat intelligence, vulnerability analysis, SOC notes, and secure development.",
   authors: [{ name: "Dmytrii Tamurov", url: "https://dmytriitamurov.com" }],
   creator: "Dmytrii Tamurov",
   publisher: "Dmytrii Tamurov",
@@ -35,17 +35,14 @@ export const metadata: Metadata = {
   },
   keywords: [
     "Dmytrii Tamurov",
-    "Dmytrii Tamurov Nexessary",
-    "Nexessary",
-    "Nexessary founder",
-    "Dmytrii Tamurov projects",
-    "portfolio",
     "TMK",
-    "personal website",
-    "tech blog",
-    "ideas",
-    "research",
-    "frontend",
+    "cybersecurity research",
+    "threat intelligence",
+    "vulnerability research",
+    "SOC analysis",
+    "incident response",
+    "secure development",
+    "IT security",
     "cybersecurity",
     "dmytrii",
     "tamurov",
@@ -59,7 +56,7 @@ export const metadata: Metadata = {
     url: "https://dmytriitamurov.com",
     title: "Dmytrii Tamurov",
     description:
-      "Official site of Dmytrii Tamurov - cybersecurity and software projects, including Nexessary.",
+      "Cybersecurity and IT research by Dmytrii Tamurov: threat intelligence, vulnerability analysis, SOC notes, and secure development.",
     siteName: "Dmytrii Tamurov",
     images: [
       {
@@ -74,7 +71,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Dmytrii Tamurov",
     description:
-      "Cybersecurity and software projects by Dmytrii Tamurov, including Nexessary.",
+      "Cybersecurity and IT research by Dmytrii Tamurov.",
     images: ["/pic-ava.png"],
   },
 };

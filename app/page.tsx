@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Script from 'next/script'
-import { FaTwitter, FaLinkedin, FaYoutube } from 'react-icons/fa'
+import { FaLinkedin, FaYoutube } from 'react-icons/fa'
 import BlogMap from '@/components/BlogMap'
 import PostList from '@/components/PostList'
 import BackgroundFX from '@/components/BackgroundFX'
@@ -13,7 +13,7 @@ export default function HomePage() {
   const [viewMode, setViewMode] = useState<'map' | 'list'>('map')
   const mainRef = useRef<HTMLElement | null>(null)
   const fullBio =
-    'Cybersecurity, development, Olympic weightlifting - thoughts, blogs, and ideas in one place.'
+    'Cybersecurity research, threat intelligence, vulnerability analysis, and practical IT defense.'
   const [typedBio, setTypedBio] = useState('')
   const structuredData = {
     '@context': 'https://schema.org',
@@ -26,22 +26,9 @@ export default function HomePage() {
         jobTitle: 'Cybersecurity Researcher',
         knowsAbout: ['Cybersecurity', 'Software Development', 'SOC Analysis'],
         sameAs: [
-          'https://nexessary.com',
-          'https://x.com/tamurofff',
           'https://www.linkedin.com/in/dmytrii-tamurov-40b6aa274/',
           'https://www.youtube.com/channel/UChUvWsi-Dpb6abY6SZsxgxA',
         ],
-      },
-      {
-        '@type': 'SoftwareApplication',
-        '@id': 'https://nexessary.com/#app',
-        name: 'Nexessary',
-        applicationCategory: 'BusinessApplication',
-        operatingSystem: 'Web',
-        url: 'https://nexessary.com',
-        creator: {
-          '@id': 'https://dmytriitamurov.com/#person',
-        },
       },
     ],
   }
@@ -68,7 +55,7 @@ export default function HomePage() {
       className="min-h-screen sm:h-screen bg-white text-black p-6 sm:p-12 font-sans relative overflow-x-hidden overflow-y-auto sm:overflow-hidden"
     >
       <Script
-        id="structured-data-person-nexessary"
+        id="structured-data-person"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
@@ -109,31 +96,13 @@ export default function HomePage() {
               Full-Stack Dev
             </span>
             <span className="rounded-full border border-black/10 bg-white/70 px-3 py-1 text-xs text-gray-700 shadow-sm backdrop-blur">
-              Olympic Lifter
+              IT Defense
             </span>
           </div>
 
           <div className="flex flex-col mt-4 gap-2">
-            <a
-              href="https://nexessary.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 hover:text-blue-700"
-            >
-              <Image
-                src="/nexessary.png"
-                alt="Nexessary"
-                width={16}
-                height={16}
-                className="h-4 w-4 rounded-sm object-cover"
-              />
-              Nexessary
-            </a>
             <a href="https://www.youtube.com/channel/UChUvWsi-Dpb6abY6SZsxgxA" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-red-600">
               <FaYoutube /> YouTube
-            </a>
-            <a href="https://x.com/tamurofff" className="flex items-center gap-2 hover:text-blue-500">
-              <FaTwitter /> X
             </a>
             <a href="https://www.linkedin.com/in/dmytrii-tamurov-40b6aa274" className="flex items-center gap-2 hover:text-blue-700">
               <FaLinkedin /> LinkedIn

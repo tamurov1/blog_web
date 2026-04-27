@@ -2,7 +2,7 @@
 
 import { useRef } from 'react'
 import Image from 'next/image'
-import { FaTwitter, FaLinkedin, FaYoutube } from 'react-icons/fa'
+import { FaLinkedin, FaYoutube } from 'react-icons/fa'
 import BackgroundFX from '@/components/BackgroundFX'
 import PostLikeButton from '@/components/PostLikeButton'
 import SiteHeader from '@/components/SiteHeader'
@@ -35,30 +35,12 @@ export default function HomePage() {
 
           <h1 className="text-xl font-semibold">Dmytrii Tamurov</h1>
           <p className="mt-2 text-gray-600">
-            Cybersecurity, development, Olympic weightlifting - thoughts, blogs, and ideas in one place.
+            Cybersecurity research, threat intelligence, vulnerability analysis, and practical IT defense.
           </p>
 
           <div className="flex flex-col mt-4 gap-2">
-            <a
-              href="https://nexessary.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 hover:text-blue-700"
-            >
-              <Image
-                src="/nexessary.png"
-                alt="Nexessary"
-                width={16}
-                height={16}
-                className="h-4 w-4 rounded-sm object-cover"
-              />
-              Nexessary
-            </a>
             <a href="https://www.youtube.com/channel/UChUvWsi-Dpb6abY6SZsxgxA" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-red-600">
               <FaYoutube /> YouTube
-            </a>
-            <a href="https://x.com/tamurofff" className="flex items-center gap-2 hover:text-blue-500">
-              <FaTwitter /> X
             </a>
             <a href="https://www.linkedin.com/in/dmytrii-tamurov-40b6aa274" className="flex items-center gap-2 hover:text-blue-700">
               <FaLinkedin /> LinkedIn

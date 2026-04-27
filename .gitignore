@@ -45,3 +45,11 @@ next-env.d.ts
 *.docx
 ~$*.doc
 ~$*.docx
+
+# unpublished shop work
+/app/shop/
+/_drafts/shop/
+/components/ShopIntro.tsx
+/components/ProductTile.tsx
+/components/ProductTiles.tsx
+/public/shop/

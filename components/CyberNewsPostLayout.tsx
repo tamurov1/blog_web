@@ -7,7 +7,6 @@ import {
   FiMail,
   FiShare2,
   FiShield,
-  FiTwitter,
 } from 'react-icons/fi'
 import { ADSENSE_CLIENT_ID } from '@/data/adsense'
 import { cyberNewsPosts, severityStyles, type NewsPost } from '@/data/cyberNews'
@@ -89,15 +88,6 @@ export default function CyberNewsPostLayout({ post }: { post: NewsPost }) {
 
         <div className="mt-6 flex flex-wrap gap-2">
           <CyberNewsSaveButton postId={post.id} />
-          <a
-            href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(post.title)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex h-9 items-center justify-center gap-2 rounded-md border border-gray-300 bg-white px-3 text-xs font-medium text-gray-800 hover:bg-gray-50"
-          >
-            <FiTwitter aria-hidden="true" />
-            X
-          </a>
           <a
             href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
             target="_blank"

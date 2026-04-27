@@ -25,25 +25,12 @@ export interface BlogNode {
 
 export const blogGraph: BlogNode = {
 
-  id: 'everything',
-  title: 'Everything',
+  id: 'cybersecurity-hub',
+  title: 'Cybersecurity Hub',
   children: [
     {
-      id: 'projects',
-      title: 'Projects',
-      children: [
-        {
-          id: 'nexessary',
-          title: 'Nexessary: Building a Structured Workspace for Real Workflows',
-          path: '/blog/projects/nexessary/',
-          author: 'Dmytrii Tamurov',
-          date: '2026-03-04',
-        },
-      ],
-    },
-    {
       id: 'cybersecurity',
-      title: 'Cybersecurity',
+      title: 'Security Research',
       children: [
         {
           id: 'vulnerabilities',
@@ -69,29 +56,22 @@ export const blogGraph: BlogNode = {
       ],
     },
     {
-      id: 'thoughts-journal',
-      title: 'Thoughts Journal',
+      id: 'threat-intelligence',
+      title: 'Threat Intelligence',
       children: [
         {
-          id: 'human-fear',
-          title: 'Human Fear',
-          path: '/blog/thoughts-journal/human-fear/',
+          id: 'unc6692-microsoft-teams-helpdesk-impersonation',
+          title: 'UNC6692 Microsoft Teams Helpdesk Impersonation',
+          path: '/cybernews/unc6692-microsoft-teams-helpdesk-impersonation/',
           author: 'Dmytrii Tamurov',
-          date: '2026-03-10',
+          date: '2026-04-23',
         },
         {
-          id: 'ai-merge',
-          title: 'AI Merge',
-          path: '/blog/thoughts-journal/ai-merge/',
+          id: 'bitwarden-cli-supply-chain-breach',
+          title: 'Bitwarden CLI Supply Chain Breach',
+          path: '/cybernews/bitwarden-cli-supply-chain-breach/',
           author: 'Dmytrii Tamurov',
-          date: '2026-03-05',
-        },
-        {
-          id: 'paradox-of-good-and-bad',
-          title: 'The Paradox of Good and Bad',
-          path: '/blog/thoughts-journal/paradox-of-good-and-bad/',
-          author: 'Dmytrii Tamurov',
-          date: '2026-03-05',
+          date: '2026-04-23',
         },
       ],
     },

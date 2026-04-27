@@ -2,7 +2,7 @@
 
 import { useRef } from 'react'
 import Image from "next/image";
-import { FaTwitter, FaLinkedin, FaYoutube } from 'react-icons/fa'
+import { FaLinkedin, FaYoutube } from 'react-icons/fa'
 import BackgroundFX from '@/components/BackgroundFX'
 import SiteHeader from '@/components/SiteHeader'
 
@@ -35,30 +35,12 @@ export default function AboutPage() {
           
           <h1 className="text-xl font-semibold">Dmytrii Tamurov</h1>
           <p className="mt-2 text-gray-600">
-            Cybersecurity, development, Olympic weightlifting - thoughts, blogs, and ideas in one place.
+            Cybersecurity research, threat intelligence, vulnerability analysis, and practical IT defense.
           </p>
 
           <div className="flex flex-col mt-4 gap-2">
-            <a
-              href="https://nexessary.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 hover:text-blue-700"
-            >
-              <Image
-                src="/nexessary.png"
-                alt="Nexessary"
-                width={16}
-                height={16}
-                className="h-4 w-4 rounded-sm object-cover"
-              />
-              Nexessary
-            </a>
             <a href="https://www.youtube.com/channel/UChUvWsi-Dpb6abY6SZsxgxA" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-red-600">
               <FaYoutube /> YouTube
-            </a>
-            <a href="https://x.com/tamurofff" className="flex items-center gap-2 hover:text-blue-500">
-              <FaTwitter /> X
             </a>
             <a href="https://www.linkedin.com/in/dmytrii-tamurov-40b6aa274" className="flex items-center gap-2 hover:text-blue-700">
               <FaLinkedin /> LinkedIn
@@ -71,19 +53,16 @@ export default function AboutPage() {
         <section className="w-full sm:w-2/3 animate-fade-up-2">
             <p className="text-gray-700 leading-7 bg-white/70 backdrop-blur p-6 rounded-lg shadow-lg border border-black/5">
                 <b>Hello everyone!</b><br />
-                Thanks for stopping by and taking the time to read through my scratches,
-                thoughts, and digital ramblings - or as some might call it, a "Portfolio" or "About Page".
+                This site is focused on cybersecurity and IT: research notes, threat coverage, vulnerability writeups, and practical defense thinking.
             <br /><br />
-                My name is Dmytrii Tamurov - I write code, break systems (ethically), ask too many questions about the human mind, and lift heavy weights professionally.
-                In simpler terms: I'm a Developer, an aspiring Cybersecurity Specialist, an amateur Researcher in Psychology, Philosophy, and Sociology, and a Professional Olympic Weightlifter.
+                My name is Dmytrii Tamurov. I work across software development, security research, SOC analysis, network fundamentals, and application security. The goal here is to document technical work clearly enough that defenders, builders, and students can use it.
             <br /><br />
-                Currently, I live in Brampton, Canada, but I'm pretty mobile - mentally and geographically.
+                Currently, I live in Brampton, Canada, and study Software Development and Network Engineering at Sheridan College while preparing for deeper cybersecurity work.
             <br /><br />
-                Right now, I'm gnawing on knowledge in the Software Development and Network Engineering Advanced Diploma program, and fully planning to conquer the Cyber Security Honours Bachelor right after - both at Sheridan College.
-                I learn fast, dive deep, and usually break something (in a good way) along the way.
+                The writing here focuses on vulnerability research, threat intelligence, secure development, cloud and endpoint risk, incident response notes, and the systems that support modern IT operations.
             <br /><br />
                 <b>Contact Me</b><br />
-                If you want to chat, collaborate, or just throw some ideas around - you can reach me via email or X.
+                If you want to discuss cybersecurity research, IT projects, or collaboration, LinkedIn and YouTube are the best public channels listed here.
             <br /><br />
             </p>
         </section>

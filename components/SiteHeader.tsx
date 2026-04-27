@@ -32,7 +32,6 @@ export default function SiteHeader({
         <Link href="/map" className="tmk-nav-link">Map</Link>
         <Link href="/cybernews" className="tmk-nav-link tmk-nav-link-featured text-blue-600">Cybernews</Link>
         <Link href="/about" className="tmk-nav-link">About</Link>
-        <Link href="/shop" className="tmk-nav-link">Shop</Link>
         <Link href="/search" aria-label="Search" className="text-xl hover:opacity-70">
           <FiSearch />
         </Link>
