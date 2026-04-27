@@ -73,6 +73,13 @@ export const blogGraph: BlogNode = {
       title: 'Threat Intelligence',
       children: [
         {
+          id: 'checkmarx-github-repository-data-leak',
+          title: 'Checkmarx GitHub Repository Data Leak',
+          path: '/cybernews/checkmarx-github-repository-data-leak/',
+          author: 'Dmytrii Tamurov',
+          date: '2026-04-27',
+        },
+        {
           id: 'unc6692-microsoft-teams-helpdesk-impersonation',
           title: 'UNC6692 Microsoft Teams Helpdesk Impersonation',
           path: '/cybernews/unc6692-microsoft-teams-helpdesk-impersonation/',

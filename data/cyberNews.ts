@@ -31,6 +31,79 @@ export const CYBERNEWS_AUTHOR_URL = 'https://dmytriitamurov.com'
 
 export const cyberNewsPosts: NewsPost[] = [
   {
+    id: 'checkmarx-github-repository-data-leak',
+    title: 'Checkmarx Confirms GitHub Repository Data Leaked Following March Supply Chain Intrusion',
+    deck:
+      'Checkmarx says data tied to an internal GitHub repository was exposed on the dark web after a March 23 supply chain intrusion, extending the incident from poisoned developer tooling into repository-level data exposure.',
+    category: 'Supply Chain / Data Exposure',
+    severity: 'High',
+    publishedAt: '2026-04-27',
+    readTime: '5 min read',
+    source: 'Dmytrii Tamurov Cybernews',
+    sourceUrl: CYBERNEWS_SITE_URL,
+    tags: ['Checkmarx', 'GitHub', 'Supply Chain', 'Data Exposure', 'CI/CD', 'LAPSUS$', 'TeamPCP'],
+    body: [
+      {
+        heading: 'The breach extends beyond initial compromise into data exposure on the dark web',
+        paragraphs: [
+          'Checkmarx has confirmed that data linked to its internal GitHub repository has been published on the dark web, following the previously disclosed March 23 supply chain attack.',
+          'Based on current findings, the company attributes the exposure to unauthorized access gained during that earlier intrusion phase. The repository in question appears to have been a secondary target rather than the primary operational environment.',
+          'Checkmarx emphasized a key boundary: the affected GitHub repository is logically separated from customer production systems, and no customer data is believed to reside within it. However, the investigation remains ongoing, with forensic efforts focused on validating both the authenticity and sensitivity of the leaked material.',
+        ],
+      },
+      {
+        heading: 'Threat actor claims suggest deeper access than initially disclosed',
+        paragraphs: [
+          'Reports surfaced via dark web monitoring channels indicating that the LAPSUS$ group has listed Checkmarx among its recent victims. According to the leak claims, the exposed dataset may include source code, employee database records, API keys, and database credentials for MongoDB or MySQL environments.',
+          'While these claims are not yet fully verified by Checkmarx, their presence signals a potential escalation from supply chain compromise into broader internal data exposure.',
+        ],
+      },
+      {
+        heading: 'The original attack vector was supply chain poisoning with credential theft',
+        paragraphs: [
+          'The breach traces back to a supply chain attack involving tampered development components, where malicious modifications were introduced into GitHub Actions workflows and plugins distributed through the Open VSX marketplace.',
+          'These components were weaponized to deliver credential-stealing malware targeting developer environments. The operation has been linked to the threat actor known as TeamPCP.',
+          'Subsequent activity suggests continued exploitation. The attackers are suspected of compromising additional assets, including a KICS Docker image, VS Code extensions, and additional CI/CD workflow components.',
+          'This cascading compromise extended its impact downstream, briefly affecting the Bitwarden CLI npm package and highlighting the systemic risk of interconnected development ecosystems.',
+        ],
+      },
+      {
+        heading: 'Incident response actions indicate containment, not closure',
+        paragraphs: [
+          'Checkmarx has moved to restrict access to the compromised repository and continues to conduct a detailed forensic investigation.',
+          'The company has stated that customer notification protocols will be triggered if any evidence emerges confirming exposure of customer-related data.',
+          'At this stage, the incident should be treated as active rather than resolved.',
+        ],
+      },
+    ],
+    whyItMatters:
+      'This incident reinforces a structural reality: supply chain attacks do not end at initial code injection. Once attackers gain a foothold in development infrastructure, lateral movement into repositories, secrets, and internal systems becomes a natural progression.',
+    summary: [
+      'Checkmarx confirms dark web exposure of data tied to its GitHub repository following a March 23 supply chain attack.',
+      'No customer data impact has been confirmed, but the investigation remains ongoing.',
+      'Threat actor claims suggest exposure of source code, credentials, and internal database material.',
+      'The initial compromise leveraged poisoned development tools to harvest developer secrets.',
+      'The incident expanded into broader ecosystem impact, including downstream tooling exposure.',
+    ],
+    timeline: [
+      'Initial compromise: a supply chain attack introduces malicious code into GitHub Actions workflows and Open VSX plugins.',
+      'Credential harvesting phase: developer environments are infected with credential-stealing payloads.',
+      'Post-compromise expansion: attackers access an internal GitHub repository and potentially extract sensitive data.',
+      'Public exposure: data linked to Checkmarx appears on dark web leak sites and is attributed to LAPSUS$.',
+      'Ongoing response: repository access is restricted while forensic investigation continues.',
+    ],
+    analystNote:
+      'The distinction between code environment and production environment is becoming less meaningful from an attacker perspective. Developer ecosystems now hold credentials, automation authority, and deployment pathways, making them equivalent to control planes.',
+    indicators: [
+      'Unauthorized changes in CI/CD workflows or GitHub Actions',
+      'Unexpected credential access patterns from developer environments',
+      'Tampered VS Code extensions or Open VSX packages',
+      'Outbound connections from build systems to untrusted infrastructure',
+      'Secrets leakage patterns tied to repository access logs',
+    ],
+    relatedIds: ['bitwarden-cli-supply-chain-breach'],
+  },
+  {
     id: 'unc6692-microsoft-teams-helpdesk-impersonation',
     title: 'UNC6692 Turns Microsoft Teams into a High-Trust Entry Point for Enterprise Intrusions',
     deck:
