@@ -29,6 +29,19 @@ export const blogGraph: BlogNode = {
   title: 'Cybersecurity Hub',
   children: [
     {
+      id: 'projects',
+      title: 'Security-Focused Projects',
+      children: [
+        {
+          id: 'nexessary',
+          title: 'Nexessary: Building a Structured Workspace for Real Workflows',
+          path: '/blog/projects/nexessary/',
+          author: 'Dmytrii Tamurov',
+          date: '2026-03-04',
+        },
+      ],
+    },
+    {
       id: 'cybersecurity',
       title: 'Security Research',
       children: [

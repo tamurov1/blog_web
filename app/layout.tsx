@@ -35,6 +35,9 @@ export const metadata: Metadata = {
   },
   keywords: [
     "Dmytrii Tamurov",
+    "Dmytrii Tamurov Nexessary",
+    "Nexessary",
+    "Nexessary founder",
     "TMK",
     "cybersecurity research",
     "threat intelligence",

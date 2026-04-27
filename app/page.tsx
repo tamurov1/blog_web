@@ -26,9 +26,21 @@ export default function HomePage() {
         jobTitle: 'Cybersecurity Researcher',
         knowsAbout: ['Cybersecurity', 'Software Development', 'SOC Analysis'],
         sameAs: [
+          'https://nexessary.com',
           'https://www.linkedin.com/in/dmytrii-tamurov-40b6aa274/',
           'https://www.youtube.com/channel/UChUvWsi-Dpb6abY6SZsxgxA',
         ],
+      },
+      {
+        '@type': 'SoftwareApplication',
+        '@id': 'https://nexessary.com/#app',
+        name: 'Nexessary',
+        applicationCategory: 'BusinessApplication',
+        operatingSystem: 'Web',
+        url: 'https://nexessary.com',
+        creator: {
+          '@id': 'https://dmytriitamurov.com/#person',
+        },
       },
     ],
   }
@@ -101,6 +113,21 @@ export default function HomePage() {
           </div>
 
           <div className="flex flex-col mt-4 gap-2">
+            <a
+              href="https://nexessary.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 hover:text-blue-700"
+            >
+              <Image
+                src="/nexessary.png"
+                alt="Nexessary"
+                width={16}
+                height={16}
+                className="h-4 w-4 rounded-sm object-cover"
+              />
+              Nexessary
+            </a>
             <a href="https://www.youtube.com/channel/UChUvWsi-Dpb6abY6SZsxgxA" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-red-600">
               <FaYoutube /> YouTube
             </a>

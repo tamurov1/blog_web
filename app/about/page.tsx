@@ -39,6 +39,21 @@ export default function AboutPage() {
           </p>
 
           <div className="flex flex-col mt-4 gap-2">
+            <a
+              href="https://nexessary.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 hover:text-blue-700"
+            >
+              <Image
+                src="/nexessary.png"
+                alt="Nexessary"
+                width={16}
+                height={16}
+                className="h-4 w-4 rounded-sm object-cover"
+              />
+              Nexessary
+            </a>
             <a href="https://www.youtube.com/channel/UChUvWsi-Dpb6abY6SZsxgxA" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-red-600">
               <FaYoutube /> YouTube
             </a>
@@ -59,7 +74,7 @@ export default function AboutPage() {
             <br /><br />
                 Currently, I live in Brampton, Canada, and study Software Development and Network Engineering at Sheridan College while preparing for deeper cybersecurity work.
             <br /><br />
-                The writing here focuses on vulnerability research, threat intelligence, secure development, cloud and endpoint risk, incident response notes, and the systems that support modern IT operations.
+                The writing here focuses on vulnerability research, threat intelligence, secure development, cloud and endpoint risk, incident response notes, and the systems that support modern IT operations. Nexessary stays here as an active software project connected to that work.
             <br /><br />
                 <b>Contact Me</b><br />
                 If you want to discuss cybersecurity research, IT projects, or collaboration, LinkedIn and YouTube are the best public channels listed here.
