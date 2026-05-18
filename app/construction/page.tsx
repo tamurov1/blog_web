@@ -60,7 +60,7 @@ export default function ConstructionPage() {
                 width={240}
                 height={240}
                 priority
-                className="relative h-full w-full rounded-full object-cover object-[center_21%] p-2"
+                className="relative h-full w-full rounded-full object-cover object-[center_20%] p-2"
               />
             </div>
           </div>
