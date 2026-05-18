@@ -4,7 +4,6 @@ import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import {
   FiBookmark,
-  FiCoffee,
   FiChevronLeft,
   FiChevronRight,
   FiClock,
@@ -21,32 +20,7 @@ import {
   severityStyles,
   type NewsSeverity,
 } from '@/data/cyberNews'
-import { ADSENSE_CLIENT_ID } from '@/data/adsense'
 import CyberNewsSaveButton from '@/components/CyberNewsSaveButton'
-
-function AdSlot({
-  slot,
-  className = '',
-}: {
-  slot: string
-  className?: string
-}) {
-  return (
-    <aside
-      className={`overflow-hidden rounded-md bg-white ${className}`}
-      aria-hidden="true"
-    >
-      <ins
-        className="adsbygoogle"
-        style={{ display: 'block' }}
-        data-ad-client={ADSENSE_CLIENT_ID}
-        data-ad-slot={slot}
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      />
-    </aside>
-  )
-}
 
 export default function CyberNewsFeed() {
   const [query, setQuery] = useState('')
@@ -89,14 +63,14 @@ export default function CyberNewsFeed() {
         <div>
           <div className="mb-3 flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-gray-500">
             <FiRss className="text-base text-blue-600" aria-hidden="true" />
-            Cyber Security News Feed
+            Threat Intelligence Notes
           </div>
           <h1 className="max-w-3xl text-3xl font-bold tracking-tight text-black sm:text-4xl">
-            Cybernews
+            Threat Notes
           </h1>
           <p className="mt-3 max-w-3xl text-sm leading-6 text-gray-600 sm:text-base">
-            A structured feed for security incidents, vulnerability movement, defensive priorities,
-            and operational notes.
+            Supporting notes for security incidents, vulnerability movement, defensive priorities,
+            and operational learning.
           </p>
         </div>
 
@@ -109,10 +83,7 @@ export default function CyberNewsFeed() {
         </Link>
       </section>
 
-      <AdSlot slot="CYBERNEWS_FEED_LEADERBOARD_1" className="hidden min-h-[90px] lg:block" />
-      <AdSlot slot="CYBERNEWS_FEED_MOBILE_1" className="block min-h-[100px] lg:hidden" />
-
-      <section className="grid items-start gap-6 lg:grid-cols-[280px_minmax(0,1fr)_280px]">
+      <section className="grid items-start gap-6 lg:grid-cols-[280px_minmax(0,1fr)]">
         <div className="space-y-4 lg:sticky lg:top-4">
           <div className="rounded-lg border border-black/5 bg-white/75 p-4 shadow-lg backdrop-blur">
             <div className="flex items-center gap-2 text-sm font-semibold text-gray-900">
@@ -171,8 +142,6 @@ export default function CyberNewsFeed() {
               </div>
             </div>
           </div>
-
-          <AdSlot slot="CYBERNEWS_FEED_SPONSORED_1" className="min-h-[250px]" />
         </div>
 
         <div className="space-y-4">
@@ -194,9 +163,8 @@ export default function CyberNewsFeed() {
           </div>
 
           <div className="grid auto-rows-auto gap-3">
-            {visiblePosts.map((post, index) => (
+            {visiblePosts.map((post) => (
               <div key={post.id}>
-                {index === 2 && <AdSlot slot="CYBERNEWS_FEED_INLINE_1" className="mb-3 min-h-[90px]" />}
                 <article className="rounded-lg border border-black/5 bg-white/75 p-4 shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:shadow-md">
                   <div className="flex flex-wrap items-center gap-2">
                     <span className={`rounded-md border px-2 py-1 text-[11px] font-bold ${severityStyles(post.severity)}`}>
@@ -276,24 +244,6 @@ export default function CyberNewsFeed() {
           </nav>
         </div>
 
-        <aside className="space-y-4 lg:sticky lg:top-4">
-          <div className="rounded-lg border border-black/5 bg-white/80 p-4 shadow-lg backdrop-blur">
-            <div className="flex items-center gap-2 text-sm font-semibold text-gray-950">
-              <FiCoffee className="text-red-500" aria-hidden="true" />
-              For a cup of coffee
-            </div>
-            <p className="mt-2 text-sm leading-6 text-gray-600">
-              Support one coffee cup budget project.
-            </p>
-            <a
-              href="#"
-              className="mt-4 inline-flex h-10 w-full items-center justify-center rounded-md bg-black px-3 text-sm font-medium text-white shadow-sm transition hover:bg-gray-800"
-            >
-              Buy a coffee
-            </a>
-          </div>
-          <AdSlot slot="CYBERNEWS_FEED_SIDEBAR_1" className="hidden min-h-[600px] lg:block" />
-        </aside>
       </section>
     </div>
   )

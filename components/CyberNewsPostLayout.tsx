@@ -8,34 +8,9 @@ import {
   FiShare2,
   FiShield,
 } from 'react-icons/fi'
-import { ADSENSE_CLIENT_ID } from '@/data/adsense'
 import { cyberNewsPosts, severityStyles, type NewsPost } from '@/data/cyberNews'
 import CyberNewsSaveButton from '@/components/CyberNewsSaveButton'
 import CyberNewsViewCounter from '@/components/CyberNewsViewCounter'
-
-function AdSlot({
-  slot,
-  className = '',
-}: {
-  slot: string
-  className?: string
-}) {
-  return (
-    <aside
-      className={`overflow-hidden rounded-md bg-white ${className}`}
-      aria-hidden="true"
-    >
-      <ins
-        className="adsbygoogle"
-        style={{ display: 'block' }}
-        data-ad-client={ADSENSE_CLIENT_ID}
-        data-ad-slot={slot}
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      />
-    </aside>
-  )
-}
 
 export default function CyberNewsPostLayout({ post }: { post: NewsPost }) {
   const canonicalPath = `/cybernews/${post.id}`
@@ -107,7 +82,7 @@ export default function CyberNewsPostLayout({ post }: { post: NewsPost }) {
         </div>
 
         <section className="mt-8 space-y-8 text-base leading-7 text-gray-700">
-          {post.body.map((section, index) => (
+          {post.body.map((section) => (
             <div key={section.heading}>
               <h2 className="text-2xl font-semibold tracking-tight text-gray-950">{section.heading}</h2>
               <div className="mt-4 space-y-4 text-gray-700">
@@ -115,12 +90,6 @@ export default function CyberNewsPostLayout({ post }: { post: NewsPost }) {
                   <p key={paragraph}>{paragraph}</p>
                 ))}
               </div>
-              {index === 0 && (
-                <AdSlot
-                  slot="CYBERNEWS_ARTICLE_INLINE_1"
-                  className="my-8 min-h-[90px]"
-                />
-              )}
             </div>
           ))}
         </section>
@@ -224,8 +193,6 @@ export default function CyberNewsPostLayout({ post }: { post: NewsPost }) {
       </article>
 
       <aside className="space-y-4 lg:sticky lg:top-4 lg:self-start">
-        <AdSlot slot="CYBERNEWS_ARTICLE_SIDEBAR_1" className="hidden min-h-[600px] lg:block" />
-        <AdSlot slot="CYBERNEWS_ARTICLE_MOBILE_1" className="block min-h-[100px] lg:hidden" />
         <div className="rounded-lg border border-black/5 bg-white/80 p-4 shadow-lg backdrop-blur">
           <h2 className="text-sm font-semibold text-gray-950">Tags</h2>
           <div className="mt-3 flex flex-wrap gap-2">

@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
-import { ADSENSE_CLIENT_ID } from "@/data/adsense";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -18,15 +16,12 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://dmytriitamurov.com"),
-  other: {
-    "google-adsense-account": ADSENSE_CLIENT_ID,
-  },
   title: {
-    default: "Dmytrii Tamurov",
+    default: "Dmytrii Tamurov | SOC Analyst Cybersecurity Portfolio",
     template: "%s | Dmytrii Tamurov",
   },
   description:
-    "Cybersecurity and IT research by Dmytrii Tamurov: threat intelligence, vulnerability analysis, SOC notes, and secure development.",
+    "SOC Analyst-focused cybersecurity portfolio of Dmytrii Tamurov: SIEM-style investigation, network detection, incident reporting, Linux security automation, vulnerability research, and secure development projects.",
   authors: [{ name: "Dmytrii Tamurov", url: "https://dmytriitamurov.com" }],
   creator: "Dmytrii Tamurov",
   publisher: "Dmytrii Tamurov",
@@ -35,15 +30,22 @@ export const metadata: Metadata = {
   },
   keywords: [
     "Dmytrii Tamurov",
-    "Dmytrii Tamurov Nexessary",
-    "Nexessary",
-    "Nexessary founder",
-    "TMK",
+    "Dmytrii Tamurov portfolio",
+    "cybersecurity portfolio",
+    "SOC analyst portfolio",
+    "entry level SOC analyst",
+    "cybersecurity analyst portfolio",
+    "SIEM investigation",
+    "network security projects",
+    "Snort lab",
+    "Bash threat detection",
     "cybersecurity research",
     "threat intelligence",
     "vulnerability research",
     "SOC analysis",
     "incident response",
+    "threat detection",
+    "cybersecurity architecture path",
     "secure development",
     "IT security",
     "cybersecurity",
@@ -57,9 +59,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "https://dmytriitamurov.com",
-    title: "Dmytrii Tamurov",
+    title: "Dmytrii Tamurov | SOC Analyst Cybersecurity Portfolio",
     description:
-      "Cybersecurity and IT research by Dmytrii Tamurov: threat intelligence, vulnerability analysis, SOC notes, and secure development.",
+      "SOC Analyst-focused cybersecurity portfolio of Dmytrii Tamurov: SIEM-style investigation, network detection, incident reporting, Linux security automation, vulnerability research, and secure development projects.",
     siteName: "Dmytrii Tamurov",
     images: [
       {
@@ -72,9 +74,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Dmytrii Tamurov",
+    title: "Dmytrii Tamurov | SOC Analyst Cybersecurity Portfolio",
     description:
-      "Cybersecurity and IT research by Dmytrii Tamurov.",
+      "Cybersecurity portfolio focused on SOC analysis, threat detection, incident reporting, network defense, Linux automation, and secure development.",
     images: ["/pic-ava.png"],
   },
 };
@@ -89,13 +91,6 @@ export default function RootLayout({
       <body
         className={`antialiased ${geistSans.variable} ${geistMono.variable} font-sans`}
       >
-        <Script
-          id="google-adsense"
-          async
-          strategy="afterInteractive"
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT_ID}`}
-          crossOrigin="anonymous"
-        />
         {children}
       </body>
     </html>

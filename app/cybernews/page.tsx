@@ -11,7 +11,7 @@ import {
 } from '@/data/cyberNews'
 
 export const metadata: Metadata = {
-  title: 'Dmytrii Tamurov Cybernews - Cybersecurity News, Vulnerability Reports and Threat Intelligence',
+  title: 'Threat Notes - Cybersecurity News, Vulnerability Reports and Threat Intelligence',
   description:
     'Dmytrii Tamurov Cybernews on dmytriitamurov.com covers cybersecurity news, vulnerability reports, ransomware updates, cloud security threats, supply-chain risk, incident response notes, and practical defense analysis.',
   authors: [{ name: CYBERNEWS_AUTHOR_NAME, url: CYBERNEWS_AUTHOR_URL }],
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: '/cybernews',
-    title: 'Dmytrii Tamurov Cybernews | Cybersecurity News and Threat Intelligence',
+    title: 'Dmytrii Tamurov Threat Notes | Cybersecurity News and Threat Intelligence',
     description:
       'Cybersecurity news and threat intelligence by Dmytrii Tamurov on dmytriitamurov.com.',
     siteName: CYBERNEWS_BRAND_NAME,
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Dmytrii Tamurov Cybernews',
+    title: 'Dmytrii Tamurov Threat Notes',
     description:
       'Cybersecurity news, vulnerabilities, ransomware updates, cloud threats, and practical defense analysis by Dmytrii Tamurov.',
     images: ['/pic-ava.png'],

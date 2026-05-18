@@ -24,7 +24,7 @@ const blogResults: SearchResult[] = flattenBlogPosts(blogGraph)
     title: post.title,
     href: post.path || '#',
     date: post.date,
-    type: post.path?.startsWith('/blog/projects/') ? 'Project' : 'Research post',
+    type: post.path?.startsWith('/projects/') ? 'Project' : 'Research post',
     summary: post.author ? `By ${post.author}` : undefined,
     terms: [post.title, post.author, post.date, post.path].filter(Boolean).join(' '),
   }))
@@ -83,7 +83,7 @@ export default function SearchPage() {
             type="text"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search cybersecurity posts, cybernews, CVEs, threats..."
+            placeholder="Search projects, cybersecurity posts, CVEs, threats..."
             className="w-full rounded-md border border-gray-300 bg-white/80 px-4 py-3 shadow-sm backdrop-blur outline-none focus:border-blue-500"
           />
 

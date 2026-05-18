@@ -1,87 +1,97 @@
-'use client'
-
-import { useRef } from 'react'
-import Image from "next/image";
-import { FaLinkedin, FaYoutube } from 'react-icons/fa'
-import BackgroundFX from '@/components/BackgroundFX'
+import Image from 'next/image'
+import { FiLinkedin, FiMail, FiYoutube } from 'react-icons/fi'
 import SiteHeader from '@/components/SiteHeader'
+import { coreSkills } from '@/data/portfolio'
+
+export const metadata = {
+  title: 'About',
+  description:
+    'About Dmytrii Tamurov, a cybersecurity and software development student focused on security operations, network defense, and practical development.',
+}
 
 export default function AboutPage() {
-  const mainRef = useRef<HTMLElement | null>(null)
-
   return (
-    <main
-      ref={mainRef}
-      className="min-h-screen bg-white text-black p-6 sm:p-12 font-sans relative overflow-hidden"
-    >
-      <BackgroundFX containerRef={mainRef} />
-      <SiteHeader className="-mx-6 -mt-6 mb-12 animate-fade-up sm:-mx-12 sm:-mt-12" />
+    <main className="min-h-screen bg-[#f8fafc] text-slate-950 font-sans">
+      <SiteHeader bordered />
 
-      {/* Content */}
-      <div className="flex flex-col sm:flex-row gap-12 relative z-10">
-        {/* Profile Block */}
-        <section className="w-full sm:w-1/3 flex flex-col items-center sm:items-start text-center sm:text-left animate-fade-up-1">
-        <div className="w-[150px] h-[150px] rounded-full overflow-hidden border border-gray-300 mb-4">
+      <section className="mx-auto grid max-w-6xl gap-10 px-6 py-10 lg:grid-cols-[0.85fr_1.15fr]">
+        <aside className="rounded-md border border-slate-200 bg-white p-6 shadow-sm">
           <Image
             src="/pic-ava.png"
             alt="Dmytrii Tamurov"
             width={150}
             height={150}
-            className="pointer-events-none select-none object-cover scale-100"
-            draggable={false}
             priority
+            className="h-36 w-36 rounded-md border border-slate-200 object-cover"
           />
-        </div>
-          
-          <h1 className="text-xl font-semibold">Dmytrii Tamurov</h1>
-          <p className="mt-2 text-gray-600">
-            Cybersecurity research, threat intelligence, vulnerability analysis, and practical IT defense.
+          <h1 className="mt-5 text-2xl font-semibold">Dmytrii Tamurov</h1>
+          <p className="mt-2 leading-7 text-slate-700">
+            Cybersecurity and software development student based in Brampton, Canada.
           </p>
 
-          <div className="flex flex-col mt-4 gap-2">
+          <div className="mt-6 flex flex-col gap-3 text-sm">
             <a
-              href="https://nexessary.com"
+              href="https://www.linkedin.com/in/dmytrii-tamurov-40b6aa274"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 hover:text-blue-700"
+              className="inline-flex items-center gap-2 text-blue-700 hover:underline"
             >
-              <Image
-                src="/nexessary.png"
-                alt="Nexessary"
-                width={16}
-                height={16}
-                className="h-4 w-4 rounded-sm object-cover"
-              />
-              Nexessary
+              <FiLinkedin aria-hidden="true" /> LinkedIn
             </a>
-            <a href="https://www.youtube.com/channel/UChUvWsi-Dpb6abY6SZsxgxA" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-red-600">
-              <FaYoutube /> YouTube
+            <a
+              href="https://www.youtube.com/channel/UChUvWsi-Dpb6abY6SZsxgxA"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-blue-700 hover:underline"
+            >
+              <FiYoutube aria-hidden="true" /> YouTube
             </a>
-            <a href="https://www.linkedin.com/in/dmytrii-tamurov-40b6aa274" className="flex items-center gap-2 hover:text-blue-700">
-              <FaLinkedin /> LinkedIn
+            <a
+              href="mailto:contact@dmytriitamurov.com"
+              className="inline-flex items-center gap-2 text-blue-700 hover:underline"
+            >
+              <FiMail aria-hidden="true" /> contact@dmytriitamurov.com
             </a>
           </div>
-        </section>
+        </aside>
 
-
-        {/* About Container */}
-        <section className="w-full sm:w-2/3 animate-fade-up-2">
-            <p className="text-gray-700 leading-7 bg-white/70 backdrop-blur p-6 rounded-lg shadow-lg border border-black/5">
-                <b>Hello everyone!</b><br />
-                This site is focused on cybersecurity and IT: research notes, threat coverage, vulnerability writeups, and practical defense thinking.
-            <br /><br />
-                My name is Dmytrii Tamurov. I work across software development, security research, SOC analysis, network fundamentals, and application security. The goal here is to document technical work clearly enough that defenders, builders, and students can use it.
-            <br /><br />
-                Currently, I live in Brampton, Canada, and study Software Development and Network Engineering at Sheridan College while preparing for deeper cybersecurity work.
-            <br /><br />
-                The writing here focuses on vulnerability research, threat intelligence, secure development, cloud and endpoint risk, incident response notes, and the systems that support modern IT operations. Nexessary is also included as an important software project of mine, separate from the cybersecurity focus.
-            <br /><br />
-                <b>Contact Me</b><br />
-                If you want to discuss cybersecurity research, IT projects, or collaboration, LinkedIn and YouTube are the best public channels listed here.
-            <br /><br />
+        <div className="space-y-6">
+          <section className="rounded-md border border-slate-200 bg-white p-6 shadow-sm">
+            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-blue-700">About</p>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight">Cybersecurity, IT, and Development</h2>
+            <p className="mt-4 leading-7 text-slate-700">
+              I study Software Development and Network Engineering at Sheridan College and focus my
+              portfolio on practical cybersecurity work: network detection, incident documentation,
+              Linux automation, vulnerability research, and secure development.
             </p>
-        </section>
-      </div>
+            <p className="mt-4 leading-7 text-slate-700">
+              My goal is to build evidence through hands-on projects that are useful to employers:
+              clear lab environments, readable reports, realistic security impact, and concrete
+              recommendations instead of only theory.
+            </p>
+          </section>
+
+          <section className="rounded-md border border-slate-200 bg-white p-6 shadow-sm">
+            <h2 className="text-2xl font-semibold">Skills</h2>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {coreSkills.map((skill) => (
+                <span key={skill} className="rounded-md border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm text-slate-700">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </section>
+
+          <section className="rounded-md border border-slate-200 bg-white p-6 shadow-sm">
+            <h2 className="text-2xl font-semibold">What This Website Is For</h2>
+            <p className="mt-4 leading-7 text-slate-700">
+              The website is now structured as a cybersecurity career portfolio. Projects are the
+              primary evidence, threat notes support security awareness, and the about page gives
+              employers a direct path to understand my focus and contact me.
+            </p>
+          </section>
+        </div>
+      </section>
     </main>
   )
 }

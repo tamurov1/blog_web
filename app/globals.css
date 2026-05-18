@@ -116,6 +116,111 @@ body {
   animation: pulse-soft 2.5s ease-in-out infinite;
 }
 
+.cyber-tile-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  will-change: transform;
+}
+
+.cyber-tile-scroll-shell {
+  overscroll-behavior: contain;
+  touch-action: none;
+}
+
+.cyber-tile-visual {
+  position: absolute;
+  left: 50%;
+  top: 54%;
+  height: 112px;
+  width: 154px;
+  transform: translate(-50%, -50%);
+  opacity: 0.88;
+  transition: transform 220ms ease, opacity 220ms ease;
+}
+
+.group:hover .cyber-tile-visual {
+  transform: translate(-50%, -52%) scale(1.04);
+  opacity: 1;
+}
+
+.cyber-tile-visual-radial {
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at center, #2563eb 0 8px, transparent 9px),
+    repeating-conic-gradient(from 0deg, rgba(37, 99, 235, 0.72) 0deg 2deg, transparent 2deg 8deg);
+  mask-image: radial-gradient(circle at center, transparent 0 16px, black 17px 58px, transparent 59px);
+}
+
+.cyber-tile-visual-database {
+  width: 96px;
+  border: 2px solid rgba(226, 232, 240, 0.9);
+  border-radius: 22px;
+  background:
+    linear-gradient(rgba(239, 68, 68, 0.82), rgba(239, 68, 68, 0.82)) center 50% / 46px 2px no-repeat,
+    linear-gradient(rgba(239, 68, 68, 0.82), rgba(239, 68, 68, 0.82)) center 64% / 46px 2px no-repeat,
+    radial-gradient(ellipse at top, transparent 0 27px, rgba(71, 85, 105, 0.72) 28px 30px, transparent 31px);
+}
+
+.cyber-tile-visual-database::before,
+.cyber-tile-visual-database::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  height: 26px;
+  border: 2px solid rgba(71, 85, 105, 0.72);
+  border-top: 0;
+  border-radius: 0 0 22px 22px;
+}
+
+.cyber-tile-visual-database::before {
+  top: 31px;
+}
+
+.cyber-tile-visual-database::after {
+  top: 62px;
+}
+
+.cyber-tile-visual-flow {
+  background:
+    radial-gradient(circle, #ef4444 0 8px, transparent 9px) 16% 54% / 32px 32px no-repeat,
+    radial-gradient(circle, transparent 0 8px, rgba(71, 85, 105, 0.72) 9px 10px, transparent 11px) 76% 18% / 32px 32px no-repeat,
+    radial-gradient(circle, transparent 0 8px, rgba(71, 85, 105, 0.72) 9px 10px, transparent 11px) 84% 66% / 32px 32px no-repeat,
+    linear-gradient(24deg, transparent 42%, rgba(71, 85, 105, 0.64) 43% 44%, transparent 45%) 38% 34% / 82px 48px no-repeat,
+    linear-gradient(-18deg, transparent 42%, rgba(71, 85, 105, 0.64) 43% 44%, transparent 45%) 38% 56% / 86px 48px no-repeat;
+}
+
+.cyber-tile-visual-terminal {
+  width: 176px;
+  background:
+    linear-gradient(135deg, transparent 0 45%, #2563eb 46% 54%, transparent 55%) left 18px top 36px / 42px 42px no-repeat,
+    linear-gradient(45deg, transparent 0 45%, #2563eb 46% 54%, transparent 55%) left 18px top 60px / 42px 42px no-repeat,
+    linear-gradient(rgba(71, 85, 105, 0.74), rgba(71, 85, 105, 0.74)) right 18px top 76px / 72px 2px no-repeat,
+    repeating-linear-gradient(0deg, rgba(71, 85, 105, 0.12) 0 1px, transparent 1px 18px);
+}
+
+@media (max-width: 640px) {
+  .cyber-tile-scroll {
+    gap: 12px;
+  }
+
+  .cyber-tile-visual {
+    top: 58%;
+    height: 86px;
+    width: 118px;
+    opacity: 0.72;
+  }
+
+  .cyber-tile-visual-database {
+    width: 76px;
+  }
+
+  .cyber-tile-visual-terminal {
+    width: 132px;
+  }
+}
+
 .hero-grid {
   background-image:
     linear-gradient(to right, rgba(15, 23, 42, 0.08) 1px, transparent 1px),

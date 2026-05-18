@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { FiSearch } from 'react-icons/fi'
+import { FiExternalLink, FiSearch } from 'react-icons/fi'
 
 export default function SiteHeader({
   className = '',
@@ -28,10 +28,18 @@ export default function SiteHeader({
         TMK
       </div>
       <nav className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm font-medium">
-        <Link href="/" className="tmk-nav-link">Home</Link>
-        <Link href="/map" className="tmk-nav-link">Map</Link>
-        <Link href="/cybernews" className="tmk-nav-link tmk-nav-link-featured text-blue-600">Cybernews</Link>
+        <Link href="/" className="tmk-nav-link">Portfolio</Link>
+        <Link href="/projects" className="tmk-nav-link tmk-nav-link-featured text-blue-700">Projects</Link>
         <Link href="/about" className="tmk-nav-link">About</Link>
+        <Link href="/cybernews" className="tmk-nav-link">Threat Notes</Link>
+        <a
+          href="https://www.linkedin.com/in/dmytrii-tamurov-40b6aa274"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 rounded-md border border-gray-300 px-3 py-1.5 transition hover:border-blue-300 hover:text-blue-700"
+        >
+          LinkedIn <FiExternalLink aria-hidden="true" />
+        </a>
         <Link href="/search" aria-label="Search" className="text-xl hover:opacity-70">
           <FiSearch />
         </Link>

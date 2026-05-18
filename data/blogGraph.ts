@@ -30,12 +30,26 @@ export const blogGraph: BlogNode = {
   children: [
     {
       id: 'projects',
-      title: 'Important Projects',
+      title: 'Portfolio Projects',
       children: [
+        {
+          id: 'snort-ssh-detection-lab',
+          title: 'Snort Intrusion Detection Lab: SSH Traffic Analysis',
+          path: '/projects/snort-ssh-detection-lab/',
+          author: 'Dmytrii Tamurov',
+          date: '2025-08-04',
+        },
+        {
+          id: 'automated-threat-detection-bash',
+          title: 'Automated Threat Detection and Log Analysis with Bash',
+          path: '/projects/automated-threat-detection-bash/',
+          author: 'Dmytrii Tamurov',
+          date: '2026-04-30',
+        },
         {
           id: 'nexessary',
           title: 'Nexessary: Building a Structured Workspace for Real Workflows',
-          path: '/blog/projects/nexessary/',
+          path: '/projects/nexessary/',
           author: 'Dmytrii Tamurov',
           date: '2026-03-04',
         },
