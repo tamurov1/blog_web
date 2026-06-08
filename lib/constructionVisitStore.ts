@@ -20,6 +20,7 @@ export type ConstructionVisitRecord = {
 
 let sql: ReturnType<typeof neon> | null = null
 let ensureTablePromise: Promise<void> | null = null
+const UNKNOWN_USER_AGENT = 'unknown'
 
 function getSql() {
   if (!process.env.DATABASE_URL) {
@@ -54,9 +55,33 @@ export async function ensureConstructionVisitTable() {
         started_at TIMESTAMPTZ,
         elapsed_ms INTEGER NOT NULL DEFAULT 0,
         time_spent_seconds INTEGER NOT NULL DEFAULT 0,
-        user_agent TEXT,
+        user_agent TEXT NOT NULL DEFAULT 'unknown',
         created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
       )
+    `
+
+    await db`
+      UPDATE construction_visit_events
+      SET user_agent = ${UNKNOWN_USER_AGENT}
+      WHERE user_agent IS NULL OR user_agent = ''
+    `
+
+    await db`
+      DELETE FROM construction_visit_events duplicate
+      USING construction_visit_events keeper
+      WHERE duplicate.ip_address = keeper.ip_address
+        AND duplicate.user_agent = keeper.user_agent
+        AND duplicate.id < keeper.id
+    `
+
+    await db`
+      ALTER TABLE construction_visit_events
+      ALTER COLUMN user_agent SET DEFAULT 'unknown'
+    `
+
+    await db`
+      ALTER TABLE construction_visit_events
+      ALTER COLUMN user_agent SET NOT NULL
     `
 
     await db`
@@ -67,6 +92,11 @@ export async function ensureConstructionVisitTable() {
     await db`
       CREATE INDEX IF NOT EXISTS construction_visit_events_event_at_idx
       ON construction_visit_events (event_at DESC)
+    `
+
+    await db`
+      CREATE UNIQUE INDEX IF NOT EXISTS construction_visit_events_ip_user_agent_uidx
+      ON construction_visit_events (ip_address, user_agent)
     `
   })()
 
@@ -97,7 +127,18 @@ export async function saveConstructionVisit(record: ConstructionVisitRecord) {
       ${record.startedAt ?? null},
       ${record.elapsedMs},
       ${record.timeSpentSeconds},
-      ${record.userAgent ?? null}
+      ${record.userAgent || UNKNOWN_USER_AGENT}
     )
+    ON CONFLICT (ip_address, user_agent)
+    DO UPDATE SET
+      visit_id = EXCLUDED.visit_id,
+      event = EXCLUDED.event,
+      event_at = EXCLUDED.event_at,
+      started_at = COALESCE(construction_visit_events.started_at, EXCLUDED.started_at),
+      elapsed_ms = GREATEST(construction_visit_events.elapsed_ms, EXCLUDED.elapsed_ms),
+      time_spent_seconds = GREATEST(
+        construction_visit_events.time_spent_seconds,
+        EXCLUDED.time_spent_seconds
+      )
   `
 }
