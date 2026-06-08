@@ -89,9 +89,9 @@ const certifications = [
 ]
 
 const usefulLinks = [
-  { label: 'Projects index', href: '/projects' },
-  { label: 'Cyber news', href: '/cybernews' },
-  { label: 'Portfolio map', href: '/map' },
+  { label: 'LinkedIn profile', href: 'https://www.linkedin.com/in/dmytrii-tamurov-40b6aa274' },
+  { label: 'Nexessary', href: 'https://nexessary.com' },
+  { label: 'Email contact', href: 'mailto:tamurovdm@gmail.com' },
 ]
 
 function clampPosition(position: Point, viewport: ViewportSize): Point {
@@ -1078,6 +1078,8 @@ export default function ConstructionCanvas() {
                               <a
                                 key={link.href}
                                 href={link.href}
+                                target={link.href.startsWith('mailto:') ? undefined : '_blank'}
+                                rel={link.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
                                 onPointerDown={(event) => event.stopPropagation()}
                                 className="text-[11px] font-bold uppercase text-[#d8ffff] transition hover:text-[#e23b48] sm:text-xs"
                               >
@@ -1090,16 +1092,33 @@ export default function ConstructionCanvas() {
                         <div>
                           <p className="text-[11px] font-bold uppercase text-[#f5d447]">Projects</p>
                           <div className="mt-2 grid gap-1">
-                            {portfolioProjects.map((project) => (
-                              <a
-                                key={project.slug}
-                                href={project.href}
-                                onPointerDown={(event) => event.stopPropagation()}
-                                className="text-[11px] font-bold uppercase text-[#d8ffff] transition hover:text-[#e23b48] sm:text-xs"
-                              >
-                                [{project.shortTitle}]
-                              </a>
-                            ))}
+                            {portfolioProjects.map((project) => {
+                              const href = project.externalHref
+
+                              if (!href) {
+                                return (
+                                  <span
+                                    key={project.slug}
+                                    className="text-[11px] font-bold uppercase text-[#d8ffff]/72 sm:text-xs"
+                                  >
+                                    [{project.shortTitle}]
+                                  </span>
+                                )
+                              }
+
+                              return (
+                                <a
+                                  key={project.slug}
+                                  href={href}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  onPointerDown={(event) => event.stopPropagation()}
+                                  className="text-[11px] font-bold uppercase text-[#d8ffff] transition hover:text-[#e23b48] sm:text-xs"
+                                >
+                                  [{project.shortTitle}]
+                                </a>
+                              )
+                            })}
                           </div>
                         </div>
                       </div>

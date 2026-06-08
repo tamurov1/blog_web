@@ -26,7 +26,7 @@ export const portfolioProjects: PortfolioProject[] = [
       'Documented incident metadata, affected devices, evidence, impact, and remediation steps.',
       'Practiced SOC-style analysis by turning raw detection into a readable security report.',
     ],
-    href: '/projects/snort-ssh-detection-lab',
+    href: '#snort-ssh-detection-lab',
   },
   {
     slug: 'automated-threat-detection-bash',
@@ -42,7 +42,7 @@ export const portfolioProjects: PortfolioProject[] = [
       'Added IP geolocation enrichment and blocking workflow design with iptables.',
       'Generated daily reports to make command-line security findings easier to review.',
     ],
-    href: '/projects/automated-threat-detection-bash',
+    href: '#automated-threat-detection-bash',
     externalHref: 'https://lnkd.in/gtwPd4pB',
   },
   {
@@ -59,7 +59,7 @@ export const portfolioProjects: PortfolioProject[] = [
       'Designed the platform for task management, collaboration, and structured planning.',
       'Gathered early feedback while continuing to improve core features and interface quality.',
     ],
-    href: '/projects/nexessary',
+    href: 'https://nexessary.com',
     externalHref: 'https://nexessary.com',
   },
 ]

@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 const blockedExtensionPattern = /\.(doc|docx)$/i
-const publicAssetPattern = /\.(ico|png|jpg|jpeg|svg|gif|webp|avif|mp3|wav|ogg|m4a|mp4|webm|mov|txt|xml|css|js|map|json|woff|woff2|ttf|otf)$/i
+const publicAssetPattern = /\.(ico|png|jpg|jpeg|svg|gif|webp|avif|mp3|wav|ogg|m4a|mp4|webm|mov|txt|xml|webmanifest|css|js|map|json|woff|woff2|ttf|otf)$/i
 const homePath = '/'
 
 export function proxy(req: NextRequest) {

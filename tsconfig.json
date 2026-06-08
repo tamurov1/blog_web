@@ -32,7 +32,6 @@
     "next-env.d.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "components/test.tsx",
     ".next/dev/types/**/*.ts"
   ],
   "exclude": [
