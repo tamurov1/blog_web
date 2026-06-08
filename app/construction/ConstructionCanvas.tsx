@@ -370,53 +370,91 @@ export default function ConstructionCanvas() {
   }, [])
 
   useEffect(() => {
-    const startedAt = Date.now()
+    const clientStartedAt = Date.now()
+    let visitId =
+      typeof crypto !== 'undefined' && 'randomUUID' in crypto
+        ? crypto.randomUUID()
+        : `${clientStartedAt}-${Math.random().toString(16).slice(2)}`
+    let serverStartedAt = new Date(clientStartedAt).toISOString()
     let visitorIp = 'unknown'
 
     const formatElapsed = () => {
-      const totalSeconds = Math.floor((Date.now() - startedAt) / 1000)
+      const totalSeconds = Math.floor((Date.now() - clientStartedAt) / 1000)
       const minutes = Math.floor(totalSeconds / 60)
       const seconds = totalSeconds % 60
 
       return `${minutes}m ${seconds}s`
     }
 
-    const printVisit = (eventName: string) => {
+    const sendVisitEvent = (
+      eventName: 'active' | 'hidden' | 'leaving' | 'unmounted',
+      transport: 'fetch' | 'beacon' = 'fetch',
+    ) => {
+      const payload = {
+        visitId,
+        event: eventName,
+        startedAt: serverStartedAt,
+        elapsedMs: Date.now() - clientStartedAt,
+      }
+
       console.info('[construction visit]', {
         event: eventName,
+        visitId,
         ipAddress: visitorIp,
         timeSpent: formatElapsed(),
+      })
+
+      if (transport === 'beacon' && navigator.sendBeacon) {
+        const body = new Blob([JSON.stringify(payload)], {
+          type: 'application/json',
+        })
+
+        navigator.sendBeacon('/api/construction-visit', body)
+        return
+      }
+
+      fetch('/api/construction-visit', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+        keepalive: transport === 'beacon',
+      }).catch((error: unknown) => {
+        console.warn('[construction visit] event send failed', error)
       })
     }
 
     fetch('/api/construction-visit', { cache: 'no-store' })
       .then((response) => response.json())
-      .then((visit: { ipAddress?: string; startedAt?: string }) => {
+      .then((visit: { visitId?: string; ipAddress?: string; startedAt?: string }) => {
+        visitId = visit.visitId ?? visitId
         visitorIp = visit.ipAddress ?? 'unknown'
+        serverStartedAt = visit.startedAt ?? serverStartedAt
         console.info('[construction visit]', {
           event: 'started',
+          visitId,
           ipAddress: visitorIp,
-          startedAt: visit.startedAt,
+          startedAt: serverStartedAt,
           timeSpent: '0m 0s',
         })
       })
       .catch((error: unknown) => {
         console.warn('[construction visit] ip lookup failed', error)
-        printVisit('started')
       })
 
     const intervalId = window.setInterval(() => {
-      printVisit('active')
+      sendVisitEvent('active')
     }, 15000)
 
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'hidden') {
-        printVisit('hidden')
+        sendVisitEvent('hidden', 'beacon')
       }
     }
 
     const handleBeforeUnload = () => {
-      printVisit('leaving')
+      sendVisitEvent('leaving', 'beacon')
     }
 
     document.addEventListener('visibilitychange', handleVisibilityChange)
@@ -426,7 +464,7 @@ export default function ConstructionCanvas() {
       window.clearInterval(intervalId)
       document.removeEventListener('visibilitychange', handleVisibilityChange)
       window.removeEventListener('beforeunload', handleBeforeUnload)
-      printVisit('unmounted')
+      sendVisitEvent('unmounted', 'beacon')
     }
   }, [])
 
