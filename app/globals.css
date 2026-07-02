@@ -147,9 +147,16 @@ button {
   animation: page-enter 1100ms cubic-bezier(0.22, 1, 0.36, 1) 120ms forwards;
 }
 
-.simple-shell,
-.entry-shell {
+.simple-shell {
   width: min(100%, 900px);
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(14px);
+  animation: page-enter 1100ms cubic-bezier(0.22, 1, 0.36, 1) 120ms forwards;
+}
+
+.entry-shell {
+  width: min(100%, 638px);
   margin: 0 auto;
   opacity: 0;
   transform: translateY(14px);
@@ -256,7 +263,7 @@ button {
 }
 
 .entry-title {
-  margin: 0 0 22.4px;
+  margin: 0;
   color: var(--ink);
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(21px, 3.5vw, 30.8px);
@@ -267,15 +274,16 @@ button {
 }
 
 .entry-text {
-  margin: 0 auto;
-  max-width: 760px;
+  margin: 42px 0 0;
+  max-width: 520px;
   color: var(--ink);
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(16.8px, 2.8vw, 22.4px);
   font-style: italic;
   font-weight: 400;
   line-height: 1.35;
-  text-align: center;
+  text-align: left;
+  white-space: pre-wrap;
 }
 
 .back-button {
@@ -592,7 +600,6 @@ button {
     font-size: clamp(15.4px, 4.48vw, 19.6px);
   }
 
-  .entry-title,
   .entry-text {
     text-align: left;
   }
