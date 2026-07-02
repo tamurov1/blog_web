@@ -3,6 +3,7 @@
 :root {
   --background: #f2f1dc;
   --ink: #314052;
+  --muted: rgba(49, 64, 82, 0.72);
   --line: rgba(49, 64, 82, 0.58);
   --tile-hover: #e9e7cd;
   --tile-active: #dfddc1;
@@ -29,6 +30,7 @@ html {
 html[data-theme="dark"] {
   --background: #1f221d;
   --ink: #e7e4ca;
+  --muted: rgba(231, 228, 202, 0.72);
   --line: rgba(231, 228, 202, 0.5);
   --tile-hover: #2a2d26;
   --tile-active: #33372e;
@@ -323,9 +325,58 @@ button {
 }
 
 .journal-list a:focus-visible,
+.library-list a:focus-visible,
 .back-button:focus-visible {
   outline: 2px solid rgba(49, 64, 82, 0.78);
   outline-offset: 4px;
+}
+
+.library-list {
+  display: grid;
+  gap: 18px;
+  margin: 0;
+  padding-left: 22px;
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(16.8px, 2.8vw, 22.4px);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.library-list a {
+  display: grid;
+  width: fit-content;
+  gap: 4px;
+  text-decoration: none;
+}
+
+.library-list a span:first-child {
+  position: relative;
+  width: fit-content;
+}
+
+.library-list a span:first-child::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.library-list a:hover span:first-child::after,
+.library-list a:focus-visible span:first-child::after {
+  transform: scaleX(1);
+}
+
+.library-list a span:last-child {
+  font-size: 0.78em;
+  opacity: 0.82;
 }
 
 .empty-note {
@@ -350,6 +401,55 @@ button {
 .entry-text {
   margin: 42px 0 0;
   max-width: 520px;
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(16.8px, 2.8vw, 22.4px);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.35;
+  text-align: left;
+  white-space: pre-wrap;
+}
+
+.book-shell {
+  width: min(100%, 638px);
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(14px);
+  animation: page-enter 1100ms cubic-bezier(0.22, 1, 0.36, 1) 120ms forwards;
+}
+
+.book-category {
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(14px, 2vw, 18px);
+  font-style: italic;
+  text-align: center;
+}
+
+.book-title {
+  margin: 0;
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 400;
+  line-height: 1.12;
+  text-align: center;
+}
+
+.book-author {
+  margin: 10px 0 0;
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(17px, 2.8vw, 24px);
+  font-style: italic;
+  text-align: center;
+}
+
+.book-description {
+  margin: 42px 0 0;
+  max-width: 560px;
   color: var(--ink);
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(16.8px, 2.8vw, 22.4px);
@@ -394,6 +494,23 @@ button {
   gap: 18px;
   justify-items: center;
   margin-bottom: 26px;
+}
+
+.admin-section {
+  margin-top: 46px;
+}
+
+.admin-section:first-of-type {
+  margin-top: 26px;
+}
+
+.admin-section-title {
+  margin: 0;
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 23px;
+  font-weight: 400;
+  text-align: center;
 }
 
 .admin-form {
@@ -537,7 +654,7 @@ button {
 
 .confirm-title {
   margin-top: 10px !important;
-  color: rgba(49, 64, 82, 0.7);
+  color: var(--muted);
   font-size: 15px !important;
   font-style: italic;
 }
@@ -674,7 +791,14 @@ button {
     font-size: clamp(15.4px, 4.48vw, 19.6px);
   }
 
-  .entry-text {
+  .library-list {
+    gap: 14px;
+    padding-left: 18px;
+    font-size: clamp(15.4px, 4.48vw, 19.6px);
+  }
+
+  .entry-text,
+  .book-description {
     text-align: left;
   }
 
@@ -759,8 +883,17 @@ button {
     line-height: 1.22;
   }
 
+  .library-list {
+    gap: 12px;
+    padding-left: 18px;
+    font-size: 15px;
+  }
+
   .entry-title,
-  .entry-text {
+  .entry-text,
+  .book-title,
+  .book-author,
+  .book-description {
     font-size: 16px;
   }
 

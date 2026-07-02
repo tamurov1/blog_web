@@ -11,6 +11,7 @@ import {
   verifyAdminPassword,
 } from "@/lib/adminAuth";
 import { createJournal, deleteJournal, updateJournal } from "@/lib/journalStore";
+import { createLibraryBook, updateLibraryBook } from "@/lib/libraryStore";
 
 function getString(formData: FormData, key: string) {
   const value = formData.get(key);
@@ -33,6 +34,15 @@ function revalidateJournalPaths(slug?: string) {
 
   if (slug) {
     revalidatePath(`/journal/${slug}`);
+  }
+}
+
+function revalidateLibraryPaths(slug?: string) {
+  revalidatePath("/library");
+  revalidatePath("/sitemap.xml");
+
+  if (slug) {
+    revalidatePath(`/library/${slug}`);
   }
 }
 
@@ -95,4 +105,36 @@ export async function deleteJournalAction(formData: FormData) {
   revalidateJournalPaths(slug);
   revalidateJournalPaths(journal?.slug);
   redirectToAdmin("?saved=deleted");
+}
+
+export async function createLibraryBookAction(formData: FormData) {
+  await requireAdmin();
+
+  const book = await createLibraryBook({
+    title: getString(formData, "title"),
+    author: getString(formData, "author"),
+    category: getString(formData, "category"),
+    publicationYear: getString(formData, "publicationYear"),
+    description: getString(formData, "description"),
+  });
+
+  revalidateLibraryPaths(book?.slug);
+  redirectToAdmin("?saved=library-created");
+}
+
+export async function updateLibraryBookAction(formData: FormData) {
+  await requireAdmin();
+
+  const slug = getString(formData, "slug");
+  const book = await updateLibraryBook(slug, {
+    title: getString(formData, "title"),
+    author: getString(formData, "author"),
+    category: getString(formData, "category"),
+    publicationYear: getString(formData, "publicationYear"),
+    description: getString(formData, "description"),
+  });
+
+  revalidateLibraryPaths(slug);
+  revalidateLibraryPaths(book?.slug);
+  redirectToAdmin("?saved=library-updated");
 }
