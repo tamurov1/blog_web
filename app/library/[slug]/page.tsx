@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { listLibraryComments } from "@/lib/commentStore";
 import { getLibraryBook } from "@/lib/libraryStore";
+import Comments from "./Comments";
 
 type LibraryBookPageProps = {
   params: Promise<{
     slug: string;
+  }>;
+  searchParams?: Promise<{
+    comment?: string;
   }>;
 };
 
@@ -30,13 +35,21 @@ export async function generateMetadata({
   };
 }
 
-export default async function LibraryBookPage({ params }: LibraryBookPageProps) {
-  const { slug } = await params;
+export default async function LibraryBookPage({
+  params,
+  searchParams,
+}: LibraryBookPageProps) {
+  const [{ slug }, query] = await Promise.all([
+    params,
+    searchParams ?? Promise.resolve({} as { comment?: string }),
+  ]);
   const book = await getLibraryBook(slug);
 
   if (!book) {
     notFound();
   }
+
+  const comments = await listLibraryComments(slug);
 
   return (
     <main className="content-page">
@@ -51,6 +64,7 @@ export default async function LibraryBookPage({ params }: LibraryBookPageProps) 
           Back
         </Link>
       </article>
+      <Comments comments={comments} message={query.comment} slug={slug} />
     </main>
   );
 }

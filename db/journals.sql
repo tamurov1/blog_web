@@ -36,3 +36,14 @@ CREATE TABLE IF NOT EXISTS journal_comments (
 
 CREATE INDEX IF NOT EXISTS journal_comments_journal_created_idx
   ON journal_comments (journal_slug, created_at ASC);
+
+CREATE TABLE IF NOT EXISTS library_comments (
+  id BIGSERIAL PRIMARY KEY,
+  library_slug TEXT NOT NULL REFERENCES library_books(slug) ON DELETE CASCADE,
+  username TEXT NOT NULL DEFAULT 'Anonymous',
+  body TEXT NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS library_comments_library_created_idx
+  ON library_comments (library_slug, created_at ASC);
