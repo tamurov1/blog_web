@@ -11,7 +11,7 @@ import {
   verifyAdminPassword,
 } from "@/lib/adminAuth";
 import { createJournal, deleteJournal, updateJournal } from "@/lib/journalStore";
-import { createLibraryBook, updateLibraryBook } from "@/lib/libraryStore";
+import { createLibraryBook, deleteLibraryBook, updateLibraryBook } from "@/lib/libraryStore";
 
 function getString(formData: FormData, key: string) {
   const value = formData.get(key);
@@ -137,4 +137,15 @@ export async function updateLibraryBookAction(formData: FormData) {
   revalidateLibraryPaths(slug);
   revalidateLibraryPaths(book?.slug);
   redirectToAdmin("?saved=library-updated");
+}
+
+export async function deleteLibraryBookAction(formData: FormData) {
+  await requireAdmin();
+
+  const slug = getString(formData, "slug");
+  const book = await deleteLibraryBook(slug);
+
+  revalidateLibraryPaths(slug);
+  revalidateLibraryPaths(book?.slug);
+  redirectToAdmin("?saved=library-deleted");
 }

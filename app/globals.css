@@ -745,6 +745,10 @@ button {
   color: rgba(49, 64, 82, 0.72);
 }
 
+.admin-list-title {
+  min-width: 0;
+}
+
 .admin-list-actions {
   display: inline-flex;
   gap: 14px;

@@ -13,6 +13,7 @@ import {
   updateJournalAction,
 } from "./actions";
 import DeleteJournalButton from "./DeleteJournalButton";
+import DeleteLibraryBookButton from "./DeleteLibraryBookButton";
 
 type AdminPageProps = {
   params: Promise<{
@@ -149,10 +150,13 @@ export default async function AdminPage({ params, searchParams }: AdminPageProps
           <ul className="admin-list">
             {journals.map((journal) => (
               <li key={journal.slug}>
-                <Link href={`/${adminPath}?edit=${encodeURIComponent(journal.slug)}`}>
+                <span className="admin-list-title">
                   {journal.date} - {journal.title}
-                </Link>
+                </span>
                 <span className="admin-list-actions">
+                  <Link href={`/${adminPath}?edit=${encodeURIComponent(journal.slug)}`}>
+                    Edit
+                  </Link>
                   <Link href={`/journal/${journal.slug}`} target="_blank">
                     View
                   </Link>
@@ -222,13 +226,17 @@ export default async function AdminPage({ params, searchParams }: AdminPageProps
           <ul className="admin-list">
             {books.map((book) => (
               <li key={book.slug}>
-                <Link href={`/${adminPath}?editLibrary=${encodeURIComponent(book.slug)}`}>
+                <span className="admin-list-title">
                   {book.title} - {book.author}
-                </Link>
+                </span>
                 <span className="admin-list-actions">
+                  <Link href={`/${adminPath}?editLibrary=${encodeURIComponent(book.slug)}`}>
+                    Edit
+                  </Link>
                   <Link href={`/library/${book.slug}`} target="_blank">
                     View
                   </Link>
+                  <DeleteLibraryBookButton slug={book.slug} title={book.title} />
                 </span>
               </li>
             ))}
