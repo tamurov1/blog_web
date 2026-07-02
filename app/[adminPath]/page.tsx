@@ -9,6 +9,7 @@ import {
   logoutAction,
   updateJournalAction,
 } from "./actions";
+import DeleteJournalButton from "./DeleteJournalButton";
 
 type AdminPageProps = {
   params: Promise<{
@@ -140,9 +141,12 @@ export default async function AdminPage({ params, searchParams }: AdminPageProps
               <Link href={`/${adminPath}?edit=${encodeURIComponent(journal.slug)}`}>
                 {journal.date} - {journal.title}
               </Link>
-              <Link href={`/journal/${journal.slug}`} target="_blank">
-                View
-              </Link>
+              <span className="admin-list-actions">
+                <Link href={`/journal/${journal.slug}`} target="_blank">
+                  View
+                </Link>
+                <DeleteJournalButton slug={journal.slug} title={journal.title} />
+              </span>
             </li>
           ))}
         </ul>

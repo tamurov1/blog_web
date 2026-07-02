@@ -210,3 +210,15 @@ export async function updateJournal(slug: string, input: JournalInput) {
 
   return rows[0] ? mapJournal(rows[0]) : undefined;
 }
+
+export async function deleteJournal(slug: string) {
+  await ensureJournalTable();
+
+  const rows = (await getSql()`
+    DELETE FROM journals
+    WHERE slug = ${slug}
+    RETURNING id, slug, date, title, body, created_at, updated_at
+  `) as JournalRow[];
+
+  return rows[0] ? mapJournal(rows[0]) : undefined;
+}

@@ -10,7 +10,7 @@ import {
   setAdminSession,
   verifyAdminPassword,
 } from "@/lib/adminAuth";
-import { createJournal, updateJournal } from "@/lib/journalStore";
+import { createJournal, deleteJournal, updateJournal } from "@/lib/journalStore";
 
 function getString(formData: FormData, key: string) {
   const value = formData.get(key);
@@ -84,4 +84,15 @@ export async function updateJournalAction(formData: FormData) {
   revalidateJournalPaths(slug);
   revalidateJournalPaths(journal?.slug);
   redirectToAdmin("?saved=updated");
+}
+
+export async function deleteJournalAction(formData: FormData) {
+  await requireAdmin();
+
+  const slug = getString(formData, "slug");
+  const journal = await deleteJournal(slug);
+
+  revalidateJournalPaths(slug);
+  revalidateJournalPaths(journal?.slug);
+  redirectToAdmin("?saved=deleted");
 }
