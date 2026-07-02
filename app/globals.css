@@ -6,7 +6,11 @@
   --line: rgba(49, 64, 82, 0.58);
   --tile-hover: #e9e7cd;
   --tile-active: #dfddc1;
+  --switch-track: rgba(49, 64, 82, 0.18);
+  --switch-thumb: #314052;
+  --switch-border: rgba(49, 64, 82, 0.42);
   --grid-width: 884.925px;
+  color-scheme: only light;
 }
 
 * {
@@ -15,6 +19,23 @@
 
 html {
   background: var(--background);
+  color-scheme: only light;
+  forced-color-adjust: none;
+  transition:
+    background-color 520ms ease,
+    color 520ms ease;
+}
+
+html[data-theme="dark"] {
+  --background: #1f221d;
+  --ink: #e7e4ca;
+  --line: rgba(231, 228, 202, 0.5);
+  --tile-hover: #2a2d26;
+  --tile-active: #33372e;
+  --switch-track: rgba(231, 228, 202, 0.17);
+  --switch-thumb: #e7e4ca;
+  --switch-border: rgba(231, 228, 202, 0.42);
+  color-scheme: only light;
 }
 
 body {
@@ -24,6 +45,9 @@ body {
   color: var(--ink);
   font-family: Georgia, "Times New Roman", serif;
   overflow-x: hidden;
+  transition:
+    background-color 520ms ease,
+    color 520ms ease;
 }
 
 a {
@@ -52,6 +76,56 @@ button {
   min-height: 100dvh;
   place-items: start center;
   padding: clamp(18px, 4vw, 36px) 18px 48px;
+}
+
+.theme-switch {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 10;
+  display: grid;
+  width: 48px;
+  height: 26px;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(-4px);
+  animation: page-enter 700ms ease-out 260ms forwards;
+}
+
+.theme-switch-track {
+  position: relative;
+  display: block;
+  width: 42px;
+  height: 20px;
+  border: 1px solid var(--switch-border);
+  background: var(--switch-track);
+  transition:
+    background-color 520ms ease,
+    border-color 520ms ease;
+}
+
+.theme-switch-thumb {
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  width: 12px;
+  height: 12px;
+  background: var(--switch-thumb);
+  transition:
+    background-color 520ms ease,
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.theme-switch[aria-pressed="true"] .theme-switch-thumb {
+  transform: translateX(20px);
+}
+
+.theme-switch:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
 }
 
 .landing-shell {
@@ -625,6 +699,11 @@ button {
 @media (max-width: 430px) {
   .landing-page {
     padding: 18px 16px 40px;
+  }
+
+  .theme-switch {
+    top: 12px;
+    right: 12px;
   }
 
   .landing-shell h1 {

@@ -49,14 +49,30 @@ export const viewport: Viewport = {
   themeColor: "#f2f1dc",
 };
 
+const themeScript = `
+(() => {
+  try {
+    const theme = localStorage.getItem('site-theme') === 'dark' ? 'dark' : 'light';
+    document.documentElement.dataset.theme = theme;
+    document.documentElement.style.colorScheme = 'only light';
+  } catch {
+    document.documentElement.dataset.theme = 'light';
+    document.documentElement.style.colorScheme = 'only light';
+  }
+})();
+`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" data-theme="light" suppressHydrationWarning>
+      <body>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        {children}
+      </body>
     </html>
   );
 }
