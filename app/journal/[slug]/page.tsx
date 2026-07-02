@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { listComments } from "@/lib/commentStore";
 import { getJournal } from "@/lib/journalStore";
+import Comments from "./Comments";
 
 type JournalEntryPageProps = {
   params: Promise<{
     slug: string;
+  }>;
+  searchParams?: Promise<{
+    comment?: string;
   }>;
 };
 
@@ -32,13 +37,19 @@ export async function generateMetadata({
 
 export default async function JournalEntryPage({
   params,
+  searchParams,
 }: JournalEntryPageProps) {
-  const { slug } = await params;
+  const [{ slug }, query] = await Promise.all([
+    params,
+    searchParams ?? Promise.resolve({} as { comment?: string }),
+  ]);
   const journal = await getJournal(slug);
 
   if (!journal) {
     notFound();
   }
+
+  const comments = await listComments(slug);
 
   return (
     <main className="content-page">
@@ -51,6 +62,7 @@ export default async function JournalEntryPage({
           Back
         </Link>
       </article>
+      <Comments comments={comments} message={query.comment} slug={slug} />
     </main>
   );
 }
