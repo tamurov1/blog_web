@@ -4,6 +4,7 @@
   --background: #f2f1dc;
   --ink: #314052;
   --muted: rgba(49, 64, 82, 0.72);
+  --placeholder: rgba(49, 64, 82, 0.52);
   --line: rgba(49, 64, 82, 0.58);
   --tile-hover: #e9e7cd;
   --tile-active: #dfddc1;
@@ -31,6 +32,7 @@ html[data-theme="dark"] {
   --background: #1f221d;
   --ink: #e7e4ca;
   --muted: rgba(231, 228, 202, 0.72);
+  --placeholder: rgba(231, 228, 202, 0.76);
   --line: rgba(231, 228, 202, 0.5);
   --tile-hover: #2a2d26;
   --tile-active: #33372e;
@@ -270,7 +272,7 @@ button {
 }
 
 .journal-search::placeholder {
-  color: rgba(49, 64, 82, 0.52);
+  color: var(--placeholder);
   opacity: 1;
 }
 
