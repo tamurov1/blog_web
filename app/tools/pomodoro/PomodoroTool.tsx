@@ -23,14 +23,6 @@ function formatMinutes(minutes: number) {
   return `${hours}h ${remainingMinutes}m`;
 }
 
-function formatClock(ms: number) {
-  const totalSeconds = Math.max(0, Math.ceil(ms / 1000));
-  const minutes = Math.floor(totalSeconds / 60);
-  const seconds = totalSeconds % 60;
-
-  return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
-}
-
 export default function PomodoroTool() {
   const [blocksInput, setBlocksInput] = useState("1");
   const [blocks, setBlocks] = useState(0);
@@ -44,7 +36,6 @@ export default function PomodoroTool() {
   const progress = totalMs > 0 ? Math.min(elapsedMs / totalMs, 1) : 0;
   const blockElapsed = blocks > 0 ? elapsedMs % blockMs : 0;
   const blockProgress = state === "summary" ? 1 : Math.min(blockElapsed / blockMs, 1);
-  const remainingMs = Math.max(totalMs - elapsedMs, 0);
   const phase = blockElapsed < workMinutes * minuteMs ? "Work" : "Break";
 
   const stats = useMemo(
@@ -148,21 +139,14 @@ export default function PomodoroTool() {
             </form>
           ) : null}
 
-          {state !== "setup" ? (
+          {state === "running" ? <div className="pomodoro-side-space" aria-hidden="true" /> : null}
+
+          {state === "summary" ? (
             <div className="pomodoro-summary" aria-live="polite">
-              {state === "running" ? (
-                <>
-                  <p>{phase}</p>
-                  <span>{formatClock(remainingMs)}</span>
-                </>
-              ) : (
-                <>
-                  <p>Total time: {formatMinutes(stats.total)}</p>
-                  <p>Total work: {formatMinutes(stats.work)}</p>
-                  <p>Total break: {formatMinutes(stats.break)}</p>
-                  <strong>Good Job!</strong>
-                </>
-              )}
+              <p>Total time: {formatMinutes(stats.total)}</p>
+              <p>Total work: {formatMinutes(stats.work)}</p>
+              <p>Total break: {formatMinutes(stats.break)}</p>
+              <strong>Good Job!</strong>
             </div>
           ) : null}
 
@@ -176,6 +160,7 @@ export default function PomodoroTool() {
               } as CSSProperties
             }
           >
+            {state === "running" ? <span className="pomodoro-phase">{phase}</span> : null}
             <span className="pomodoro-hand" />
           </div>
 

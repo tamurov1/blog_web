@@ -661,11 +661,10 @@ button {
 }
 
 .pomodoro-frame {
-  width: min(100%, 980px);
+  width: min(100%, 900px);
   min-height: 556px;
   margin: 0 auto;
-  border: 1px solid var(--line);
-  padding: 28px clamp(24px, 5vw, 68px) 34px;
+  padding: 28px clamp(20px, 4vw, 54px) 34px;
   opacity: 0;
   transform: translateY(14px);
   animation: page-enter 900ms cubic-bezier(0.22, 1, 0.36, 1) 90ms forwards;
@@ -712,8 +711,8 @@ button {
 
 .pomodoro-workspace {
   display: grid;
-  grid-template-columns: minmax(176px, 1fr) minmax(220px, 1fr) minmax(110px, 180px);
-  gap: clamp(24px, 5vw, 72px);
+  grid-template-columns: minmax(176px, 1fr) minmax(220px, 1fr) minmax(96px, 150px);
+  gap: clamp(22px, 4vw, 56px);
   align-items: center;
   min-height: 396px;
 }
@@ -779,9 +778,8 @@ button {
   font-weight: 400;
 }
 
-.pomodoro-summary span {
-  font-size: 28px;
-  font-style: normal;
+.pomodoro-side-space {
+  min-height: 1px;
 }
 
 .pomodoro-clock {
@@ -793,15 +791,29 @@ button {
   border: 1px solid var(--line);
   border-radius: 50%;
   background:
-    conic-gradient(from 0deg, var(--pomodoro-clock-fill) var(--clock-progress), transparent 0),
+    conic-gradient(from -90deg, var(--pomodoro-clock-fill) var(--clock-progress), transparent 0),
     transparent;
   overflow: hidden;
+}
+
+.pomodoro-phase {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  font-style: italic;
+  pointer-events: none;
 }
 
 .pomodoro-hand {
   position: absolute;
   left: 50%;
   top: 0;
+  z-index: 3;
   width: 1px;
   height: 50%;
   background: var(--line);
