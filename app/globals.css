@@ -664,7 +664,7 @@ button {
   width: min(100%, 980px);
   min-height: 556px;
   margin: 0 auto;
-  border: 3px solid #0c98ff;
+  border: 1px solid var(--line);
   padding: 28px clamp(24px, 5vw, 68px) 34px;
   opacity: 0;
   transform: translateY(14px);
@@ -798,15 +798,6 @@ button {
   overflow: hidden;
 }
 
-.pomodoro-clock::before {
-  content: "";
-  position: absolute;
-  inset: 50% 0 auto;
-  height: 1px;
-  background: var(--line);
-  opacity: 0.65;
-}
-
 .pomodoro-hand {
   position: absolute;
   left: 50%;
@@ -814,7 +805,7 @@ button {
   width: 1px;
   height: 50%;
   background: var(--line);
-  transform: rotate(var(--hand-rotation));
+  transform: rotate(calc(var(--hand-rotation) + 180deg));
   transform-origin: top center;
 }
 
