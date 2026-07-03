@@ -116,7 +116,7 @@ export default function PomodoroTool() {
           What is pomodoro?
         </Link>
 
-        <div className="pomodoro-workspace">
+        <div className={`pomodoro-workspace ${state === "running" ? "pomodoro-workspace-active" : ""}`}>
           {state === "setup" ? (
             <form className="pomodoro-setup" onSubmit={startPomodoro}>
               <label htmlFor="pomodoro-blocks">
@@ -138,8 +138,6 @@ export default function PomodoroTool() {
               </button>
             </form>
           ) : null}
-
-          {state === "running" ? <div className="pomodoro-side-space" aria-hidden="true" /> : null}
 
           {state === "summary" ? (
             <div className="pomodoro-summary" aria-live="polite">

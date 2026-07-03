@@ -717,6 +717,12 @@ button {
   min-height: 396px;
 }
 
+.pomodoro-workspace-active {
+  grid-template-columns: minmax(220px, 1fr) minmax(96px, 150px);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
 .pomodoro-setup {
   display: grid;
   justify-items: center;
@@ -776,10 +782,6 @@ button {
 .pomodoro-summary strong {
   margin: 0;
   font-weight: 400;
-}
-
-.pomodoro-side-space {
-  min-height: 1px;
 }
 
 .pomodoro-clock {
