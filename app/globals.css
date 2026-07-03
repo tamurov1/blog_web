@@ -791,7 +791,7 @@ button {
   border: 1px solid var(--line);
   border-radius: 50%;
   background:
-    conic-gradient(from -90deg, var(--pomodoro-clock-fill) var(--clock-progress), transparent 0),
+    conic-gradient(from 0deg, var(--pomodoro-clock-fill) var(--clock-progress), transparent 0),
     transparent;
   overflow: hidden;
 }
