@@ -56,8 +56,8 @@ CREATE TABLE IF NOT EXISTS site_visitors (
   user_agent TEXT NOT NULL DEFAULT '',
   first_seen_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   last_seen_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  total_time_spent_ms BIGINT NOT NULL DEFAULT 0,
-  last_time_spent_ms INTEGER NOT NULL DEFAULT 0,
+  total_time_spent_seconds BIGINT NOT NULL DEFAULT 0,
+  last_time_spent_seconds INTEGER NOT NULL DEFAULT 0,
   visit_events INTEGER NOT NULL DEFAULT 0,
   last_path TEXT NOT NULL DEFAULT '',
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()

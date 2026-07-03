@@ -25,16 +25,17 @@ export default function SiteVisitTracker() {
     function flush() {
       pauseVisibleTime();
 
-      const timeSpentMs = Math.round(pendingMsRef.current);
-      if (timeSpentMs <= 0) {
+      const pendingMs = Math.round(pendingMsRef.current);
+      if (pendingMs <= 0) {
         return;
       }
 
+      const timeSpentSeconds = Math.max(1, Math.round(pendingMs / 1000));
       pendingMsRef.current = 0;
 
       const payload = JSON.stringify({
         path: window.location.pathname,
-        timeSpentMs,
+        timeSpentSeconds,
       });
 
       if (navigator.sendBeacon) {
