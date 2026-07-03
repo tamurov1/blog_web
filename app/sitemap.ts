@@ -55,6 +55,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly',
       priority: 0.5,
     },
+    {
+      url: `${siteUrl}/tools`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: `${siteUrl}/tools/pomodoro`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: `${siteUrl}/tools/pomodoro/about`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.4,
+    },
     ...books.map((book) => ({
       url: `${siteUrl}/library/${book.slug}`,
       lastModified,

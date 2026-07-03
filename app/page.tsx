@@ -20,7 +20,7 @@ const tiles = [
   { label: "Nexessary", href: "https://nexessary.com" },
   { label: "Cybersecurity", href: "/cybersecurity" },
   { label: "Library", href: "/library" },
-  { label: "Soon", disabled: true },
+  { label: "Tools", href: "/tools" },
   { label: "Soon", disabled: true },
 ];
 

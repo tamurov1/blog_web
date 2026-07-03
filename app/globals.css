@@ -11,6 +11,11 @@
   --switch-track: rgba(49, 64, 82, 0.18);
   --switch-thumb: #314052;
   --switch-border: rgba(49, 64, 82, 0.42);
+  --pomodoro-fill: rgba(49, 64, 82, 0.15);
+  --pomodoro-clock-fill: rgba(49, 64, 82, 0.1);
+  --pomodoro-work: rgba(49, 64, 82, 0.05);
+  --pomodoro-break: rgba(49, 64, 82, 0.1);
+  --pomodoro-segment-line: rgba(49, 64, 82, 0.22);
   --grid-width: 884.925px;
   color-scheme: only light;
 }
@@ -39,6 +44,11 @@ html[data-theme="dark"] {
   --switch-track: rgba(231, 228, 202, 0.17);
   --switch-thumb: #e7e4ca;
   --switch-border: rgba(231, 228, 202, 0.42);
+  --pomodoro-fill: rgba(231, 228, 202, 0.14);
+  --pomodoro-clock-fill: rgba(231, 228, 202, 0.1);
+  --pomodoro-work: rgba(231, 228, 202, 0.05);
+  --pomodoro-break: rgba(231, 228, 202, 0.11);
+  --pomodoro-segment-line: rgba(231, 228, 202, 0.2);
   color-scheme: only light;
 }
 
@@ -381,6 +391,37 @@ button {
   opacity: 0.82;
 }
 
+.tools-grid {
+  display: grid;
+  width: min(100%, 590px);
+  margin: 32px auto 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border: 1px solid var(--line);
+}
+
+.tool-card {
+  display: grid;
+  height: 148px;
+  place-items: center;
+  border-right: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 27px;
+  font-weight: 400;
+  transition:
+    background-color 420ms ease,
+    color 420ms ease;
+}
+
+.tool-card:nth-child(2n) {
+  border-right: 0;
+}
+
+.tool-card:hover {
+  background: var(--tile-hover);
+}
+
 .empty-note {
   margin: 0;
   color: var(--ink);
@@ -617,6 +658,221 @@ button {
   color: var(--muted);
   font-size: 12px;
   font-style: italic;
+}
+
+.pomodoro-frame {
+  width: min(100%, 980px);
+  min-height: 556px;
+  margin: 0 auto;
+  border: 3px solid #0c98ff;
+  padding: 28px clamp(24px, 5vw, 68px) 34px;
+  opacity: 0;
+  transform: translateY(14px);
+  animation: page-enter 900ms cubic-bezier(0.22, 1, 0.36, 1) 90ms forwards;
+}
+
+.pomodoro-title {
+  margin: 0;
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(31px, 5vw, 43px);
+  font-weight: 400;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.pomodoro-about-link {
+  display: block;
+  width: fit-content;
+  margin: 6px auto 0;
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(19px, 3vw, 25px);
+  font-style: italic;
+  position: relative;
+}
+
+.pomodoro-about-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pomodoro-about-link:hover::after,
+.pomodoro-about-link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.pomodoro-workspace {
+  display: grid;
+  grid-template-columns: minmax(176px, 1fr) minmax(220px, 1fr) minmax(110px, 180px);
+  gap: clamp(24px, 5vw, 72px);
+  align-items: center;
+  min-height: 396px;
+}
+
+.pomodoro-setup {
+  display: grid;
+  justify-items: center;
+  align-self: start;
+  margin-top: 28px;
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.pomodoro-setup label {
+  display: grid;
+  gap: 2px;
+  font-size: 18px;
+  line-height: 1.05;
+  text-align: left;
+}
+
+.pomodoro-setup input {
+  width: 74px;
+  height: 56px;
+  margin-top: 12px;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 32px;
+  text-align: center;
+  outline: none;
+}
+
+.pomodoro-start {
+  margin-top: 12px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 15px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.pomodoro-summary {
+  display: grid;
+  gap: 7px;
+  justify-items: center;
+  align-self: center;
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  font-style: italic;
+  text-align: center;
+}
+
+.pomodoro-summary p,
+.pomodoro-summary strong {
+  margin: 0;
+  font-weight: 400;
+}
+
+.pomodoro-summary span {
+  font-size: 28px;
+  font-style: normal;
+}
+
+.pomodoro-clock {
+  position: relative;
+  width: min(24vw, 172px);
+  min-width: 142px;
+  aspect-ratio: 1;
+  justify-self: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background:
+    conic-gradient(from -90deg, var(--pomodoro-clock-fill) var(--clock-progress), transparent 0),
+    transparent;
+  overflow: hidden;
+}
+
+.pomodoro-clock::before {
+  content: "";
+  position: absolute;
+  inset: 50% 0 auto;
+  height: 1px;
+  background: var(--line);
+  opacity: 0.65;
+}
+
+.pomodoro-hand {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1px;
+  height: 50%;
+  background: var(--line);
+  transform: rotate(var(--hand-rotation));
+  transform-origin: top center;
+}
+
+.pomodoro-total {
+  justify-self: center;
+}
+
+.pomodoro-total-track {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 58px;
+  height: 328px;
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.pomodoro-block {
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
+}
+
+.pomodoro-work-segment {
+  flex: 25;
+  background: var(--pomodoro-work);
+  border-bottom: 1px solid var(--pomodoro-segment-line);
+}
+
+.pomodoro-break-segment {
+  flex: 5;
+  background: var(--pomodoro-break);
+  border-bottom: 1px solid var(--pomodoro-segment-line);
+}
+
+.pomodoro-block:last-of-type .pomodoro-break-segment {
+  border-bottom: 0;
+}
+
+.pomodoro-total-fill {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  background: var(--pomodoro-fill);
+  pointer-events: none;
+  transition: height 220ms linear;
+}
+
+.pomodoro-total-arrow {
+  position: absolute;
+  left: -10px;
+  width: calc(100% + 20px);
+  height: 1px;
+  background: var(--line);
+  transform: translateY(-1px);
+  transition: top 220ms linear;
 }
 
 .admin-shell {
@@ -992,6 +1248,15 @@ button {
     font-size: clamp(15.4px, 4.48vw, 19.6px);
   }
 
+  .tools-grid {
+    width: min(100%, 333px);
+  }
+
+  .tool-card {
+    height: 99px;
+    font-size: clamp(19.8px, 6.3vw, 28.8px);
+  }
+
   .entry-text,
   .book-description {
     text-align: left;
@@ -1030,6 +1295,26 @@ button {
   .admin-tile-button {
     height: 99px;
     font-size: clamp(19.8px, 6.3vw, 28.8px);
+  }
+
+  .pomodoro-frame {
+    min-height: auto;
+    padding: 24px 18px 30px;
+  }
+
+  .pomodoro-workspace {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    min-height: 0;
+    padding-top: 24px;
+  }
+
+  .pomodoro-setup {
+    margin-top: 0;
+  }
+
+  .pomodoro-total-track {
+    height: 228px;
   }
 }
 
@@ -1102,6 +1387,22 @@ button {
     font-size: 15px;
   }
 
+  .tools-grid {
+    width: min(100%, 248px);
+    grid-template-columns: 1fr;
+  }
+
+  .tool-card {
+    height: 72px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 18px;
+  }
+
+  .tool-card:last-child {
+    border-bottom: 0;
+  }
+
   .entry-title,
   .entry-text,
   .book-title,
@@ -1153,6 +1454,23 @@ button {
 
   .admin-tile-button:last-child {
     border-bottom: 0;
+  }
+
+  .pomodoro-title {
+    font-size: 30px;
+  }
+
+  .pomodoro-about-link {
+    font-size: 18px;
+  }
+
+  .pomodoro-setup label,
+  .pomodoro-summary {
+    font-size: 16px;
+  }
+
+  .pomodoro-clock {
+    width: 142px;
   }
 
   .admin-form {
