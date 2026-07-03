@@ -31,6 +31,8 @@ export default function PomodoroTool() {
   const startedAtRef = useRef(0);
   const animationFrameRef = useRef(0);
   const summaryTimeoutRef = useRef<number | undefined>(undefined);
+  const soundRef = useRef<HTMLAudioElement | undefined>(undefined);
+  const completedWorkSessionsRef = useRef(0);
 
   const totalMs = blocks * blockMs;
   const progress = totalMs > 0 ? Math.min(elapsedMs / totalMs, 1) : 0;
@@ -55,6 +57,12 @@ export default function PomodoroTool() {
     const tick = () => {
       const nextElapsed = Math.min(Date.now() - startedAtRef.current, totalMs);
       setElapsedMs(nextElapsed);
+
+      const completedWorkSessions = getCompletedWorkSessions(nextElapsed);
+      if (completedWorkSessions > completedWorkSessionsRef.current) {
+        completedWorkSessionsRef.current = completedWorkSessions;
+        playWorkCompleteSound();
+      }
 
       if (nextElapsed >= totalMs) {
         setState("summary");
@@ -86,6 +94,43 @@ export default function PomodoroTool() {
     };
   }, []);
 
+  function prepareWorkCompleteSound() {
+    const sound = new Audio("/sound.mp3");
+    sound.preload = "auto";
+    sound.volume = 0;
+    soundRef.current = sound;
+
+    void sound
+      .play()
+      .then(() => {
+        sound.pause();
+        sound.currentTime = 0;
+        sound.volume = 1;
+      })
+      .catch(() => {
+        sound.volume = 1;
+      });
+  }
+
+  function playWorkCompleteSound() {
+    const sound = soundRef.current;
+
+    if (!sound) {
+      return;
+    }
+
+    sound.currentTime = 0;
+    void sound.play().catch(() => undefined);
+  }
+
+  function getCompletedWorkSessions(elapsed: number) {
+    if (elapsed < workMinutes * minuteMs) {
+      return 0;
+    }
+
+    return Math.min(blocks, Math.floor((elapsed - workMinutes * minuteMs) / blockMs) + 1);
+  }
+
   function startPomodoro(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -102,6 +147,8 @@ export default function PomodoroTool() {
 
     setBlocks(requestedBlocks);
     setElapsedMs(0);
+    completedWorkSessionsRef.current = 0;
+    prepareWorkCompleteSound();
     startedAtRef.current = Date.now();
     setState("running");
   }
