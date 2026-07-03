@@ -26,6 +26,7 @@ const tiles = [
 
 export default function HomePage() {
   return (
+    // What are you trying to find here? Go invest your time into something more productive.
     <main className="landing-page" aria-label="Dmytrii Tamurov">
       <ThemeSwitch />
       <section className="landing-shell">
