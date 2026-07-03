@@ -634,6 +634,38 @@ button {
   margin-bottom: 26px;
 }
 
+.admin-topbar-actions {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+.plain-link {
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 16px;
+  font-weight: 400;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.admin-tile-grid {
+  display: grid;
+  width: min(100%, 590px);
+  margin: 34px auto 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border: 1px solid var(--line);
+}
+
+.admin-tile-button {
+  height: 148px;
+  border-bottom: 0;
+}
+
+.admin-tile-button:nth-child(2n) {
+  border-right: 0;
+}
+
 .admin-section {
   margin-top: 46px;
 }
@@ -753,6 +785,27 @@ button {
   display: inline-flex;
   gap: 14px;
   align-items: baseline;
+}
+
+.plus-button {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  margin: 28px auto 0;
+  place-items: center;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 28px;
+  line-height: 1;
+  transition:
+    background-color 420ms ease,
+    color 420ms ease;
+}
+
+.plus-button:hover {
+  background: var(--tile-hover);
 }
 
 .delete-link {
@@ -969,6 +1022,15 @@ button {
   .admin-list-actions {
     gap: 16px;
   }
+
+  .admin-tile-grid {
+    width: min(100%, 333px);
+  }
+
+  .admin-tile-button {
+    height: 99px;
+    font-size: clamp(19.8px, 6.3vw, 28.8px);
+  }
 }
 
 @media (max-width: 430px) {
@@ -1071,6 +1133,26 @@ button {
   .admin-list,
   .confirm-actions {
     grid-template-columns: 1fr;
+  }
+
+  .admin-topbar-actions {
+    gap: 14px;
+  }
+
+  .admin-tile-grid {
+    width: min(100%, 248px);
+    grid-template-columns: 1fr;
+  }
+
+  .admin-tile-button {
+    height: 72px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 18px;
+  }
+
+  .admin-tile-button:last-child {
+    border-bottom: 0;
   }
 
   .admin-form {

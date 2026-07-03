@@ -19,27 +19,6 @@ type JournalInput = {
   body: string;
 };
 
-const seedJournals: Journal[] = [
-  {
-    slug: "interesting-layout",
-    date: "July 1, 2026",
-    title: "Interesting layout.",
-    body: "Interesting layout.",
-  },
-  {
-    slug: "how-many-times",
-    date: "July 3, 2026",
-    title: "How many times?",
-    body: "How many times?",
-  },
-  {
-    slug: "what-could-be-done-much-better",
-    date: "July 7, 2026",
-    title: "What could be done much better?",
-    body: "What could be done much better?",
-  },
-];
-
 let ensureTablePromise: Promise<void> | undefined;
 
 function cleanInput(input: JournalInput): JournalInput {
@@ -90,21 +69,6 @@ async function ensureJournalTable() {
       ON journals (created_at DESC)
     `;
 
-    const rows = (await db`
-      SELECT COUNT(*)::int AS count
-      FROM journals
-    `) as Array<{ count: number }>;
-    const count = Number(rows[0]?.count ?? 0);
-
-    if (count === 0) {
-      for (const journal of seedJournals) {
-        await db`
-          INSERT INTO journals (slug, date, title, body)
-          VALUES (${journal.slug}, ${journal.date}, ${journal.title}, ${journal.body})
-          ON CONFLICT (slug) DO NOTHING
-        `;
-      }
-    }
   })();
 
   return ensureTablePromise;

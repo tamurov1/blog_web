@@ -22,6 +22,14 @@ function redirectToAdmin(query = ""): never {
   redirect(`/${getAdminPath()}${query}`);
 }
 
+function redirectToAdminJournal(query = ""): never {
+  redirectToAdmin(`?view=journal${query ? `&${query}` : ""}`);
+}
+
+function redirectToAdminLibrary(query = ""): never {
+  redirectToAdmin(`?view=library${query ? `&${query}` : ""}`);
+}
+
 async function requireAdmin() {
   if (!(await isAdminAuthenticated())) {
     redirectToAdmin("?error=session");
@@ -78,7 +86,7 @@ export async function createJournalAction(formData: FormData) {
   });
 
   revalidateJournalPaths(journal?.slug);
-  redirectToAdmin("?saved=created");
+  redirectToAdminJournal("saved=created");
 }
 
 export async function updateJournalAction(formData: FormData) {
@@ -93,7 +101,7 @@ export async function updateJournalAction(formData: FormData) {
 
   revalidateJournalPaths(slug);
   revalidateJournalPaths(journal?.slug);
-  redirectToAdmin("?saved=updated");
+  redirectToAdminJournal("saved=updated");
 }
 
 export async function deleteJournalAction(formData: FormData) {
@@ -104,7 +112,7 @@ export async function deleteJournalAction(formData: FormData) {
 
   revalidateJournalPaths(slug);
   revalidateJournalPaths(journal?.slug);
-  redirectToAdmin("?saved=deleted");
+  redirectToAdminJournal("saved=deleted");
 }
 
 export async function createLibraryBookAction(formData: FormData) {
@@ -119,7 +127,7 @@ export async function createLibraryBookAction(formData: FormData) {
   });
 
   revalidateLibraryPaths(book?.slug);
-  redirectToAdmin("?saved=library-created");
+  redirectToAdminLibrary("saved=created");
 }
 
 export async function updateLibraryBookAction(formData: FormData) {
@@ -136,7 +144,7 @@ export async function updateLibraryBookAction(formData: FormData) {
 
   revalidateLibraryPaths(slug);
   revalidateLibraryPaths(book?.slug);
-  redirectToAdmin("?saved=library-updated");
+  redirectToAdminLibrary("saved=updated");
 }
 
 export async function deleteLibraryBookAction(formData: FormData) {
@@ -147,5 +155,5 @@ export async function deleteLibraryBookAction(formData: FormData) {
 
   revalidateLibraryPaths(slug);
   revalidateLibraryPaths(book?.slug);
-  redirectToAdmin("?saved=library-deleted");
+  redirectToAdminLibrary("saved=deleted");
 }
