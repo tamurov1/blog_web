@@ -14,6 +14,7 @@ type JournalCommentRow = {
   username: string;
   body: string;
   created_at: string;
+  ip_address: string;
 };
 
 type LibraryCommentRow = {
@@ -22,18 +23,21 @@ type LibraryCommentRow = {
   username: string;
   body: string;
   created_at: string;
+  ip_address: string;
 };
 
 type JournalCommentInput = {
   journalSlug: string;
   username: string;
   body: string;
+  ipAddress: string;
 };
 
 type LibraryCommentInput = {
   librarySlug: string;
   username: string;
   body: string;
+  ipAddress: string;
 };
 
 let ensureJournalTablePromise: Promise<void> | undefined;
@@ -79,8 +83,14 @@ async function ensureCommentTable() {
         journal_slug TEXT NOT NULL REFERENCES journals(slug) ON DELETE CASCADE,
         username TEXT NOT NULL DEFAULT 'Anonymous',
         body TEXT NOT NULL,
+        ip_address TEXT NOT NULL DEFAULT 'unknown',
         created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
       )
+    `;
+
+    await db`
+      ALTER TABLE journal_comments
+      ADD COLUMN IF NOT EXISTS ip_address TEXT NOT NULL DEFAULT 'unknown'
     `;
 
     await db`
@@ -102,8 +112,14 @@ async function ensureLibraryCommentTable() {
         library_slug TEXT NOT NULL REFERENCES library_books(slug) ON DELETE CASCADE,
         username TEXT NOT NULL DEFAULT 'Anonymous',
         body TEXT NOT NULL,
+        ip_address TEXT NOT NULL DEFAULT 'unknown',
         created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
       )
+    `;
+
+    await db`
+      ALTER TABLE library_comments
+      ADD COLUMN IF NOT EXISTS ip_address TEXT NOT NULL DEFAULT 'unknown'
     `;
 
     await db`
@@ -134,14 +150,15 @@ export async function createComment(input: JournalCommentInput) {
   const journalSlug = cleanText(input.journalSlug, 220);
   const username = cleanText(input.username, 80) || "Anonymous";
   const body = cleanText(input.body, 2000, true);
+  const ipAddress = cleanText(input.ipAddress, 128) || "unknown";
 
   if (!journalSlug || body.length < 1) {
     throw new Error("Comment is required.");
   }
 
   const rows = (await getSql()`
-    INSERT INTO journal_comments (journal_slug, username, body)
-    VALUES (${journalSlug}, ${username}, ${body})
+    INSERT INTO journal_comments (journal_slug, username, body, ip_address)
+    VALUES (${journalSlug}, ${username}, ${body}, ${ipAddress})
     RETURNING id, journal_slug, username, body, created_at
   `) as JournalCommentRow[];
 
@@ -167,14 +184,15 @@ export async function createLibraryComment(input: LibraryCommentInput) {
   const librarySlug = cleanText(input.librarySlug, 220);
   const username = cleanText(input.username, 80) || "Anonymous";
   const body = cleanText(input.body, 2000, true);
+  const ipAddress = cleanText(input.ipAddress, 128) || "unknown";
 
   if (!librarySlug || body.length < 1) {
     throw new Error("Comment is required.");
   }
 
   const rows = (await getSql()`
-    INSERT INTO library_comments (library_slug, username, body)
-    VALUES (${librarySlug}, ${username}, ${body})
+    INSERT INTO library_comments (library_slug, username, body, ip_address)
+    VALUES (${librarySlug}, ${username}, ${body}, ${ipAddress})
     RETURNING id, library_slug, username, body, created_at
   `) as LibraryCommentRow[];
 

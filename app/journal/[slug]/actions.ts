@@ -1,8 +1,10 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { createComment } from "@/lib/commentStore";
+import { getClientIp } from "@/lib/requestInfo";
 
 function getString(formData: FormData, key: string) {
   const value = formData.get(key);
@@ -14,6 +16,7 @@ export async function createCommentAction(formData: FormData) {
   const username = getString(formData, "username");
   const body = getString(formData, "body");
   const website = getString(formData, "website");
+  const requestHeaders = await headers();
 
   if (website) {
     redirect(`/journal/${slug}`);
@@ -24,6 +27,7 @@ export async function createCommentAction(formData: FormData) {
       journalSlug: slug,
       username,
       body,
+      ipAddress: getClientIp(requestHeaders),
     });
   } catch {
     redirect(`/journal/${slug}?comment=invalid#comments`);
