@@ -793,7 +793,7 @@ button {
   border: 1px solid var(--line);
   border-radius: 50%;
   background:
-    conic-gradient(from -90deg, var(--pomodoro-clock-fill) var(--clock-progress), transparent 0),
+    conic-gradient(from 0deg, var(--pomodoro-clock-fill) var(--clock-progress), transparent 0),
     transparent;
   overflow: hidden;
 }
@@ -801,12 +801,12 @@ button {
 .pomodoro-hand {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 0;
   width: 1px;
   height: 50%;
   background: var(--line);
-  transform: rotate(calc(var(--hand-rotation) + 180deg));
-  transform-origin: top center;
+  transform: translateX(-50%) rotate(var(--hand-rotation));
+  transform-origin: bottom center;
 }
 
 .pomodoro-total {
