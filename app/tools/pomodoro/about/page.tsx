@@ -12,13 +12,11 @@ export default function PomodoroAboutPage() {
       <article className="entry-shell">
         <h1 className="entry-title">What is pomodoro?</h1>
         <p className="entry-text">
-          Pomodoro is a simple focus method. You work for a set period, then take a
-          short break. Here, one block is 30 minutes: 25 minutes of work and 5
-          minutes of break.
+          Pomodoro technique helps to organize time for any kind of activity. Simply break down the usage of time into blocks of work and rest.
+          One block is 30 minutes: 25 minutes of work and 5 minutes of rest.
         </p>
         <p className="entry-text">
-          The goal is not complexity. It is to start, protect attention, rest
-          briefly, and repeat.
+          Honestly, I personally find it pretty useful, just try it yourself.
         </p>
         <Link className="back-button" href="/tools/pomodoro">
           Back
