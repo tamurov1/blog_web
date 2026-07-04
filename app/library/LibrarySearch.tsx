@@ -11,6 +11,7 @@ type LibrarySearchProps = {
 
 export default function LibrarySearch({ books }: LibrarySearchProps) {
   const [query, setQuery] = useState("");
+  const [viewMode, setViewMode] = useState<"list" | "shelf">("list");
   const normalizedQuery = query.trim().toLowerCase();
 
   const visibleBooks = useMemo(() => {
@@ -39,26 +40,45 @@ export default function LibrarySearch({ books }: LibrarySearchProps) {
         onChange={(event) => setQuery(event.target.value)}
       />
 
-      <ol className="library-list">
-        {visibleBooks.map((book) => (
-          <li key={book.slug}>
-            <Link href={`/library/${book.slug}`}>
-              <span>
-                {book.title} - {book.author}
-              </span>
-              <span>
-                [{book.category} | {book.publicationYear}]
-              </span>
-            </Link>
-          </li>
-        ))}
-      </ol>
+      <div className="library-view-toggle" aria-label="Library view">
+        <button
+          aria-pressed={viewMode === "list"}
+          onClick={() => setViewMode("list")}
+          type="button"
+        >
+          List
+        </button>
+        <button
+          aria-pressed={viewMode === "shelf"}
+          onClick={() => setViewMode("shelf")}
+          type="button"
+        >
+          Shelf
+        </button>
+      </div>
 
-      {visibleBooks.length === 0 ? (
-        <p className="empty-note">No books found.</p>
-      ) : null}
+      <div className="library-browser" data-view={viewMode}>
+        <ol className="library-list">
+          {visibleBooks.map((book) => (
+            <li key={book.slug}>
+              <Link href={`/library/${book.slug}`}>
+                <span>
+                  {book.title} - {book.author}
+                </span>
+                <span>
+                  [{book.category} | {book.publicationYear}]
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ol>
 
-      <LibraryShelf books={visibleBooks} />
+        {visibleBooks.length === 0 ? (
+          <p className="empty-note">No books found.</p>
+        ) : null}
+
+        <LibraryShelf books={visibleBooks} />
+      </div>
     </>
   );
 }
