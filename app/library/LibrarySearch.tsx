@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import LibraryShelf from "./LibraryShelf";
 import type { LibraryBook } from "./books";
 
 type LibrarySearchProps = {
@@ -56,6 +57,8 @@ export default function LibrarySearch({ books }: LibrarySearchProps) {
       {visibleBooks.length === 0 ? (
         <p className="empty-note">No books found.</p>
       ) : null}
+
+      <LibraryShelf />
     </>
   );
 }
