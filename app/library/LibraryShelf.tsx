@@ -13,6 +13,7 @@ type ShelfStyle = CSSProperties & {
 };
 
 const rowCount = 5;
+const booksPerRow = 14;
 const heightPattern = [76, 64, 84, 58, 72, 88, 68, 80, 60, 74];
 const widthPattern = [26, 22, 30, 18, 34, 24, 20, 28, 36, 22];
 
@@ -34,7 +35,8 @@ function getShelfRows(books: LibraryBook[]) {
   const rows = Array.from({ length: rowCount }, () => [] as LibraryBook[]);
 
   books.forEach((book, index) => {
-    rows[index % rowCount].push(book);
+    const rowIndex = Math.min(Math.floor(index / booksPerRow), rowCount - 1);
+    rows[rowIndex].push(book);
   });
 
   return rows;
@@ -50,7 +52,7 @@ export default function LibraryShelf({ books }: LibraryShelfProps) {
           <div className="library-shelf-row" key={rowIndex}>
             <div className="library-shelf-books">
               {row.map((book, bookIndex) => {
-                const absoluteIndex = rowIndex + bookIndex * rowCount;
+                const absoluteIndex = rowIndex * booksPerRow + bookIndex;
 
                 return (
                   <Link
