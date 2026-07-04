@@ -409,7 +409,7 @@ button {
   align-items: end;
   padding: 18px 14px 0;
   border-bottom: 1px solid var(--line);
-  overflow: hidden;
+  overflow: visible;
 }
 
 .library-shelf-row:last-child {
@@ -420,16 +420,19 @@ button {
   display: flex;
   min-width: 0;
   align-items: end;
+  justify-content: center;
   gap: clamp(3px, 0.75vw, 8px);
 }
 
 .library-shelf-book {
+  position: relative;
   display: block;
-  width: clamp(14px, 4vw, var(--book-width, 28px));
+  width: var(--book-width, 28px);
   height: var(--book-height, 64px);
   flex: 0 0 auto;
   border: 1px solid var(--line);
   background: transparent;
+  color: var(--ink);
   transform: translateY(0) rotate(var(--book-rotate, 0deg));
   transform-origin: bottom center;
   transition:
@@ -438,32 +441,52 @@ button {
     border-color 850ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.library-shelf-book:hover {
+.library-shelf-book:hover,
+.library-shelf-book:focus-visible {
   background: var(--tile-hover);
   border-color: rgba(49, 64, 82, 0.82);
+  outline: none;
   transform: translateY(-18px) rotate(var(--book-rotate, 0deg));
 }
 
-.library-shelf-book-horizontal {
-  width: var(--book-width, 90px);
-  height: 18px;
-  transform: translateY(0);
-}
-
-.library-shelf-book-horizontal:hover {
-  transform: translateY(-12px);
-}
-
-.library-shelf-stack {
+.library-shelf-tooltip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 9px);
+  z-index: 4;
   display: grid;
-  justify-items: center;
-  align-items: end;
+  width: max-content;
+  max-width: 210px;
+  gap: 2px;
+  padding: 7px 9px;
+  border: 1px solid var(--line);
+  background: var(--background);
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.15;
+  opacity: 0;
+  pointer-events: none;
+  text-align: center;
+  transform: translate(-50%, 8px);
+  transition:
+    opacity 650ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.library-shelf-space {
-  display: block;
-  width: var(--space-width);
-  flex: 0 0 auto;
+.library-shelf-tooltip span:first-child {
+  overflow-wrap: anywhere;
+}
+
+.library-shelf-tooltip span:last-child {
+  opacity: 0.78;
+}
+
+.library-shelf-book:hover .library-shelf-tooltip,
+.library-shelf-book:focus-visible .library-shelf-tooltip {
+  opacity: 1;
+  transform: translate(-50%, 0);
 }
 
 .tools-grid {

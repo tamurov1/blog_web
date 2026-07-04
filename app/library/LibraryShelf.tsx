@@ -1,142 +1,72 @@
+import Link from "next/link";
 import type { CSSProperties } from "react";
+import type { LibraryBook } from "./books";
 
-type ShelfItem =
-  | { kind: "book"; height: number; width?: number; rotate?: number }
-  | { kind: "stack"; widths: number[] }
-  | { kind: "space"; width: number };
-
-type ShelfStyle = CSSProperties & {
-  "--book-height"?: string;
-  "--book-width"?: string;
-  "--book-rotate"?: string;
-  "--space-width"?: string;
+type LibraryShelfProps = {
+  books: LibraryBook[];
 };
 
-const shelfRows: ShelfItem[][] = [
-  [
-    { kind: "book", height: 68 },
-    { kind: "book", height: 68 },
-    { kind: "book", height: 68 },
-    { kind: "book", height: 52 },
-    { kind: "book", height: 52 },
-    { kind: "book", height: 76, width: 18 },
-    { kind: "space", width: 24 },
-    { kind: "stack", widths: [118, 94] },
-    { kind: "space", width: 18 },
-    { kind: "book", height: 50 },
-    { kind: "book", height: 74, width: 20 },
-    { kind: "book", height: 50 },
-    { kind: "book", height: 66, rotate: 18 },
-  ],
-  [
-    { kind: "book", height: 68, rotate: -21 },
-    { kind: "book", height: 78, rotate: -17 },
-    { kind: "space", width: 32 },
-    { kind: "stack", widths: [136, 102, 102] },
-    { kind: "space", width: 24 },
-    { kind: "book", height: 76 },
-    { kind: "book", height: 84 },
-    { kind: "book", height: 82, width: 18 },
-    { kind: "book", height: 82, width: 18 },
-    { kind: "space", width: 16 },
-    { kind: "stack", widths: [104, 104] },
-    { kind: "book", height: 68, rotate: 18 },
-  ],
-  [
-    { kind: "stack", widths: [112, 112] },
-    { kind: "space", width: 18 },
-    { kind: "book", height: 76, width: 18 },
-    { kind: "book", height: 76, width: 18 },
-    { kind: "space", width: 14 },
-    { kind: "stack", widths: [126, 96] },
-    { kind: "book", height: 68, rotate: 21 },
-    { kind: "book", height: 68 },
-    { kind: "book", height: 68 },
-    { kind: "book", height: 54 },
-    { kind: "book", height: 54 },
-    { kind: "book", height: 76, width: 18 },
-  ],
-  [
-    { kind: "book", height: 70 },
-    { kind: "book", height: 78, width: 42 },
-    { kind: "book", height: 70, width: 22 },
-    { kind: "book", height: 54, width: 24 },
-    { kind: "book", height: 54, width: 24 },
-    { kind: "book", height: 78, width: 18 },
-    { kind: "book", height: 78, width: 18 },
-    { kind: "book", height: 77, width: 42 },
-    { kind: "book", height: 68, width: 24 },
-    { kind: "book", height: 52, width: 28 },
-    { kind: "book", height: 52, width: 28 },
-    { kind: "book", height: 52, width: 28 },
-    { kind: "book", height: 52, width: 28 },
-    { kind: "book", height: 76, width: 20 },
-  ],
-  [
-    { kind: "stack", widths: [130, 104, 104, 76] },
-    { kind: "book", height: 92, width: 42 },
-    { kind: "book", height: 92, width: 22, rotate: -16 },
-    { kind: "book", height: 70, width: 44 },
-    { kind: "book", height: 60, width: 20 },
-    { kind: "book", height: 60, width: 20 },
-    { kind: "book", height: 58, width: 20, rotate: 18 },
-    { kind: "book", height: 58, width: 20 },
-    { kind: "book", height: 68, width: 18 },
-    { kind: "book", height: 48, width: 24 },
-  ],
-];
+type ShelfStyle = CSSProperties & {
+  "--book-height": string;
+  "--book-width": string;
+  "--book-rotate": string;
+};
 
-function renderItem(item: ShelfItem, rowIndex: number, itemIndex: number) {
-  if (item.kind === "space") {
-    return (
-      <span
-        aria-hidden="true"
-        className="library-shelf-space"
-        key={`${rowIndex}-${itemIndex}`}
-        style={{ "--space-width": `${item.width}px` } as ShelfStyle}
-      />
-    );
-  }
+const rowCount = 5;
+const heightPattern = [76, 64, 84, 58, 72, 88, 68, 80, 60, 74];
+const widthPattern = [26, 22, 30, 18, 34, 24, 20, 28, 36, 22];
 
-  if (item.kind === "stack") {
-    return (
-      <span className="library-shelf-stack" key={`${rowIndex}-${itemIndex}`}>
-        {item.widths.map((width, stackIndex) => (
-          <span
-            aria-hidden="true"
-            className="library-shelf-book library-shelf-book-horizontal"
-            key={`${rowIndex}-${itemIndex}-${stackIndex}`}
-            style={{ "--book-width": `${width}px` } as ShelfStyle}
-          />
-        ))}
-      </span>
-    );
-  }
+function getBookStyle(index: number): ShelfStyle {
+  const height = heightPattern[index % heightPattern.length];
+  const width = widthPattern[index % widthPattern.length];
+  const shouldLeanLeft = index % 9 === 2;
+  const shouldLeanRight = index % 11 === 6;
+  const rotate = shouldLeanLeft ? -14 : shouldLeanRight ? 14 : 0;
 
-  return (
-    <span
-      aria-hidden="true"
-      className="library-shelf-book"
-      key={`${rowIndex}-${itemIndex}`}
-      style={
-        {
-          "--book-height": `${item.height}px`,
-          "--book-width": `${item.width ?? 28}px`,
-          "--book-rotate": `${item.rotate ?? 0}deg`,
-        } as ShelfStyle
-      }
-    />
-  );
+  return {
+    "--book-height": `${height}px`,
+    "--book-width": `${width}px`,
+    "--book-rotate": `${rotate}deg`,
+  };
 }
 
-export default function LibraryShelf() {
+function getShelfRows(books: LibraryBook[]) {
+  const rows = Array.from({ length: rowCount }, () => [] as LibraryBook[]);
+
+  books.forEach((book, index) => {
+    rows[index % rowCount].push(book);
+  });
+
+  return rows;
+}
+
+export default function LibraryShelf({ books }: LibraryShelfProps) {
+  const shelfRows = getShelfRows(books);
+
   return (
-    <div className="library-shelf" aria-label="Minimal shelf illustration">
+    <div className="library-shelf" aria-label="Library shelf">
       <div className="library-shelf-inner">
         {shelfRows.map((row, rowIndex) => (
           <div className="library-shelf-row" key={rowIndex}>
             <div className="library-shelf-books">
-              {row.map((item, itemIndex) => renderItem(item, rowIndex, itemIndex))}
+              {row.map((book, bookIndex) => {
+                const absoluteIndex = rowIndex + bookIndex * rowCount;
+
+                return (
+                  <Link
+                    aria-label={`${book.title} by ${book.author}`}
+                    className="library-shelf-book"
+                    href={`/library/${book.slug}`}
+                    key={book.slug}
+                    style={getBookStyle(absoluteIndex)}
+                  >
+                    <span className="library-shelf-tooltip">
+                      <span>{book.title}</span>
+                      <span>{book.author}</span>
+                    </span>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         ))}

@@ -58,7 +58,7 @@ export default function LibrarySearch({ books }: LibrarySearchProps) {
         <p className="empty-note">No books found.</p>
       ) : null}
 
-      <LibraryShelf />
+      <LibraryShelf books={visibleBooks} />
     </>
   );
 }
