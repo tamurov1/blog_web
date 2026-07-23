@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import LandingIntroduction from "./LandingIntroduction";
 import ThemeSwitch from "./ThemeSwitch";
 
 export const metadata: Metadata = {
@@ -16,9 +17,9 @@ export const metadata: Metadata = {
 };
 
 const tiles = [
-  { label: "Journal", href: "/journal" },
-  { label: "Nexessary", href: "https://nexessary.com" },
   { label: "Cybersecurity", href: "/cybersecurity" },
+  { label: "Nexessary", href: "https://nexessary.com" },
+  { label: "Journal", href: "/journal" },
   { label: "Library", href: "/library" },
   { label: "Tools", href: "/tools" },
   { label: "Soon", disabled: true },
@@ -31,6 +32,7 @@ export default function HomePage() {
       <ThemeSwitch />
       <section className="landing-shell">
         <h1>Dmytrii Tamurov</h1>
+        <LandingIntroduction />
 
         <nav className="tile-grid" aria-label="Primary">
           {tiles.map((tile, index) => {

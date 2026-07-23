@@ -150,7 +150,7 @@ button {
 }
 
 .landing-shell h1 {
-  margin: 0 0 52.65px;
+  margin: 0 0 22px;
   color: var(--ink);
   font-family: Georgia, "Times New Roman", serif;
   font-size: 43.2px;
@@ -158,6 +158,118 @@ button {
   letter-spacing: 0;
   line-height: 1.1;
   text-align: center;
+}
+
+.landing-introduction {
+  width: min(100%, 720px);
+  margin: 0 auto 36px;
+  text-align: left;
+}
+
+.landing-introduction-panel {
+  display: grid;
+  overflow: hidden;
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    grid-template-rows 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 260ms ease,
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.landing-introduction-inner {
+  display: grid;
+  min-height: 0;
+  grid-template-columns: minmax(0, 1fr) 28px;
+  gap: 22px;
+  align-items: start;
+}
+
+.landing-introduction p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.landing-introduction-close,
+.landing-introduction-open {
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.landing-introduction-close {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  place-items: center;
+  font-size: 24px;
+  line-height: 1;
+  opacity: 0.64;
+  transition:
+    background-color 180ms ease,
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.landing-introduction-close:hover {
+  background: var(--tile-hover);
+  opacity: 1;
+  transform: rotate(6deg);
+}
+
+.landing-introduction-open {
+  display: flex;
+  overflow: hidden;
+  width: fit-content;
+  max-height: 0;
+  margin: 0 auto;
+  padding: 0 4px;
+  gap: 8px;
+  align-items: center;
+  opacity: 0;
+  font-size: 14px;
+  line-height: 28px;
+  pointer-events: none;
+  transform: translateY(-5px);
+  transition:
+    max-height 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 220ms ease,
+    color 180ms ease,
+    transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.landing-introduction-open span {
+  font-size: 18px;
+}
+
+.landing-introduction-open:hover {
+  color: var(--muted);
+}
+
+.landing-introduction-close:focus-visible,
+.landing-introduction-open:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.landing-introduction[data-open="false"] .landing-introduction-panel {
+  grid-template-rows: 0fr;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px);
+}
+
+.landing-introduction[data-open="false"] .landing-introduction-open {
+  max-height: 28px;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+  transition-delay: 120ms;
 }
 
 .tile-grid {
@@ -1335,8 +1447,17 @@ button {
   }
 
   .landing-shell h1 {
-    margin-bottom: 37.8px;
+    margin-bottom: 18px;
     font-size: clamp(32.4px, 9vw, 57.6px);
+  }
+
+  .landing-introduction {
+    width: min(100%, 560px);
+    margin-bottom: 30px;
+  }
+
+  .landing-introduction p {
+    font-size: 16px;
   }
 
   .tile-grid {
@@ -1474,8 +1595,21 @@ button {
   }
 
   .landing-shell h1 {
-    margin-bottom: 28px;
+    margin-bottom: 16px;
     font-size: 30px;
+  }
+
+  .landing-introduction {
+    margin-bottom: 24px;
+  }
+
+  .landing-introduction-inner {
+    gap: 12px;
+  }
+
+  .landing-introduction p {
+    font-size: 14px;
+    line-height: 1.5;
   }
 
   .tile-grid {
