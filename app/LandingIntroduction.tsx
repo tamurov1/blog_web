@@ -10,6 +10,20 @@ export default function LandingIntroduction() {
 
   return (
     <div className="landing-introduction" data-open={open}>
+      <div className="landing-heading">
+        <h1>Dmytrii Tamurov</h1>
+        <button
+          className="landing-introduction-toggle"
+          type="button"
+          aria-controls="landing-introduction-text"
+          aria-expanded={open}
+          aria-label={open ? "Hide introduction" : "Show introduction"}
+          onClick={() => setOpen((current) => !current)}
+        >
+          <span aria-hidden="true" />
+        </button>
+      </div>
+
       <div
         id="landing-introduction-text"
         className="landing-introduction-panel"
@@ -17,30 +31,8 @@ export default function LandingIntroduction() {
       >
         <div className="landing-introduction-inner">
           <p>{introduction}</p>
-          <button
-            className="landing-introduction-close"
-            type="button"
-            aria-label="Hide introduction"
-            tabIndex={open ? 0 : -1}
-            onClick={() => setOpen(false)}
-          >
-            <span aria-hidden="true">×</span>
-          </button>
         </div>
       </div>
-
-      <button
-        className="landing-introduction-open"
-        type="button"
-        aria-controls="landing-introduction-text"
-        aria-expanded={open}
-        aria-hidden={open}
-        tabIndex={open ? -1 : 0}
-        onClick={() => setOpen(true)}
-      >
-        Show introduction
-        <span aria-hidden="true">+</span>
-      </button>
     </div>
   );
 }

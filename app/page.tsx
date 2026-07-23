@@ -31,7 +31,6 @@ export default function HomePage() {
     <main className="landing-page" aria-label="Dmytrii Tamurov">
       <ThemeSwitch />
       <section className="landing-shell">
-        <h1>Dmytrii Tamurov</h1>
         <LandingIntroduction />
 
         <nav className="tile-grid" aria-label="Primary">
