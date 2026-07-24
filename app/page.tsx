@@ -1,71 +1,29 @@
 import type { Metadata } from "next";
-import LandingIntroduction from "./LandingIntroduction";
 import ThemeSwitch from "./ThemeSwitch";
 
 export const metadata: Metadata = {
   title: "Dmytrii Tamurov",
-  description: "Dmytrii Tamurov.",
+  description: "This site is currently being developed.",
   alternates: {
     canonical: "https://dmytriitamurov.com",
   },
   openGraph: {
     url: "https://dmytriitamurov.com",
     title: "Dmytrii Tamurov",
-    description: "Dmytrii Tamurov.",
+    description: "This site is currently being developed.",
     siteName: "Dmytrii Tamurov",
   },
 };
 
-const tiles = [
-  { label: "Cybersecurity", href: "/cybersecurity" },
-  { label: "Nexessary", href: "https://nexessary.com" },
-  { label: "Journal", href: "/journal" },
-  { label: "Library", href: "/library" },
-  { label: "Tools", href: "/tools" },
-  { label: "Soon", disabled: true },
-];
-
 export default function HomePage() {
   return (
-    // What are you trying to find here? Go invest your time into something more productive.
-    <main className="landing-page" aria-label="Dmytrii Tamurov">
+    <main className="landing-page development-page" aria-label="Dmytrii Tamurov">
       <ThemeSwitch />
-      <section className="landing-shell">
-        <LandingIntroduction />
-
-        <nav className="tile-grid" aria-label="Primary">
-          {tiles.map((tile, index) => {
-            const className = "tile-button";
-            const style = { animationDelay: `${180 + index * 70}ms` };
-
-            if (!tile.href) {
-              return (
-                <button
-                  key={`${tile.label}-${index}`}
-                  className={className}
-                  type="button"
-                  aria-disabled={tile.disabled ? "true" : undefined}
-                  style={style}
-                >
-                  {tile.label}
-                </button>
-              );
-            }
-
-            return (
-              <a
-                key={tile.label}
-                className={className}
-                href={tile.href}
-                target={tile.href.startsWith("http") ? "_blank" : undefined}
-                rel={tile.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                style={style}
-              >
-                {tile.label}
-              </a>
-            );
-          })}
-        </nav>
+      <section className="development-shell">
+        <h1>Dmytrii Tamurov</h1>
+        <div className="development-notice">
+          <p>This site is currently being developed.</p>
+        </div>
       </section>
     </main>
   );

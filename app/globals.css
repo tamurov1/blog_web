@@ -92,6 +92,45 @@ button {
   padding: clamp(18px, 4vw, 36px) 18px 48px;
 }
 
+.development-page {
+  place-items: center;
+}
+
+.development-shell {
+  width: min(100%, 660px);
+  opacity: 0;
+  transform: translateY(10px);
+  animation: page-enter 700ms ease-out 70ms forwards;
+}
+
+.development-shell h1 {
+  margin: 0 0 52.65px;
+  color: var(--ink);
+  font-size: 43.2px;
+  font-weight: 400;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.development-notice {
+  display: grid;
+  min-height: 184.95px;
+  padding: 32px;
+  place-items: center;
+  border: 1px solid var(--line);
+  opacity: 0;
+  transform: translateY(8px);
+  animation: grid-enter 520ms ease-out 220ms forwards;
+}
+
+.development-notice p {
+  margin: 0;
+  color: var(--ink);
+  font-size: 27px;
+  line-height: 1.35;
+  text-align: center;
+}
+
 .theme-switch {
   position: fixed;
   top: 18px;
@@ -1429,6 +1468,24 @@ button {
     padding-top: 21.6px;
   }
 
+  .development-shell {
+    width: min(100%, 420px);
+  }
+
+  .development-shell h1 {
+    margin-bottom: 37.8px;
+    font-size: clamp(32.4px, 9vw, 43.2px);
+  }
+
+  .development-notice {
+    min-height: 150px;
+    padding: 26px;
+  }
+
+  .development-notice p {
+    font-size: 22px;
+  }
+
   .landing-shell h1 {
     font-size: clamp(32.4px, 9vw, 57.6px);
   }
@@ -1573,6 +1630,24 @@ button {
 @media (max-width: 430px) {
   .landing-page {
     padding: 18px 16px 40px;
+  }
+
+  .development-shell {
+    width: min(100%, 248px);
+  }
+
+  .development-shell h1 {
+    margin-bottom: 28px;
+    font-size: 30px;
+  }
+
+  .development-notice {
+    min-height: 120px;
+    padding: 22px 18px;
+  }
+
+  .development-notice p {
+    font-size: 18px;
   }
 
   .theme-switch {
