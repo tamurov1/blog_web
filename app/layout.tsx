@@ -1,80 +1,29 @@
 import type { Metadata, Viewport } from "next";
-import SiteVisitTracker from "./SiteVisitTracker";
+import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-display",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://dmytriitamurov.com"),
-  applicationName: "Dmytrii Tamurov",
-  title: {
-    default: "Dmytrii Tamurov",
-    template: "%s",
-  },
-  description: "Dmytrii Tamurov.",
-  authors: [{ name: "Dmytrii Tamurov", url: "https://dmytriitamurov.com" }],
-  creator: "Dmytrii Tamurov",
-  publisher: "Dmytrii Tamurov",
-  alternates: {
-    canonical: "https://dmytriitamurov.com",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "none",
-      "max-snippet": 32,
-      "max-video-preview": 0,
-    },
-  },
-  icons: {
-    icon: "/favicon.ico",
-  },
-  openGraph: {
-    type: "website",
-    url: "https://dmytriitamurov.com",
-    title: "Dmytrii Tamurov",
-    description: "Dmytrii Tamurov.",
-    siteName: "Dmytrii Tamurov",
-    locale: "en_US",
-  },
-  twitter: {
-    card: "summary",
-    title: "Dmytrii Tamurov",
-    description: "Dmytrii Tamurov.",
-  },
+  title: "Dmytrii Tamurov — Secure systems & practical ideas",
+  description: "I build and maintain secure systems, explore and connect complex ideas and turn knowledge into practical solutions.",
 };
 
 export const viewport: Viewport = {
+  themeColor: "#eae5dd",
   colorScheme: "light",
-  themeColor: "#f2f1dc",
 };
 
-const themeScript = `
-(() => {
-  try {
-    const theme = localStorage.getItem('site-theme') === 'dark' ? 'dark' : 'light';
-    document.documentElement.dataset.theme = theme;
-    document.documentElement.style.colorScheme = 'only light';
-  } catch {
-    document.documentElement.dataset.theme = 'light';
-    document.documentElement.style.colorScheme = 'only light';
-  }
-})();
-`;
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="en" data-theme="light" suppressHydrationWarning>
-      <body>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-        {children}
-        <SiteVisitTracker />
-      </body>
-    </html>
-  );
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return <html lang="en"><body className={`${cormorant.variable} ${inter.variable}`}>{children}</body></html>;
 }

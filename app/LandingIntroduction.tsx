@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 const introduction =
-  "I investigate security problems, build scripts and cloud systems, manage networks, administration, and research the technologies and systems shaping the modern world.";
+  "I investigate cybersecurity problems, build scripts and cloud systems, manage networks, administration, and research the technologies and systems shaping the modern world.";
 
 export default function LandingIntroduction() {
   const [open, setOpen] = useState(true);
