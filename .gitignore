@@ -24,6 +24,7 @@
 .DS_Store
 *.pem
 desc-draft.txt
+/grek_station/*.mp3
 
 # debug
 npm-debug.log*
@@ -33,6 +34,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -54,3 +56,4 @@ next-env.d.ts
 /components/ProductTile.tsx
 /components/ProductTiles.tsx
 /public/shop/
+.env*

@@ -4,7 +4,9 @@ import { useEffect, useRef, useState } from "react";
 
 const trackFileName =
   "Jazz.mp3";
-const trackSource = `/grek_station/${encodeURIComponent(trackFileName)}`;
+const localTrackSource = `/grek_station/${encodeURIComponent(trackFileName)}`;
+const trackSource = process.env.NEXT_PUBLIC_GREK_STATION_AUDIO_URL?.trim() || localTrackSource;
+const playbackPositionStorageKey = "grek-station:jazz:playback-position";
 const bandCount = 64;
 
 function getTrackMetadata(fileName: string) {
@@ -44,8 +46,76 @@ export default function GrekStation({ onPlaybackChange }: { onPlaybackChange: (p
   const displayValuesRef = useRef(new Float32Array(bandCount));
   const animationFrameRef = useRef<number | null>(null);
   const playingRef = useRef(false);
+  const positionRestoredRef = useRef(false);
+  const lastSavedPositionRef = useRef(0);
   const [playing, setPlaying] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
+
+  function readPlaybackPosition() {
+    try {
+      const savedPosition = Number.parseFloat(window.localStorage.getItem(playbackPositionStorageKey) ?? "");
+      return Number.isFinite(savedPosition) && savedPosition > 0 ? savedPosition : 0;
+    } catch {
+      return 0;
+    }
+  }
+
+  function savePlaybackPosition(audio = audioRef.current) {
+    if (!audio || !Number.isFinite(audio.currentTime)) return;
+
+    try {
+      if (audio.ended || (Number.isFinite(audio.duration) && audio.currentTime >= audio.duration - 0.5)) {
+        window.localStorage.removeItem(playbackPositionStorageKey);
+        lastSavedPositionRef.current = 0;
+        return;
+      }
+
+      window.localStorage.setItem(playbackPositionStorageKey, String(audio.currentTime));
+      lastSavedPositionRef.current = audio.currentTime;
+    } catch {
+      // Playback still works when storage is unavailable or disabled.
+    }
+  }
+
+  function restorePlaybackPosition(audio: HTMLAudioElement) {
+    if (positionRestoredRef.current) return;
+
+    const savedPosition = readPlaybackPosition();
+    if (savedPosition > 0 && (!Number.isFinite(audio.duration) || savedPosition < audio.duration - 0.5)) {
+      audio.currentTime = savedPosition;
+      lastSavedPositionRef.current = savedPosition;
+    } else if (savedPosition > 0) {
+      try {
+        window.localStorage.removeItem(playbackPositionStorageKey);
+      } catch {
+        // Playback still works when storage is unavailable or disabled.
+      }
+    }
+
+    positionRestoredRef.current = true;
+  }
+
+  async function ensurePlaybackPositionRestored(audio: HTMLAudioElement) {
+    if (positionRestoredRef.current) return;
+    if (audio.readyState >= HTMLMediaElement.HAVE_METADATA) {
+      restorePlaybackPosition(audio);
+      return;
+    }
+
+    await new Promise<void>((resolve) => {
+      const finish = () => {
+        audio.removeEventListener("loadedmetadata", finish);
+        audio.removeEventListener("error", finish);
+        resolve();
+      };
+
+      audio.addEventListener("loadedmetadata", finish, { once: true });
+      audio.addEventListener("error", finish, { once: true });
+      audio.load();
+    });
+
+    if (audio.readyState >= HTMLMediaElement.HAVE_METADATA) restorePlaybackPosition(audio);
+  }
 
   function drawFrame() {
     const canvas = canvasRef.current;
@@ -178,6 +248,7 @@ export default function GrekStation({ onPlaybackChange }: { onPlaybackChange: (p
 
     if (playingRef.current) {
       audio.pause();
+      savePlaybackPosition(audio);
       playingRef.current = false;
       setPlaying(false);
       onPlaybackChange(false);
@@ -185,6 +256,7 @@ export default function GrekStation({ onPlaybackChange }: { onPlaybackChange: (p
       return;
     }
 
+    await ensurePlaybackPositionRestored(audio);
     if (audio.ended) audio.currentTime = 0;
 
     try {
@@ -202,10 +274,23 @@ export default function GrekStation({ onPlaybackChange }: { onPlaybackChange: (p
   }
 
   function handleEnded() {
+    try {
+      window.localStorage.removeItem(playbackPositionStorageKey);
+    } catch {
+      // Playback still works when storage is unavailable or disabled.
+    }
+    positionRestoredRef.current = true;
+    lastSavedPositionRef.current = 0;
     playingRef.current = false;
     setPlaying(false);
     onPlaybackChange(false);
     startAnimation();
+  }
+
+  function handleTimeUpdate() {
+    const audio = audioRef.current;
+    if (!audio || Math.abs(audio.currentTime - lastSavedPositionRef.current) < 2) return;
+    savePlaybackPosition(audio);
   }
 
   useEffect(() => {
@@ -224,7 +309,18 @@ export default function GrekStation({ onPlaybackChange }: { onPlaybackChange: (p
     observer.observe(canvas);
     resizeCanvas();
 
+    const saveCurrentPosition = () => savePlaybackPosition();
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "hidden") saveCurrentPosition();
+    };
+
+    window.addEventListener("pagehide", saveCurrentPosition);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
     return () => {
+      saveCurrentPosition();
+      window.removeEventListener("pagehide", saveCurrentPosition);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
       observer.disconnect();
       if (animationFrameRef.current !== null) {
         window.cancelAnimationFrame(animationFrameRef.current);
@@ -241,7 +337,16 @@ export default function GrekStation({ onPlaybackChange }: { onPlaybackChange: (p
 
   return (
     <div className="grek-station">
-      <audio ref={audioRef} src={trackSource} preload="metadata" onEnded={handleEnded} />
+      <audio
+        ref={audioRef}
+        src={trackSource}
+        preload="metadata"
+        crossOrigin="anonymous"
+        onLoadedMetadata={(event) => restorePlaybackPosition(event.currentTarget)}
+        onPause={(event) => savePlaybackPosition(event.currentTarget)}
+        onTimeUpdate={handleTimeUpdate}
+        onEnded={handleEnded}
+      />
       <button
         className="station-waveform"
         type="button"
