@@ -10,4 +10,10 @@ Set the deployed Blob URL with:
 NEXT_PUBLIC_GREK_STATION_AUDIO_URL="https://cdn.example.com/Jazz.mp3"
 ```
 
-To replace the song while keeping the current URL, overwrite the stable `grek-station/Jazz.mp3` Blob pathname. The media host must support byte-range requests and allow cross-origin requests from the website domain so seeking and the audio visualizer continue to work.
+To replace the song while keeping the current URL, run:
+
+```powershell
+npm run upload:station -- -FilePath ".\grek_station\new-song.mp3"
+```
+
+This overwrites the stable `grek-station/Jazz.mp3` Blob pathname. The media host must support byte-range requests and allow cross-origin requests from the website domain so seeking and the audio visualizer continue to work.

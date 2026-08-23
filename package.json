@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev --webpack",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "upload:station": "powershell -ExecutionPolicy Bypass -File scripts/upload-grek-station.ps1"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",
