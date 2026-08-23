@@ -25,6 +25,7 @@
 *.pem
 desc-draft.txt
 /grek_station/*.mp3
+/videos/*.mp4
 
 # debug
 npm-debug.log*

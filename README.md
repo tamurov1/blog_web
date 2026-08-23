@@ -8,6 +8,7 @@ Set the deployed Blob URL with:
 
 ```bash
 NEXT_PUBLIC_GREK_STATION_AUDIO_URL="https://cdn.example.com/Jazz.mp3"
+NEXT_PUBLIC_GREK_STATION_VIDEO_URL="https://cdn.example.com/wave_back.mp4"
 ```
 
 To replace the song while keeping the current URL, run:

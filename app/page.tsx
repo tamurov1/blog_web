@@ -6,6 +6,7 @@ import GrekStation from "./GrekStation";
 const certifications = [
   { title: "CompTIA Security+", status: "In Progress", year: "2026", tone: "progress", image: "/certifications/CompTIA_Security+.png" },
 ];
+const stationVideoSource = process.env.NEXT_PUBLIC_GREK_STATION_VIDEO_URL?.trim() || "/videos/wave_back.mp4";
 
 type PointAction = "theme" | "grek-station";
 type PointBurst = { id: number; x: number; y: number };
@@ -168,7 +169,7 @@ export default function HomePage() {
       >
         <video
           className={stationPlaying ? "station-hero-video is-visible" : "station-hero-video"}
-          src="/videos/wave_back.mp4"
+          src={stationVideoSource}
           style={{
             "--station-video-width": `${20 * stationVideoGrowth}%`,
             "--station-video-height": `${220 * stationVideoGrowth}%`,
