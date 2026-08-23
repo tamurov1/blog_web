@@ -263,6 +263,7 @@ a { color: inherit; text-decoration: none; }
 .station-information p span:first-child { color: var(--work-text); }
 
 html[data-theme="dark"] .work { --work-bg: #0d0d0d; --work-text: #f1f1f1; --work-muted: #b7b7b7; --work-line: #343434; --card-bg: linear-gradient(145deg, #151515, #101010); --card-border: #3b3b3b; --card-shadow-rest: 0 1px 0 rgba(255,255,255,.025) inset, 0 2px 4px rgba(0,0,0,.28), 0 14px 34px rgba(0,0,0,.24), 0 38px 76px rgba(0,0,0,.18); --card-shadow-hover: 0 1px 0 rgba(255,255,255,.035) inset, 0 3px 6px rgba(0,0,0,.3), 0 20px 44px rgba(0,0,0,.27), 0 48px 96px rgba(0,0,0,.22); }
+html[data-theme="dark"] .hero { background: #101010; }
 html[data-theme="dark"] .section-nav { border-color: #282828; }
 html[data-theme="dark"] .section-nav :is(a, button) { color: #aaa8a4; }
 html[data-theme="dark"] .section-nav :is(a, button):hover, html[data-theme="dark"] .section-nav :is(a, button).active { color: #e8e5de; }
