@@ -56,4 +56,3 @@ next-env.d.ts
 /components/ProductTile.tsx
 /components/ProductTiles.tsx
 /public/shop/
-.env*
