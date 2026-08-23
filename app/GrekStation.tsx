@@ -2,11 +2,31 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const trackFileName =
-  "Jazz.mp3";
-const localTrackSource = `/grek_station/${encodeURIComponent(trackFileName)}`;
-const trackSource = process.env.NEXT_PUBLIC_GREK_STATION_AUDIO_URL?.trim() || localTrackSource;
-const playbackPositionStorageKey = "grek-station:jazz:playback-position";
+const tracks = {
+  jazz: {
+    fileName: "Jazz.mp3",
+    remoteSource: process.env.NEXT_PUBLIC_GREK_STATION_JAZZ_URL?.trim()
+      || process.env.NEXT_PUBLIC_GREK_STATION_AUDIO_URL?.trim(),
+  },
+  techno: {
+    fileName: "Techno.mp3",
+    remoteSource: process.env.NEXT_PUBLIC_GREK_STATION_TECHNO_URL?.trim(),
+  },
+} as const;
+
+type TrackKind = keyof typeof tracks;
+
+function getScheduledTrack(date: Date): TrackKind {
+  const day = date.getDay();
+  return day === 0 || day === 6 ? "techno" : "jazz";
+}
+
+function getTrackSource(trackKind: TrackKind) {
+  const scheduledTrack = tracks[trackKind];
+  return scheduledTrack.remoteSource
+    || `/grek_station/${encodeURIComponent(scheduledTrack.fileName)}`;
+}
+
 const bandCount = 64;
 
 function getTrackMetadata(fileName: string) {
@@ -34,8 +54,6 @@ function getTrackMetadata(fileName: string) {
       };
 }
 
-const track = getTrackMetadata(trackFileName);
-
 export default function GrekStation({ onPlaybackChange }: { onPlaybackChange: (playing: boolean, origin?: { x: number; y: number }) => void }) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -46,14 +64,25 @@ export default function GrekStation({ onPlaybackChange }: { onPlaybackChange: (p
   const displayValuesRef = useRef(new Float32Array(bandCount));
   const animationFrameRef = useRef<number | null>(null);
   const playingRef = useRef(false);
+  const trackKindRef = useRef<TrackKind | null>(null);
+  const skipNextPauseSaveRef = useRef(false);
   const positionRestoredRef = useRef(false);
   const lastSavedPositionRef = useRef(0);
   const [playing, setPlaying] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
+  const [trackKind, setTrackKind] = useState<TrackKind | null>(null);
+  const track = trackKind ? getTrackMetadata(tracks[trackKind].fileName) : null;
+  const trackSource = trackKind ? getTrackSource(trackKind) : undefined;
+
+  function getPlaybackPositionStorageKey() {
+    return trackKindRef.current
+      ? `grek-station:${trackKindRef.current}:playback-position`
+      : "grek-station:playback-position";
+  }
 
   function readPlaybackPosition() {
     try {
-      const savedPosition = Number.parseFloat(window.localStorage.getItem(playbackPositionStorageKey) ?? "");
+      const savedPosition = Number.parseFloat(window.localStorage.getItem(getPlaybackPositionStorageKey()) ?? "");
       return Number.isFinite(savedPosition) && savedPosition > 0 ? savedPosition : 0;
     } catch {
       return 0;
@@ -65,12 +94,12 @@ export default function GrekStation({ onPlaybackChange }: { onPlaybackChange: (p
 
     try {
       if (audio.ended || (Number.isFinite(audio.duration) && audio.currentTime >= audio.duration - 0.5)) {
-        window.localStorage.removeItem(playbackPositionStorageKey);
+        window.localStorage.removeItem(getPlaybackPositionStorageKey());
         lastSavedPositionRef.current = 0;
         return;
       }
 
-      window.localStorage.setItem(playbackPositionStorageKey, String(audio.currentTime));
+      window.localStorage.setItem(getPlaybackPositionStorageKey(), String(audio.currentTime));
       lastSavedPositionRef.current = audio.currentTime;
     } catch {
       // Playback still works when storage is unavailable or disabled.
@@ -86,7 +115,7 @@ export default function GrekStation({ onPlaybackChange }: { onPlaybackChange: (p
       lastSavedPositionRef.current = savedPosition;
     } else if (savedPosition > 0) {
       try {
-        window.localStorage.removeItem(playbackPositionStorageKey);
+        window.localStorage.removeItem(getPlaybackPositionStorageKey());
       } catch {
         // Playback still works when storage is unavailable or disabled.
       }
@@ -275,7 +304,7 @@ export default function GrekStation({ onPlaybackChange }: { onPlaybackChange: (p
 
   function handleEnded() {
     try {
-      window.localStorage.removeItem(playbackPositionStorageKey);
+      window.localStorage.removeItem(getPlaybackPositionStorageKey());
     } catch {
       // Playback still works when storage is unavailable or disabled.
     }
@@ -292,6 +321,48 @@ export default function GrekStation({ onPlaybackChange }: { onPlaybackChange: (p
     if (!audio || Math.abs(audio.currentTime - lastSavedPositionRef.current) < 2) return;
     savePlaybackPosition(audio);
   }
+
+  function handlePause(event: React.SyntheticEvent<HTMLAudioElement>) {
+    if (skipNextPauseSaveRef.current) {
+      skipNextPauseSaveRef.current = false;
+      return;
+    }
+
+    savePlaybackPosition(event.currentTarget);
+  }
+
+  useEffect(() => {
+    const updateScheduledTrack = () => {
+      const scheduledTrack = getScheduledTrack(new Date());
+
+      if (trackKindRef.current && trackKindRef.current !== scheduledTrack) {
+        const audio = audioRef.current;
+        if (audio && !audio.paused) {
+          savePlaybackPosition(audio);
+          skipNextPauseSaveRef.current = true;
+          audio.pause();
+        }
+
+        playingRef.current = false;
+        setPlaying(false);
+        setHasStarted(false);
+        onPlaybackChange(false);
+      }
+
+      trackKindRef.current = scheduledTrack;
+      setTrackKind(scheduledTrack);
+    };
+
+    updateScheduledTrack();
+    const scheduleTimer = window.setInterval(updateScheduledTrack, 60_000);
+
+    return () => window.clearInterval(scheduleTimer);
+  }, []);
+
+  useEffect(() => {
+    positionRestoredRef.current = false;
+    lastSavedPositionRef.current = 0;
+  }, [trackKind]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -343,13 +414,14 @@ export default function GrekStation({ onPlaybackChange }: { onPlaybackChange: (p
         preload="metadata"
         crossOrigin="anonymous"
         onLoadedMetadata={(event) => restorePlaybackPosition(event.currentTarget)}
-        onPause={(event) => savePlaybackPosition(event.currentTarget)}
+        onPause={handlePause}
         onTimeUpdate={handleTimeUpdate}
         onEnded={handleEnded}
       />
       <button
         className="station-waveform"
         type="button"
+        disabled={!trackKind}
         aria-label={playing ? "Pause Grek Station" : "Play Grek Station"}
         aria-pressed={playing}
         onClick={togglePlayback}
@@ -358,7 +430,7 @@ export default function GrekStation({ onPlaybackChange }: { onPlaybackChange: (p
       </button>
       <div className="station-information" aria-live="polite">
         <span className="station-status">{playing ? "Now playing" : "Off air"}</span>
-        {hasStarted ? <p><span>{track.title}</span>{track.artist ? <><span aria-hidden="true"> — </span><span>{track.artist}</span></> : null}</p> : null}
+        {hasStarted && track ? <p><span>{track.title}</span>{track.artist ? <><span aria-hidden="true"> — </span><span>{track.artist}</span></> : null}</p> : null}
       </div>
     </div>
   );

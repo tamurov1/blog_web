@@ -1,9 +1,12 @@
 param(
-  [Parameter(Mandatory = $true)]
-  [string]$FilePath
+  [string]$JazzFilePath = (Join-Path $PSScriptRoot "..\grek_station\Jazz.mp3"),
+  [string]$TechnoFilePath = (Join-Path $PSScriptRoot "..\grek_station\Techno.mp3")
 )
 
-$resolvedTrackPath = Resolve-Path -LiteralPath $FilePath -ErrorAction Stop
+$stationTracks = @(
+  @{ Name = "Jazz"; Path = $JazzFilePath },
+  @{ Name = "Techno"; Path = $TechnoFilePath }
+)
 $environmentFile = Join-Path $PSScriptRoot "..\.env.local"
 
 if (-not (Test-Path -LiteralPath $environmentFile)) {
@@ -21,14 +24,18 @@ if (-not $oidcLine) {
 $env:VERCEL_OIDC_TOKEN = $oidcLine.Substring($oidcLine.IndexOf("=") + 1).Trim().Trim('"')
 $env:BLOB_STORE_ID = "store_PDKONoWrwg3aYJ5g"
 
-& npx --yes vercel@latest blob put $resolvedTrackPath.Path `
-  --pathname grek-station/Jazz.mp3 `
-  --access public `
-  --content-type audio/mpeg `
-  --cache-control-max-age 300 `
-  --allow-overwrite `
-  --multipart
+foreach ($stationTrack in $stationTracks) {
+  $resolvedTrackPath = Resolve-Path -LiteralPath $stationTrack.Path -ErrorAction Stop
 
-if ($LASTEXITCODE -ne 0) {
-  throw "Grek Station upload failed with exit code $LASTEXITCODE."
+  & npx --yes vercel@latest blob put $resolvedTrackPath.Path `
+    --pathname "grek-station/$($stationTrack.Name).mp3" `
+    --access public `
+    --content-type audio/mpeg `
+    --cache-control-max-age 300 `
+    --allow-overwrite `
+    --multipart
+
+  if ($LASTEXITCODE -ne 0) {
+    throw "$($stationTrack.Name) upload failed with exit code $LASTEXITCODE."
+  }
 }
