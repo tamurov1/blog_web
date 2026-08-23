@@ -33,7 +33,6 @@ export default function HomePage() {
   const [showThemePrompt, setShowThemePrompt] = useState(false);
   const [activeSection, setActiveSection] = useState<"projects" | "certificates" | "researches" | "experience" | "grek-station">("projects");
   const [stationPlaying, setStationPlaying] = useState(false);
-  const [stationVideoGrowth, setStationVideoGrowth] = useState(1);
   const [earnedPoints, setEarnedPoints] = useState<PointAction[]>([]);
   const [pointBurst, setPointBurst] = useState<PointBurst | null>(null);
   const [pointsJarVisible, setPointsJarVisible] = useState(false);
@@ -52,12 +51,6 @@ export default function HomePage() {
     const initialTheme = storedTheme === "light" || storedTheme === "dark"
       ? storedTheme
       : window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-    const updateStationVideoGrowth = () => {
-      const extraSideSteps = window.innerWidth > 1920
-        ? Math.floor((window.innerWidth - 1920) / 200)
-        : 0;
-      setStationVideoGrowth(1 + extraSideSteps * 0.1);
-    };
     const savedPoints = (() => {
       try {
         const stored = JSON.parse(window.localStorage.getItem("site-points") ?? "[]");
@@ -72,8 +65,6 @@ export default function HomePage() {
     updateClock();
     earnedPointsRef.current = savedPoints;
     setEarnedPoints(savedPoints);
-    updateStationVideoGrowth();
-    window.addEventListener("resize", updateStationVideoGrowth);
     setTheme(initialTheme);
     document.documentElement.dataset.theme = initialTheme;
     document.documentElement.style.colorScheme = initialTheme;
@@ -87,7 +78,6 @@ export default function HomePage() {
       window.clearTimeout(timer);
       if (promptTimer !== undefined) window.clearTimeout(promptTimer);
       window.clearInterval(clock);
-      window.removeEventListener("resize", updateStationVideoGrowth);
     };
   }, []);
 
@@ -170,12 +160,6 @@ export default function HomePage() {
         <video
           className={stationPlaying ? "station-hero-video is-visible" : "station-hero-video"}
           src={stationVideoSource}
-          style={{
-            "--station-video-width": `${20 * stationVideoGrowth}%`,
-            "--station-video-height": `${220 * stationVideoGrowth}%`,
-            "--station-video-left": `${-10 - (20 * stationVideoGrowth - 20) / 2}%`,
-            "--station-video-top": `${-(220 * stationVideoGrowth - 220) / 2}%`,
-          } as React.CSSProperties}
           autoPlay
           loop
           muted
