@@ -18,6 +18,11 @@ function getForwardedIp(value: string) {
 }
 
 export function getClientIp(headers: Headers) {
+  const vercelForwardedFor = headers.get("x-vercel-forwarded-for");
+  if (vercelForwardedFor) {
+    return cleanIpAddress(vercelForwardedFor);
+  }
+
   const cloudflareIp = headers.get("cf-connecting-ip");
   if (cloudflareIp) {
     return cleanIpAddress(cloudflareIp);
@@ -31,11 +36,6 @@ export function getClientIp(headers: Headers) {
   const forwardedFor = headers.get("x-forwarded-for");
   if (forwardedFor) {
     return cleanIpAddress(forwardedFor);
-  }
-
-  const vercelForwardedFor = headers.get("x-vercel-forwarded-for");
-  if (vercelForwardedFor) {
-    return cleanIpAddress(vercelForwardedFor);
   }
 
   const forwarded = headers.get("forwarded");

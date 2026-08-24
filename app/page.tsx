@@ -46,7 +46,6 @@ export default function HomePage() {
       ? undefined
       : window.setTimeout(() => setShowThemePrompt(true), 3000);
     const updateClock = () => setVisitorDate(new Date());
-    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const storedTheme = window.localStorage.getItem("site-theme");
     const initialTheme = storedTheme === "light" || storedTheme === "dark"
       ? storedTheme
@@ -68,16 +67,29 @@ export default function HomePage() {
     setTheme(initialTheme);
     document.documentElement.dataset.theme = initialTheme;
     document.documentElement.style.colorScheme = initialTheme;
-    if (timeZone) {
-      const place = timeZone.split("/").at(-1)?.replaceAll("_", " ");
-      if (place && !place.startsWith("GMT")) setVisitorLocation(place);
-    }
+    const locationController = new AbortController();
+    void fetch("/api/location", {
+      cache: "default",
+      signal: locationController.signal,
+    })
+      .then((response) => response.ok ? response.json() : null)
+      .then((location: { city?: unknown } | null) => {
+        if (typeof location?.city === "string" && location.city.trim()) {
+          setVisitorLocation(location.city.trim());
+        }
+      })
+      .catch((error: unknown) => {
+        if (!(error instanceof DOMException && error.name === "AbortError")) {
+          console.warn("Could not determine visitor city");
+        }
+      });
 
     const clock = window.setInterval(updateClock, 1000);
     return () => {
       window.clearTimeout(timer);
       if (promptTimer !== undefined) window.clearTimeout(promptTimer);
       window.clearInterval(clock);
+      locationController.abort();
     };
   }, []);
 
