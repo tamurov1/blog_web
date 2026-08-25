@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import GrekStation from "./GrekStation";
+import Image from "next/image";
+import Link from "next/link";
+import { grekStationPlaybackEvent, useGrekStation } from "./GrekStationProvider";
 
 const certifications = [
   { title: "CompTIA Security+", status: "In Progress", year: "2026", tone: "progress", image: "/certifications/CompTIA_Security+.png" },
@@ -26,13 +28,13 @@ function SocialIcon({ name }: { name: string }) {
 }
 
 export default function HomePage() {
+  const { stationPlaying } = useGrekStation();
   const [loading, setLoading] = useState(true);
   const [visitorDate, setVisitorDate] = useState<Date | null>(null);
   const [visitorLocation, setVisitorLocation] = useState("Local time");
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const [showThemePrompt, setShowThemePrompt] = useState(false);
   const [activeSection, setActiveSection] = useState<"projects" | "certificates" | "researches" | "experience" | "grek-station">("projects");
-  const [stationPlaying, setStationPlaying] = useState(false);
   const [earnedPoints, setEarnedPoints] = useState<PointAction[]>([]);
   const [pointBurst, setPointBurst] = useState<PointBurst | null>(null);
   const [pointsJarVisible, setPointsJarVisible] = useState(false);
@@ -167,10 +169,21 @@ export default function HomePage() {
     });
   };
 
-  const handleStationPlaybackChange = (playing: boolean, origin?: { x: number; y: number }) => {
-    setStationPlaying(playing);
-    if (playing) awardPoint("grek-station", origin?.x, origin?.y);
-  };
+  useEffect(() => {
+    const handleStationPlaybackChange = (event: Event) => {
+      const detail = (event as CustomEvent<{
+        origin?: { x: number; y: number };
+        playing: boolean;
+      }>).detail;
+
+      if (detail?.playing) {
+        awardPoint("grek-station", detail.origin?.x, detail.origin?.y);
+      }
+    };
+
+    window.addEventListener(grekStationPlaybackEvent, handleStationPlaybackChange);
+    return () => window.removeEventListener(grekStationPlaybackEvent, handleStationPlaybackChange);
+  }, []);
 
   const enterClockMode = () => {
     const video = clockVideoRef.current;
@@ -295,12 +308,27 @@ export default function HomePage() {
         <div className="work-inner">
           <div hidden={activeSection !== "projects"}>
             <div className="project-grid">
-              <article className="project-card coming-soon-card" style={{ "--delay": "0ms" } as React.CSSProperties}>
-                <span className="project-dot" aria-hidden="true" />
-                <span className="project-target" aria-hidden="true"><i /><i /><i /><b /></span>
-                <span className="project-copy"><strong>Coming soon</strong><span>Selected projects and detailed case studies are currently being prepared.</span></span>
-                <span className="project-meta"><span>Projects</span><span>Preparing</span></span>
-              </article>
+              <Link
+                className="project-card experience-card"
+                href="/projects/image-covert"
+                style={{ "--delay": "0ms" } as React.CSSProperties}
+                aria-label="Read the Image Covert steganography case study"
+              >
+                <span className="experience-image" aria-hidden="true">
+                  <Image
+                    src="/projects/image-covert/carrier-image.jpeg"
+                    alt=""
+                    width={642}
+                    height={964}
+                    sizes="(max-width: 600px) calc(100vw - 70px), (max-width: 1199px) 45vw, 30vw"
+                  />
+                </span>
+                <span className="project-copy">
+                  <strong>Image Covert</strong>
+                  <span>A practical steganography experiment in hidden-data recovery, SHA-256 integrity, and image transformations.</span>
+                </span>
+                <span className="project-meta"><span>Cybersecurity</span><span>Case study</span></span>
+              </Link>
             </div>
           </div>
           <div hidden={activeSection !== "certificates"}>
@@ -343,7 +371,7 @@ export default function HomePage() {
             </div>
           </div>
           <div hidden={activeSection !== "grek-station"}>
-            <GrekStation onPlaybackChange={handleStationPlaybackChange} />
+            <div id="grek-station-player" />
           </div>
         </div>
       </section>

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
+import GrekStationProvider from "./GrekStationProvider";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -25,5 +26,5 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body className={`${cormorant.variable} ${inter.variable}`}>{children}</body></html>;
+  return <html lang="en"><body className={`${cormorant.variable} ${inter.variable}`}><GrekStationProvider>{children}</GrekStationProvider></body></html>;
 }

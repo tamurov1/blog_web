@@ -50,6 +50,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.5,
     },
     {
+      url: `${siteUrl}/projects/image-covert`,
+      lastModified: new Date('2026-08-25T00:00:00-04:00'),
+      changeFrequency: 'yearly',
+      priority: 0.7,
+    },
+    {
       url: `${siteUrl}/library`,
       lastModified,
       changeFrequency: 'monthly',

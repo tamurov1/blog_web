@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import { usePathname } from "next/navigation";
 import { getScheduledTrack, type StationTrackKind } from "@/lib/stationSchedule";
 
 const tracks = {
@@ -51,6 +53,7 @@ function getTrackMetadata(fileName: string) {
 }
 
 export default function GrekStation({ onPlaybackChange }: { onPlaybackChange: (playing: boolean, origin?: { x: number; y: number }) => void }) {
+  const pathname = usePathname();
   const audioRef = useRef<HTMLAudioElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const contextRef = useRef<AudioContext | null>(null);
@@ -67,6 +70,7 @@ export default function GrekStation({ onPlaybackChange }: { onPlaybackChange: (p
   const [playing, setPlaying] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
   const [trackKind, setTrackKind] = useState<TrackKind | null>(null);
+  const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
   const track = trackKind ? getTrackMetadata(tracks[trackKind].fileName) : null;
   const trackSource = trackKind ? getTrackSource(trackKind) : undefined;
 
@@ -272,12 +276,14 @@ export default function GrekStation({ onPlaybackChange }: { onPlaybackChange: (p
     if (!audio) return;
 
     if (playingRef.current) {
-      audio.pause();
       savePlaybackPosition(audio);
+      skipNextPauseSaveRef.current = true;
+      audio.pause();
       playingRef.current = false;
       setPlaying(false);
       onPlaybackChange(false);
       startAnimation();
+      updateScheduledTrack();
       return;
     }
 
@@ -327,28 +333,20 @@ export default function GrekStation({ onPlaybackChange }: { onPlaybackChange: (p
     savePlaybackPosition(event.currentTarget);
   }
 
+  function updateScheduledTrack() {
+    if (playingRef.current) return;
+
+    const scheduledTrack = getScheduledTrack(new Date());
+    if (trackKindRef.current !== scheduledTrack) {
+      positionRestoredRef.current = false;
+      lastSavedPositionRef.current = 0;
+    }
+
+    trackKindRef.current = scheduledTrack;
+    setTrackKind(scheduledTrack);
+  }
+
   useEffect(() => {
-    const updateScheduledTrack = () => {
-      const scheduledTrack = getScheduledTrack(new Date());
-
-      if (trackKindRef.current && trackKindRef.current !== scheduledTrack) {
-        const audio = audioRef.current;
-        if (audio && !audio.paused) {
-          savePlaybackPosition(audio);
-          skipNextPauseSaveRef.current = true;
-          audio.pause();
-        }
-
-        playingRef.current = false;
-        setPlaying(false);
-        setHasStarted(false);
-        onPlaybackChange(false);
-      }
-
-      trackKindRef.current = scheduledTrack;
-      setTrackKind(scheduledTrack);
-    };
-
     let scheduleTimer: number;
     const scheduleNextUpdate = () => {
       updateScheduledTrack();
@@ -360,6 +358,10 @@ export default function GrekStation({ onPlaybackChange }: { onPlaybackChange: (p
 
     return () => window.clearTimeout(scheduleTimer);
   }, []);
+
+  useEffect(() => {
+    setPortalTarget(document.getElementById("grek-station-player"));
+  }, [pathname]);
 
   useEffect(() => {
     positionRestoredRef.current = false;
@@ -382,6 +384,16 @@ export default function GrekStation({ onPlaybackChange }: { onPlaybackChange: (p
     observer.observe(canvas);
     resizeCanvas();
 
+    return () => {
+      observer.disconnect();
+      if (animationFrameRef.current !== null) {
+        window.cancelAnimationFrame(animationFrameRef.current);
+        animationFrameRef.current = null;
+      }
+    };
+  }, [portalTarget]);
+
+  useEffect(() => {
     const saveCurrentPosition = () => savePlaybackPosition();
     const handleVisibilityChange = () => {
       if (document.visibilityState === "hidden") saveCurrentPosition();
@@ -394,11 +406,6 @@ export default function GrekStation({ onPlaybackChange }: { onPlaybackChange: (p
       saveCurrentPosition();
       window.removeEventListener("pagehide", saveCurrentPosition);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
-      observer.disconnect();
-      if (animationFrameRef.current !== null) {
-        window.cancelAnimationFrame(animationFrameRef.current);
-        animationFrameRef.current = null;
-      }
       playingRef.current = false;
       onPlaybackChange(false);
       audioRef.current?.pause();
@@ -409,17 +416,20 @@ export default function GrekStation({ onPlaybackChange }: { onPlaybackChange: (p
   }, []);
 
   return (
-    <div className="grek-station">
+    <>
       <audio
         ref={audioRef}
         src={trackSource}
         preload="metadata"
         crossOrigin="anonymous"
+        loop
         onLoadedMetadata={(event) => restorePlaybackPosition(event.currentTarget)}
         onPause={handlePause}
         onTimeUpdate={handleTimeUpdate}
         onEnded={handleEnded}
       />
+      {portalTarget ? createPortal(
+      <div className="grek-station">
       <button
         className="station-waveform"
         type="button"
@@ -434,6 +444,9 @@ export default function GrekStation({ onPlaybackChange }: { onPlaybackChange: (p
         <span className="station-status">{playing ? "Now playing" : "Off air"}</span>
         {hasStarted && track ? <p><span>{track.title}</span>{track.artist ? <><span aria-hidden="true"> — </span><span>{track.artist}</span></> : null}</p> : null}
       </div>
-    </div>
+      </div>,
+      portalTarget,
+      ) : null}
+    </>
   );
 }
