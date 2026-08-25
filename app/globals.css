@@ -158,7 +158,7 @@ a { color: inherit; text-decoration: none; }
 .clock-focus-overlay { position: fixed; inset: 0; z-index: 300; overflow: hidden; background: var(--page-bg); color: var(--page-text); opacity: 0; pointer-events: none; visibility: hidden; transition: opacity 650ms cubic-bezier(.22,1,.36,1), visibility 650ms; }
 .clock-focus-overlay.is-active { opacity: 1; pointer-events: auto; visibility: visible; }
 .clock-focus-overlay::after { position: absolute; inset: 0; z-index: 1; background: color-mix(in srgb, var(--page-bg) 64%, transparent); content: ""; pointer-events: none; }
-.clock-focus-video { position: absolute; top: 50%; left: 50%; z-index: 0; display: block; width: 100vh; width: 100dvh; height: 100vw; max-width: none; object-fit: cover; opacity: .68; transform: translate(-50%, -50%) rotate(90deg) scale(1.04); transform-origin: center; }
+.clock-focus-video { position: absolute; top: 50%; left: 50%; z-index: 0; display: block; width: 100vh; width: 100dvh; height: 100vw; max-width: none; object-fit: cover; opacity: .25; transform: translate(-50%, -50%) rotate(90deg) scale(1.04); transform-origin: center; }
 .clock-focus-dismiss { position: absolute; inset: 0; z-index: 2; display: grid; width: 100%; height: 100%; padding: 0; place-items: center; border: 0; background: transparent; color: inherit; cursor: pointer; font: inherit; opacity: 0; transform: scale(.94); transition: opacity 650ms cubic-bezier(.22,1,.36,1), transform 850ms cubic-bezier(.22,1,.36,1); }
 .clock-focus-overlay.is-active .clock-focus-dismiss { opacity: 1; transform: scale(1); }
 .clock-focus-dismiss:focus-visible { outline: 1px solid var(--gold); outline-offset: -12px; }
