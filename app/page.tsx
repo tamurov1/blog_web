@@ -172,6 +172,19 @@ export default function HomePage() {
     if (playing) awardPoint("grek-station", origin?.x, origin?.y);
   };
 
+  const enterClockMode = () => {
+    const video = clockVideoRef.current;
+    if (video) {
+      video.muted = true;
+      video.playsInline = true;
+      void video.play().catch(() => {
+        // The effect retries playback after clock mode becomes visible.
+      });
+    }
+
+    setClockExpanded(true);
+  };
+
   const toggleTheme = () => {
     const nextTheme = theme === "light" ? "dark" : "light";
     setTheme(nextTheme);
@@ -260,7 +273,7 @@ export default function HomePage() {
               aria-label="Show the clock in full-screen mode"
               onClick={(event) => {
                 event.stopPropagation();
-                setClockExpanded(true);
+                enterClockMode();
               }}
             >
               <time dateTime={visitorDate?.toISOString()}>{time}</time>
@@ -353,6 +366,7 @@ export default function HomePage() {
         ref={clockVideoRef}
         className="clock-focus-video"
         src={stationVideoSource}
+        autoPlay={clockExpanded}
         loop
         muted
         playsInline
