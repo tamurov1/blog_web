@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { getScheduledTrack, type StationTrackKind } from "@/lib/stationSchedule";
 
 const tracks = {
   jazz: {
@@ -14,12 +15,7 @@ const tracks = {
   },
 } as const;
 
-type TrackKind = keyof typeof tracks;
-
-function getScheduledTrack(date: Date): TrackKind {
-  const day = date.getDay();
-  return day === 0 || day === 6 ? "techno" : "jazz";
-}
+type TrackKind = StationTrackKind;
 
 function getTrackSource(trackKind: TrackKind) {
   const scheduledTrack = tracks[trackKind];
@@ -353,10 +349,16 @@ export default function GrekStation({ onPlaybackChange }: { onPlaybackChange: (p
       setTrackKind(scheduledTrack);
     };
 
-    updateScheduledTrack();
-    const scheduleTimer = window.setInterval(updateScheduledTrack, 60_000);
+    let scheduleTimer: number;
+    const scheduleNextUpdate = () => {
+      updateScheduledTrack();
+      const nextMinuteDelay = 60_000 - Date.now() % 60_000 + 50;
+      scheduleTimer = window.setTimeout(scheduleNextUpdate, nextMinuteDelay);
+    };
 
-    return () => window.clearInterval(scheduleTimer);
+    scheduleNextUpdate();
+
+    return () => window.clearTimeout(scheduleTimer);
   }, []);
 
   useEffect(() => {

@@ -150,9 +150,21 @@ a { color: inherit; text-decoration: none; }
 .is-ready .visitor-details { opacity: 1; transform: translateY(0); }
 .visitor-details p { margin: 0; text-transform: uppercase; }
 .visitor-location, .visitor-date, .visitor-time span { font-size: 10px; font-weight: 650; letter-spacing: .27em; }
-.visitor-time { position: relative; display: flex; width: fit-content; margin: 14px 0 10px !important; align-items: baseline; }
+.visitor-time { position: relative; display: flex; width: fit-content; margin: 14px 0 10px !important; padding: 0; align-items: baseline; border: 0; background: transparent; color: inherit; cursor: pointer; font: inherit; text-align: left; }
 .visitor-time time { display: block; width: 8.25ch; flex: 0 0 8.25ch; font-size: clamp(39px, 4vw, 51px); font-variant-numeric: tabular-nums; font-weight: 300; line-height: 1; letter-spacing: .08em; text-align: left; white-space: nowrap; }
 .visitor-time span { position: absolute; top: -27px; right: 16%; display: block; white-space: nowrap; }
+.visitor-time:focus-visible { outline: 1px solid var(--gold); outline-offset: 8px; }
+
+.clock-focus-overlay { position: fixed; inset: 0; z-index: 300; overflow: hidden; background: var(--page-bg); color: var(--page-text); opacity: 0; pointer-events: none; visibility: hidden; transition: opacity 650ms cubic-bezier(.22,1,.36,1), visibility 650ms; }
+.clock-focus-overlay.is-active { opacity: 1; pointer-events: auto; visibility: visible; }
+.clock-focus-overlay::after { position: absolute; inset: 0; z-index: 1; background: color-mix(in srgb, var(--page-bg) 78%, transparent); content: ""; pointer-events: none; }
+.clock-focus-video { position: absolute; top: 50%; left: 50%; z-index: 0; display: block; width: 100vh; width: 100dvh; height: 100vw; max-width: none; object-fit: cover; opacity: .34; transform: translate(-50%, -50%) rotate(90deg) scale(1.04); transform-origin: center; }
+.clock-focus-dismiss { position: absolute; inset: 0; z-index: 2; display: grid; width: 100%; height: 100%; padding: 0; place-items: center; border: 0; background: transparent; color: inherit; cursor: pointer; font: inherit; opacity: 0; transform: scale(.94); transition: opacity 650ms cubic-bezier(.22,1,.36,1), transform 850ms cubic-bezier(.22,1,.36,1); }
+.clock-focus-overlay.is-active .clock-focus-dismiss { opacity: 1; transform: scale(1); }
+.clock-focus-dismiss:focus-visible { outline: 1px solid var(--gold); outline-offset: -12px; }
+.clock-focus-time { position: relative; display: flex; align-items: baseline; }
+.clock-focus-time time { display: block; font-size: clamp(48.75px, 5vw, 63.75px); font-variant-numeric: tabular-nums; font-weight: 300; line-height: 1; letter-spacing: .08em; white-space: nowrap; }
+.clock-focus-time > span { position: absolute; top: -30px; right: 12%; font-size: 12.5px; font-weight: 650; letter-spacing: .27em; text-transform: uppercase; white-space: nowrap; }
 
 .work { --work-bg: #f7f6f3; --work-text: #171717; --work-muted: #656565; --work-line: #d7d5d0; --card-bg: linear-gradient(145deg, #fff, #faf9f7); --card-border: #d5d3ce; --card-shadow-rest: 0 24px 64px -20px rgba(39,35,29,.2); --card-shadow-hover: 0 32px 82px -20px rgba(39,35,29,.26); min-height: 544px; background: var(--work-bg); color: var(--work-text); transition: background-color 500ms ease, color 500ms ease; }
 .section-nav { display: grid; width: calc(100% - 38px); height: 70px; margin: 0 19px; overflow: hidden; grid-template-columns: repeat(5, minmax(0, 1fr)); border-bottom: 1px solid #282828; }
@@ -316,6 +328,8 @@ html[data-theme="light"] .section-nav :is(a, button):hover, html[data-theme="lig
   .visitor-details { min-height: 0; margin-top: 38px; padding: 31px 0 0; border-top: 1px solid var(--page-line); border-left: 0; }
   .visitor-time { margin-block: 12px 9px !important; }
   .visitor-time time { font-size: 40px; }
+  .clock-focus-time time { font-size: 50px; }
+  .clock-focus-time > span { top: -27px; font-size: 12.5px; }
   .section-nav { width: calc(100% - 22px); height: 58px; margin-inline: 11px; grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .section-nav :is(a, button) { padding-inline: 2px; font-size: 6px; letter-spacing: .07em; }
   .work-inner { width: calc(100% - 22px); padding: 35px 0 56px; }

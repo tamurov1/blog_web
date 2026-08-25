@@ -37,7 +37,12 @@ export default function HomePage() {
   const [pointBurst, setPointBurst] = useState<PointBurst | null>(null);
   const [pointsJarVisible, setPointsJarVisible] = useState(false);
   const [pointsJarEvent, setPointsJarEvent] = useState(0);
+  const [clockExpanded, setClockExpanded] = useState(false);
   const earnedPointsRef = useRef<PointAction[]>([]);
+  const clockTriggerRef = useRef<HTMLButtonElement>(null);
+  const clockOverlayButtonRef = useRef<HTMLButtonElement>(null);
+  const clockVideoRef = useRef<HTMLVideoElement>(null);
+  const clockWasExpandedRef = useRef(false);
 
   useEffect(() => {
     const timer = window.setTimeout(() => setLoading(false), 1150);
@@ -108,6 +113,44 @@ export default function HomePage() {
     return () => window.clearTimeout(timer);
   }, [pointsJarVisible, pointsJarEvent]);
 
+  useEffect(() => {
+    const video = clockVideoRef.current;
+
+    if (!clockExpanded) {
+      video?.pause();
+      if (clockWasExpandedRef.current) {
+        clockTriggerRef.current?.focus({ preventScroll: true });
+      }
+      return;
+    }
+
+    clockWasExpandedRef.current = true;
+    const previousDocumentOverflow = document.documentElement.style.overflow;
+    const previousOverflow = document.body.style.overflow;
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+    clockOverlayButtonRef.current?.focus({ preventScroll: true });
+    void video?.play().catch(() => {
+      // The clock remains usable if the browser declines background video playback.
+    });
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setClockExpanded(false);
+      if (event.key === "Tab") {
+        event.preventDefault();
+        clockOverlayButtonRef.current?.focus({ preventScroll: true });
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.documentElement.style.overflow = previousDocumentOverflow;
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", handleKeyDown);
+      video?.pause();
+    };
+  }, [clockExpanded]);
+
   const awardPoint = (action: PointAction, x?: number, y?: number) => {
     if (earnedPointsRef.current.includes(action)) return;
 
@@ -158,7 +201,8 @@ export default function HomePage() {
     : "Loading date";
 
   return (
-    <main className={loading ? "portfolio is-loading" : "portfolio is-ready"}>
+    <>
+    <main className={loading ? "portfolio is-loading" : "portfolio is-ready"} inert={clockExpanded ? true : undefined}>
       <div className="loader" aria-hidden={!loading}>
         <div className="loader-mark">DT</div>
         <div className="loader-line"><i /></div>
@@ -209,10 +253,19 @@ export default function HomePage() {
 
           <div className="visitor-details" aria-label="Your local date and time">
             <p className="visitor-location">{visitorLocation}</p>
-            <p className="visitor-time">
+            <button
+              ref={clockTriggerRef}
+              className="visitor-time"
+              type="button"
+              aria-label="Show the clock in full-screen mode"
+              onClick={(event) => {
+                event.stopPropagation();
+                setClockExpanded(true);
+              }}
+            >
               <time dateTime={visitorDate?.toISOString()}>{time}</time>
               <span>{dayPeriod}</span>
-            </p>
+            </button>
             <p className="visitor-date">{date}</p>
           </div>
         </div>
@@ -289,5 +342,37 @@ export default function HomePage() {
       ) : null}
       {pointBurst ? <span className="point-burst" style={{ left: pointBurst.x, top: pointBurst.y }} aria-hidden="true">+1</span> : null}
     </main>
+    <section
+      className={clockExpanded ? "clock-focus-overlay is-active" : "clock-focus-overlay"}
+      aria-hidden={!clockExpanded}
+      aria-label="Full-screen clock"
+      aria-modal="true"
+      role="dialog"
+    >
+      <video
+        ref={clockVideoRef}
+        className="clock-focus-video"
+        src={stationVideoSource}
+        loop
+        muted
+        playsInline
+        preload="metadata"
+        aria-hidden="true"
+      />
+      <button
+        ref={clockOverlayButtonRef}
+        className="clock-focus-dismiss"
+        type="button"
+        aria-label="Close the full-screen clock"
+        disabled={!clockExpanded}
+        onClick={() => setClockExpanded(false)}
+      >
+        <span className="clock-focus-time">
+          <time dateTime={visitorDate?.toISOString()}>{time}</time>
+          <span>{dayPeriod}</span>
+        </span>
+      </button>
+    </section>
+    </>
   );
 }
