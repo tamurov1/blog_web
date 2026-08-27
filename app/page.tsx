@@ -47,6 +47,7 @@ export default function HomePage() {
   const clockWasExpandedRef = useRef(false);
 
   useEffect(() => {
+    if (window.location.hash === "#researches") setActiveSection("researches");
     const timer = window.setTimeout(() => setLoading(false), 1150);
     const hasUsedThemePrompt = window.localStorage.getItem("theme-prompt-used") === "true";
     const promptTimer = hasUsedThemePrompt
@@ -352,12 +353,13 @@ export default function HomePage() {
           </div>
           <div hidden={activeSection !== "researches"}>
             <div className="project-grid">
-              <article className="project-card coming-soon-card" style={{ "--delay": "0ms" } as React.CSSProperties}>
-                <span className="project-dot" aria-hidden="true" />
-                <span className="project-target" aria-hidden="true"><i /><i /><i /><b /></span>
-                <span className="project-copy"><strong>Coming soon</strong><span>Research notes, investigations, and published findings are currently being prepared.</span></span>
-                <span className="project-meta"><span>Research</span><span>Preparing</span></span>
-              </article>
+              <Link className="project-card research-card" href="/research/privacy-regulation" style={{ "--delay": "0ms" } as React.CSSProperties}>
+                <span className="experience-image" aria-hidden="true">
+                  <Image src="/research/world-map/cover.jpg" alt="" width={1920} height={1280} sizes="(max-width: 600px) calc(100vw - 70px), (max-width: 1199px) 45vw, 30vw" />
+                </span>
+                <span className="project-copy"><strong>Global Privacy Regulation Atlas</strong><span>An interactive country-by-country view of privacy frameworks and regulatory models.</span></span>
+                <span className="research-meta"><span><small>Research</small><strong>Privacy regulation</strong></span><span><small>Scope</small><strong>Global</strong></span><span><small>Format</small><strong>Interactive atlas</strong></span></span>
+              </Link>
             </div>
           </div>
           <div hidden={activeSection !== "experience"}>

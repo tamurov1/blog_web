@@ -195,10 +195,29 @@ a { color: inherit; text-decoration: none; }
 .project-card:hover .project-target, .project-card:focus-visible .project-target { transform: scale(1.07) rotate(4deg); }
 .project-meta { position: relative; z-index: 1; display: flex; margin-top: 28px; padding-top: 22px; align-self: end; justify-content: space-between; border-top: 1px solid var(--work-line); color: var(--work-muted); font-size: 10px; font-weight: 550; letter-spacing: .16em; text-transform: uppercase; }
 .research-card { cursor: pointer; }
+.research-card-target { opacity: .9; }
 .research-meta { position: relative; z-index: 1; display: grid; margin-top: 28px; padding-top: 22px; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; align-self: end; border-top: 1px solid var(--work-line); }
 .research-meta > span { display: grid; min-width: 0; gap: 7px; }
 .research-meta small { color: var(--gold); font-size: 8px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
 .research-meta strong { color: var(--work-muted); font-size: 9px; font-weight: 500; line-height: 1.35; overflow-wrap: anywhere; }
+.regulatory-map { animation: detailin 650ms cubic-bezier(.22,1,.36,1) both; }
+.regulatory-map-heading { display: flex; margin: 0 0 28px; gap: 28px; align-items: end; justify-content: space-between; }
+.eyebrow { display: block; margin-bottom: 11px; color: var(--gold); font-size: 9px; font-weight: 650; letter-spacing: .18em; text-transform: uppercase; }
+.regulatory-map h2 { margin: 0; font-size: clamp(28px, 4vw, 46px); font-weight: 400; letter-spacing: -.035em; }
+.regulatory-map-heading p { max-width: 370px; margin: 0 0 3px; color: var(--work-muted); font-size: 13px; line-height: 1.65; }
+.map-stage { position: relative; min-height: min(52vw, 500px); overflow: hidden; border: 1px solid var(--card-border); border-radius: 12px; background: color-mix(in srgb, var(--work-bg) 93%, var(--work-text)); }
+.map-stage::before { position: absolute; inset: 0; background-image: linear-gradient(color-mix(in srgb, var(--work-line) 55%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--work-line) 55%, transparent) 1px, transparent 1px); background-size: 42px 42px; content: ""; opacity: .32; pointer-events: none; }
+.world-map { position: relative; z-index: 1; display: block; width: 100%; height: auto; min-height: min(52vw, 500px); touch-action: none; user-select: none; }
+.world-map > g { transform-origin: 500px 250px; }
+.map-country { fill: color-mix(in srgb, var(--work-text) 16%, var(--work-bg)); stroke: color-mix(in srgb, var(--work-bg) 76%, var(--work-text)); stroke-width: .72; vector-effect: non-scaling-stroke; cursor: pointer; outline: none; transition: fill 180ms ease, stroke 180ms ease; }
+.map-country:hover, .map-country:focus-visible, .map-country.is-active { fill: var(--gold-hover); stroke: var(--gold); }
+.map-country:focus-visible { stroke-width: 1.6; }
+.map-controls { position: absolute; top: 14px; right: 14px; z-index: 3; display: flex; overflow: hidden; border: 1px solid var(--card-border); border-radius: 7px; background: color-mix(in srgb, var(--work-bg) 88%, transparent); backdrop-filter: blur(10px); }
+.map-controls button { min-width: 35px; height: 33px; padding: 0 10px; border: 0; border-right: 1px solid var(--card-border); background: transparent; color: var(--work-text); cursor: pointer; font: inherit; font-size: 17px; transition: background-color 180ms ease, color 180ms ease; }
+.map-controls button:last-child { border-right: 0; }.map-controls button:hover, .map-controls button:focus-visible { background: var(--gold); color: #17130e; outline: none; }.map-controls .map-reset { font-size: 9px; font-weight: 650; letter-spacing: .1em; text-transform: uppercase; }
+.map-tooltip { position: absolute; bottom: 16px; left: 16px; z-index: 3; display: grid; width: min(258px, calc(100% - 32px)); padding: 15px 17px; gap: 8px; border: 1px solid color-mix(in srgb, var(--gold) 58%, var(--card-border)); border-radius: 8px; background: color-mix(in srgb, var(--work-bg) 90%, var(--work-text)); box-shadow: 0 12px 34px rgba(0,0,0,.14); color: var(--work-text); pointer-events: none; }
+.map-tooltip strong { font-size: 16px; font-weight: 550; }.map-tooltip > span:not(.tooltip-code) { display: grid; gap: 3px; color: var(--work-muted); font-size: 11px; line-height: 1.35; }.map-tooltip small { color: var(--gold); font-size: 8px; font-weight: 650; letter-spacing: .14em; text-transform: uppercase; }.tooltip-code { position: absolute; top: 16px; right: 17px; color: var(--gold); font-size: 9px; font-weight: 650; letter-spacing: .12em; }
+.map-loading { position: absolute; inset: 0; z-index: 0; display: grid; margin: 0; place-items: center; color: var(--work-muted); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }.map-note { margin: 13px 0 0; color: var(--work-muted); font-size: 10px; letter-spacing: .08em; }
 .experience-image { position: absolute; top: 0; right: 0; left: 0; height: 145px; overflow: hidden; border-bottom: 1px solid var(--work-line); }
 .experience-image::after { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 45%, color-mix(in srgb, var(--work-bg) 42%, transparent)); content: ""; }
 .experience-image img { width: 100%; height: 100%; object-fit: cover; transition: filter 500ms ease, transform 700ms cubic-bezier(.22,1,.36,1); }
@@ -247,6 +266,8 @@ a { color: inherit; text-decoration: none; }
 .resource-action { flex: 0 0 auto; color: var(--gold); font-size: 9px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
 
 .case-study-page { min-height: 100vh; background: var(--page-bg); color: var(--page-text); }
+.regulatory-research-page { --work-bg: var(--page-bg); --work-text: var(--page-text); --work-muted: var(--page-muted); --work-line: var(--page-line); --card-border: var(--page-line); }
+.research-map-section { margin-top: clamp(62px, 9vw, 104px); padding-top: 28px; border-top: 1px solid var(--page-line); }
 .case-study-shell { width: min(calc(100% - 44px), 1120px); margin: 0 auto; padding: clamp(34px, 6vw, 78px) 0 90px; }
 .case-study-header { display: grid; max-width: 930px; }
 .case-study-back { display: inline-flex; width: fit-content; margin-bottom: 62px; color: var(--gold); font-size: 10px; font-weight: 650; letter-spacing: .15em; text-transform: uppercase; transition: color 220ms ease, transform 220ms ease; }
@@ -394,6 +415,14 @@ html[data-theme="light"] .section-nav :is(a, button):hover, html[data-theme="lig
   .section-nav { width: calc(100% - 22px); height: 58px; margin-inline: 11px; grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .section-nav :is(a, button) { padding-inline: 2px; font-size: 6px; letter-spacing: .07em; }
   .work-inner { width: calc(100% - 22px); padding: 35px 0 56px; }
+  .regulatory-map-heading { display: grid; gap: 15px; align-items: start; }
+  .regulatory-map-heading p { font-size: 12px; }
+  .map-stage, .world-map { min-height: 55vw; }
+  .map-controls { top: 9px; right: 9px; }
+  .map-controls button { min-width: 29px; height: 29px; padding-inline: 7px; }
+  .map-tooltip { bottom: 9px; left: 9px; width: min(244px, calc(100% - 18px)); padding: 11px 13px; gap: 6px; }
+  .tooltip-code { top: 12px; right: 13px; }
+  .map-note { font-size: 8px; line-height: 1.55; }
   .project-grid { grid-template-columns: 1fr; }
   .certification-grid { grid-template-columns: 1fr; }
   .certification-card { min-height: 278px; padding: 16px; gap: 17px; grid-template-columns: minmax(118px, .82fr) minmax(0, 1fr); }
