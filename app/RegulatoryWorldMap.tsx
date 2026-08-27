@@ -24,7 +24,21 @@ const profiles: Record<string, RegulatoryProfile> = {
 };
 
 const defaultProfile: RegulatoryProfile = { framework: "Research in progress", model: "Under review" };
+// Natural Earth uses -99 where an ISO alpha-3 value is unavailable. Keep the
+// map usable with stable jurisdiction identifiers instead of exposing that marker.
+const jurisdictionCodes: Record<string, string> = {
+  Norway: "NOR",
+  France: "FRA",
+  Kosovo: "XKX",
+  "Northern Cyprus": "XNC",
+  Somaliland: "XSO",
+};
 const project = ([longitude, latitude]: Position): Position => [((longitude + 180) / 360) * 1000, ((90 - latitude) / 180) * 500];
+
+function countryCode(feature: CountryFeature) {
+  const code = feature.properties.ISO_A3;
+  return code && code !== "-99" ? code : jurisdictionCodes[feature.properties.ADMIN ?? ""];
+}
 
 function ringPath(ring: Position[]) {
   return ring.map((point, index) => {
@@ -51,12 +65,12 @@ export default function RegulatoryWorldMap() {
   useEffect(() => {
     fetch("/world-countries.geojson")
       .then((response) => response.json())
-      .then((data: { features: CountryFeature[] }) => setFeatures(data.features.filter((feature) => feature.properties.ISO_A3 && feature.properties.ISO_A3 !== "ATA")))
+      .then((data: { features: CountryFeature[] }) => setFeatures(data.features.filter((feature) => countryCode(feature) && countryCode(feature) !== "ATA")))
       .catch(() => setFeatures([]));
   }, []);
 
   const countries = useMemo(() => features.map((feature) => ({
-    code: feature.properties.ISO_A3!,
+    code: countryCode(feature)!,
     name: feature.properties.NAME_EN || feature.properties.ADMIN || "Unknown jurisdiction",
     path: geometryPath(feature.geometry),
   })), [features]);

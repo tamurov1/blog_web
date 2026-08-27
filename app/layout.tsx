@@ -16,7 +16,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://dmytriitamurov.com"),
-  title: "Dmytrii Tamurov — Secure systems & practical ideas",
+  title: "Dmytrii Tamurov",
   description: "I build and maintain secure systems, explore and connect complex ideas and turn knowledge into practical solutions.",
 };
 
