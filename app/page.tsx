@@ -6,10 +6,10 @@ import Link from "next/link";
 import { grekStationPlaybackEvent, useGrekStation } from "./GrekStationProvider";
 
 const certifications = [
-  { title: "CompTIA Security+", status: "Done", year: "2026", tone: "done", image: "/certifications/CompTIA_Security+.png", proof: "/certifications/CompTIA_Security+.png" },
-  { title: "CCNA", status: "In Progress", year: "2026", tone: "progress", mark: "CCNA" },
-  { title: "HTB CDSA", status: "In List", year: "Planned", tone: "listed", mark: "HTB" },
-  { title: "SC-200", status: "In Progress", year: "2026", tone: "progress", mark: "SC–200" },
+  { title: "CompTIA Security+", status: "done", year: "2026", tone: "done", image: "/certifications/CompTIA_Security+.png", proof: "/certifications/CompTIA_Security+.png" },
+  { title: "CCNA", status: "in progress", year: "2026", tone: "progress", mark: "CCNA" },
+  { title: "HTB CDSA", status: "in list", year: "Planned", tone: "listed", mark: "HTB" },
+  { title: "SC-200", status: "in progress", year: "2026", tone: "progress", mark: "SC–200" },
 ];
 const stationVideoSource = process.env.NEXT_PUBLIC_GREK_STATION_VIDEO_URL?.trim() || "/videos/wave_back.mp4";
 
