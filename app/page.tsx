@@ -6,7 +6,10 @@ import Link from "next/link";
 import { grekStationPlaybackEvent, useGrekStation } from "./GrekStationProvider";
 
 const certifications = [
-  { title: "CompTIA Security+", status: "In Progress", year: "2026", tone: "progress", image: "/certifications/CompTIA_Security+.png" },
+  { title: "CompTIA Security+", status: "Done", year: "2026", tone: "done", image: "/certifications/CompTIA_Security+.png", proof: "/certifications/CompTIA_Security+.png" },
+  { title: "CCNA", status: "In Progress", year: "2026", tone: "progress", mark: "CCNA" },
+  { title: "HTB CDSA", status: "In List", year: "Planned", tone: "listed", mark: "HTB" },
+  { title: "SC-200", status: "In Progress", year: "2026", tone: "progress", mark: "SC–200" },
 ];
 const stationVideoSource = process.env.NEXT_PUBLIC_GREK_STATION_VIDEO_URL?.trim() || "/videos/wave_back.mp4";
 
@@ -337,11 +340,14 @@ export default function HomePage() {
               {certifications.map((certificate) => (
                 <article className="certification-card" key={certificate.title}>
                   <div className="certificate-image-shell">
-                    <img src={certificate.image} alt="CompTIA Security+ Certified badge" />
+                    {certificate.image
+                      ? <img src={certificate.image} alt={`${certificate.title} badge`} />
+                      : <span className="certificate-mark" aria-hidden="true">{certificate.mark}</span>}
                   </div>
                   <div className="certificate-details">
                     <h2>{certificate.title}</h2>
                     <span className={`certificate-status status-${certificate.tone}`}>{certificate.status}</span>
+                    {certificate.proof && <a className="certificate-proof" href={certificate.proof} target="_blank" rel="noreferrer">Check <span aria-hidden="true">↗</span></a>}
                     <div className="certificate-year">
                       <span>Year</span>
                       <strong>{certificate.year}</strong>
