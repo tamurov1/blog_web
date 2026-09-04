@@ -6,7 +6,7 @@ import Link from "next/link";
 import { grekStationPlaybackEvent, useGrekStation } from "./GrekStationProvider";
 
 const certifications = [
-  { title: "CompTIA Security+", status: "done", year: "2026", tone: "done", image: "/certifications/CompTIA_Security+.png", proof: "/certifications/CompTIA_Security+.png" },
+  { title: "CompTIA Security+", status: "done", year: "2026", tone: "done", image: "/certifications/CompTIA_Security+.png", proof: "/api/certificates/comptia-security-plus" },
   { title: "CCNA", status: "in progress", year: "2026", tone: "progress", mark: "CCNA" },
   { title: "HTB CDSA", status: "in list", year: "Planned", tone: "listed", mark: "HTB" },
   { title: "SC-200", status: "in progress", year: "2026", tone: "progress", mark: "SC–200" },
@@ -276,7 +276,7 @@ export default function HomePage() {
                 ["GitHub", "https://github.com/"],
                 ["LinkedIn", "https://www.linkedin.com/in/dmytrii-tamurov-40b6aa274"],
                 ["YouTube", "https://www.youtube.com/@DmytriiTamurov"],
-                ["Email", "mailto:dmytriitamurov@gmail.com"],
+                ["Email", "mailto:tamurovdm@gmail.com"],
               ].map(([name, href]) => <a key={name} href={href} aria-label={name} target={href.startsWith("http") ? "_blank" : undefined} rel="noreferrer"><SocialIcon name={name} /></a>)}
             </div>
           </div>
