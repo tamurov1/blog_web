@@ -347,7 +347,7 @@ export default function HomePage() {
                   <div className="certificate-details">
                     <span className="certificate-label">Certificate</span>
                     <h2>{certificate.title}</h2>
-                    {certificate.proof && <a className="certificate-proof" href={certificate.proof} target="_blank" rel="noreferrer">Check <span aria-hidden="true">↗</span></a>}
+                    {certificate.proof && <a className="certificate-proof" href={certificate.proof} target="_blank" rel="noreferrer">Check</a>}
                   </div>
                   <dl className="certificate-facts">
                     <div><dt>Year</dt><dd>{certificate.year}</dd></div>
