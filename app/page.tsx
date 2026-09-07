@@ -345,14 +345,14 @@ export default function HomePage() {
                       : <span className="certificate-mark" aria-hidden="true">{certificate.mark}</span>}
                   </div>
                   <div className="certificate-details">
+                    <span className="certificate-label">Certificate</span>
                     <h2>{certificate.title}</h2>
-                    <span className={`certificate-status status-${certificate.tone}`}>{certificate.status}</span>
                     {certificate.proof && <a className="certificate-proof" href={certificate.proof} target="_blank" rel="noreferrer">Check <span aria-hidden="true">↗</span></a>}
-                    <div className="certificate-year">
-                      <span>Year</span>
-                      <strong>{certificate.year}</strong>
-                    </div>
                   </div>
+                  <dl className="certificate-facts">
+                    <div><dt>Year</dt><dd>{certificate.year}</dd></div>
+                    <div><dt>Status</dt><dd className={`status-${certificate.tone}`}>{certificate.status}</dd></div>
+                  </dl>
                 </article>
               ))}
             </div>
