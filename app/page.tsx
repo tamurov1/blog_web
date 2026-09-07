@@ -51,7 +51,7 @@ export default function HomePage() {
 
   useEffect(() => {
     if (window.location.hash === "#researches") setActiveSection("researches");
-    const timer = window.setTimeout(() => setLoading(false), 1150);
+    const timer = window.setTimeout(() => setLoading(false), 450);
     const hasUsedThemePrompt = window.localStorage.getItem("theme-prompt-used") === "true";
     const promptTimer = hasUsedThemePrompt
       ? undefined
