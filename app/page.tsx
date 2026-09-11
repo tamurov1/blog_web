@@ -6,7 +6,7 @@ import Link from "next/link";
 import { grekStationPlaybackEvent, useGrekStation } from "./GrekStationProvider";
 
 const certifications = [
-  { title: "CompTIA Security+", status: "done", year: "2026", tone: "done", image: "/certifications/CompTIA_Security+.png", proof: "/api/certificates/comptia-security-plus" },
+  { title: "CompTIA Security+", status: "done", year: "2026", tone: "done", image: "/certifications/CompTIA_Security+.png", proof: "/certifications/CompTIA%20Security%2B%20ce%20certificate.pdf" },
   { title: "CCNA", status: "in progress", year: "2026", tone: "progress", mark: "CCNA" },
   { title: "HTB CDSA", status: "in list", year: "Planned", tone: "listed", mark: "HTB" },
   { title: "SC-200", status: "in progress", year: "2026", tone: "progress", mark: "SC–200" },
